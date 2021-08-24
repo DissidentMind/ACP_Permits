@@ -5,7 +5,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 // This class renders a JProgressBar in a table cell.
-class ProgressRenderer extends JProgressBar
+public class ProgressRenderer extends JProgressBar
         implements TableCellRenderer {
     // Constructor for ProgressRenderer.
     public ProgressRenderer(int min, int max) {

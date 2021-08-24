@@ -40,6 +40,7 @@ public class MainAppLauncher extends JFrame {
     private JPanel confTab;
     private JButton btnSetDowDestination;
     private JButton btnCancelDownload;
+    private JTable srchResult_JTable;
     private ImageIcon srcImg;
 
     ImgsLoader imgsLoader;
@@ -53,10 +54,12 @@ public class MainAppLauncher extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Action Run");
-                if(itemSearch_Txt.getText() != ""){
-                    SearchFile.runProcessByIdFile(itemSearch_Txt.getText());
+                if(!itemSearch_Txt.getText().equals("")){
+                    //Pass parameter to search and the object to fill
+                    SearchFile.runProcessByIdFile(itemSearch_Txt.getText(),srchResult_JTable);
+
                 }else{
-                    JOptionPane.showMessageDialog(null, "Search Parameter is Null");
+                    JOptionPane.showMessageDialog(null, "Search Parameter is Empty","Input Error",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

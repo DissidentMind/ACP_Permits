@@ -15,8 +15,16 @@ import java.util.Map;
 import java.util.Scanner;
 
 import gui.desing.startup.DefaultsLoader;
+import gui.render.ProgressRenderer;
+import model.app.custom.MapTableModel;
+import model.app.custom.TestTableModel;
 import utils.regex.Regex_Utility;
 import utils.files.FileCSV_Utility;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 
 public class SearchFile {
 
@@ -49,26 +57,30 @@ public class SearchFile {
         }
     }
 
-    public static void runProcessByIdFile(String idFile){
+    public static void runProcessByIdFile(String idFile, JTable jtResult){
         System.out.println("Folio de Comunicación: ");
         System.out.println("Item: "+idFile);
 
         SearchFile bCtApp = new SearchFile();
         Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(bCtApp.getListCurrentCommunication(), idFile);
 
-
-
         if (map.isEmpty()) {
-            System.out.println("Non Result Found");
-            //main(new String[] {"a"});
+            JOptionPane.showMessageDialog(null, "No Results Found","No Results",JOptionPane.ERROR_MESSAGE);
         }else{
-            //System.out.println(map);
             for (Integer integer : map.keySet()) {
                 System.out.println(integer + " > " + map.get(integer));
             }
+            jtResult.setModel( TestTableModel.toTableModel(map) );
+
+            /*ProgressRenderer renderer = new ProgressRenderer(0, 100);
+            renderer.setStringPainted(true); // show progress text
+            jtResult.setDefaultRenderer(JProgressBar.class, renderer);
+
+            jtResult.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            jtResult.setRowHeight( (int) renderer.getPreferredSize().getHeight());*/
         }
 
-        try {
+/*        try {
             System.out.println("# ID of FIle");
             //*****************************************
             //int idR = s.nextInt();
@@ -106,8 +118,7 @@ public class SearchFile {
         } catch (Exception e) {
             System.out.println("\n");
             System.out.println("Fail Input Data Type");
-            //main(new String[] {"a"});
-        }
+        }*/
     }
 
     public void copyFileToDestination(String idP, int idR){
@@ -285,5 +296,22 @@ public class SearchFile {
         result.add(curVal.toString());
         return result;
     }
+
+   /* private void tableSelectionChanged() {
+    *//* Unregister from receiving notifications
+       from the last selected download. *//*
+        if (selectedDownload != null)
+            selectedDownload.deleteObserver(DownloadManager.this);
+
+    *//* If not in the middle of clearing a download,
+       set the selected download and register to
+       receive notifications from it. *//*
+        if (!clearing) {
+            selectedDownload =
+                    tableModel.getDownload(table.getSelectedRow());
+            selectedDownload.addObserver(DownloadManager.this);
+            updateButtons();
+        }
+    }*/
 
 }
