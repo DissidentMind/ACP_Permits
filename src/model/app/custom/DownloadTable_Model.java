@@ -14,7 +14,6 @@ public class DownloadTable_Model extends AbstractTableModel implements Observer 
     public Download getDownload(int row) {
         return downloadList.get(row);
     }
-
     public int getColumnCount() {
         return columnNames.length;
     }

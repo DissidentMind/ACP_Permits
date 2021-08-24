@@ -1,6 +1,7 @@
 package gui.desing.test;
 
 import gui.desing.imgs.ImgsLoader;
+import model.process.SearchFile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,7 @@ public class MainAppLauncher extends JFrame {
     private JButton processDownloadsButton;
     private JButton addButton;
     private JProgressBar progressBar3;
-    private JTextField textField5;
+    private JTextField itemSearch_Txt;
     private JCheckBox useDefaultLocationCheckBox;
     private JButton btnExploreCSV;
     private JComboBox comboBox1;
@@ -51,9 +52,12 @@ public class MainAppLauncher extends JFrame {
         runSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 System.out.println("Action Run");
-                JOptionPane.showMessageDialog(null, "Click Run");
+                if(itemSearch_Txt.getText() != ""){
+                    SearchFile.runProcessByIdFile(itemSearch_Txt.getText());
+                }else{
+                    JOptionPane.showMessageDialog(null, "Search Parameter is Null");
+                }
             }
         });
 
@@ -84,6 +88,7 @@ public class MainAppLauncher extends JFrame {
 
             }
         });
+
         btnSetDowDestination.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

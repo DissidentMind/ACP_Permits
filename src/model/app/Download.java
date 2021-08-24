@@ -46,7 +46,6 @@ public class Download extends Observable implements Runnable {
     public String getUrl() {
         return url.toString();
     }
-
     // Get this download's size.
     public long getSize() {
         return size;

@@ -127,7 +127,7 @@
                           <text value="Parameters to Search:  "/>
                         </properties>
                       </component>
-                      <component id="56756" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+                      <component id="56756" class="javax.swing.JTextField" binding="itemSearch_Txt">
                         <constraints/>
                         <properties/>
                       </component>
