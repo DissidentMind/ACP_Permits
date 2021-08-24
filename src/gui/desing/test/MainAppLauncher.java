@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class MainAppLauncher extends JFrame {
@@ -110,6 +111,21 @@ public class MainAppLauncher extends JFrame {
 
     private void createUIComponents() {
         imgsLoader = new ImgsLoader();
+
+        //Menu Declaration
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+
+        fileMenu.setMnemonic(KeyEvent.VK_F);
+        JMenuItem fileExitMenuItem = new JMenuItem("Exit",KeyEvent.VK_X);
+        fileExitMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //actionExit();
+            }
+        });
+        fileMenu.add(fileExitMenuItem);
+        menuBar.add(fileMenu);
+        setJMenuBar(menuBar);
 
         runSearch.setFocusable(true);
         runSearch.setIcon(imgsLoader.getExecIcon());
