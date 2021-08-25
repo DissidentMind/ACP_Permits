@@ -10,7 +10,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <tabbedpane id="924e5" binding="tablPanel">
+      <tabbedpane id="924e5" binding="tabbedPTabs">
         <constraints border-constraint="Center"/>
         <properties/>
         <border type="none"/>
@@ -630,18 +630,6 @@
               </grid>
             </children>
           </grid>
-          <grid id="6f1b9" binding="storeTab" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <tabbedpane title="Store Procedures"/>
-            </constraints>
-            <properties/>
-            <border type="bevel-lowered">
-              <font/>
-              <title-color color="-4473925"/>
-            </border>
-            <children/>
-          </grid>
           <grid id="e7712" binding="confTab" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
@@ -650,6 +638,122 @@
             <properties/>
             <border type="none"/>
             <children/>
+          </grid>
+          <grid id="7c457" binding="strProTab" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Store Procedure"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="dac82" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="South"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="51211" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="3" left="0" bottom="3" right="0"/>
+                    <constraints border-constraint="North"/>
+                    <properties/>
+                    <border type="empty"/>
+                    <children>
+                      <component id="b174c" class="javax.swing.JToolBar$Separator">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="a805e" class="javax.swing.JButton" default-binding="true">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value="Download Logs"/>
+                        </properties>
+                      </component>
+                      <hspacer id="45ab2">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                    </children>
+                  </grid>
+                  <grid id="1f502" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <grid id="1f65c" layout-manager="BorderLayout" hgap="0" vgap="0">
+                        <constraints border-constraint="Center"/>
+                        <properties/>
+                        <border type="none"/>
+                        <children>
+                          <component id="736e8" class="javax.swing.JLabel">
+                            <constraints border-constraint="West"/>
+                            <properties>
+                              <text value="  Total Records Processed: ----  "/>
+                            </properties>
+                          </component>
+                          <component id="b1cc3" class="javax.swing.JProgressBar" default-binding="true">
+                            <constraints border-constraint="Center"/>
+                            <properties/>
+                          </component>
+                        </children>
+                      </grid>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="ceb90" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="3" left="0" bottom="3" right="0"/>
+                <constraints border-constraint="North"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <toolbar id="26b8e">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="-1" height="20"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="289e" class="javax.swing.JLabel">
+                        <constraints/>
+                        <properties>
+                          <text value="  Select Store Procedure:   "/>
+                        </properties>
+                      </component>
+                      <component id="a69bd" class="javax.swing.JTextField" binding="storeProcedure_Txt">
+                        <constraints/>
+                        <properties/>
+                      </component>
+                      <component id="bb6f8" class="javax.swing.JButton" binding="btnStoreProcedure">
+                        <constraints/>
+                        <properties>
+                          <text value="Execute"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </toolbar>
+                </children>
+              </grid>
+              <grid id="63a80" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="634f1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints border-constraint="North"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
+              </grid>
+            </children>
           </grid>
         </children>
       </tabbedpane>

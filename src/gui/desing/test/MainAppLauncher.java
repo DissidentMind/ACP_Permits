@@ -12,7 +12,7 @@ import java.io.File;
 
 public class MainAppLauncher extends JFrame {
     private JPanel frameJPanelParent;
-    private JTabbedPane tablPanel;
+    private JTabbedPane tabbedPTabs;
     private JToggleButton btnDBSearch;
     private JToggleButton btnCSVSearch;
     private JButton searchButton;
@@ -41,6 +41,9 @@ public class MainAppLauncher extends JFrame {
     private JButton btnSetDowDestination;
     private JButton btnCancelDownload;
     private JTable srchResult_JTable;
+    private JPanel strProTab;
+    private JTextField storeProcedure_Txt;
+    private JButton btnStoreProcedure;
     private ImageIcon srcImg;
 
     ImgsLoader imgsLoader;
@@ -144,12 +147,12 @@ public class MainAppLauncher extends JFrame {
         srcTab.setFocusable(true);
         srcTab.setFont(new Font("Tahoma", Font.BOLD, 12));
 
-        tablPanel.addTab("Search File", imgsLoader.getSearchIcon(), srcTab, null);
-        tablPanel.addTab("Download Files", imgsLoader.getDowloIcon(), dwnTab, null);
-        tablPanel.addTab("Bulk CSV/DB", imgsLoader.getBdIcon(), csvTab, null);
-        tablPanel.addTab("Bulk Logs", imgsLoader.getOpenFolderIcon(), bulkTab, null);
-        tablPanel.addTab("Store Procedures", imgsLoader.getInfoIcon(), storeTab, null);
-        tablPanel.addTab("Config", imgsLoader.getConfgIcon(), confTab, null);
+        tabbedPTabs.addTab("Search File", imgsLoader.getSearchIcon(), srcTab, null);
+        tabbedPTabs.addTab("Download Files", imgsLoader.getDowloIcon(), dwnTab, null);
+        tabbedPTabs.addTab("Bulk CSV/DB", imgsLoader.getBdIcon(), csvTab, null);
+        tabbedPTabs.addTab("Bulk Logs", imgsLoader.getOpenFolderIcon(), bulkTab, null);
+        tabbedPTabs.addTab("Store Procedures", imgsLoader.getInfoIcon(), storeTab, null);
+        tabbedPTabs.addTab("Config", imgsLoader.getConfgIcon(), confTab, null);
 
         addButton.setIcon(imgsLoader.getAddIcon());
         clearSelectButton.setIcon(imgsLoader.getBinIcon());

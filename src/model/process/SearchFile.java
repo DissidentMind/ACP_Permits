@@ -17,6 +17,7 @@ import java.util.Scanner;
 import gui.desing.startup.DefaultsLoader;
 import gui.render.ProgressRenderer;
 import model.app.custom.MapTableModel;
+import model.app.custom.ResultSearchItem;
 import model.app.custom.TestTableModel;
 import utils.regex.Regex_Utility;
 import utils.files.FileCSV_Utility;
@@ -67,10 +68,20 @@ public class SearchFile {
         if (map.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No Results Found","No Results",JOptionPane.ERROR_MESSAGE);
         }else{
+
+            //ArrayList<ResultSearchItem> list = new ArrayList<ResultSearchItem>();
+
             for (Integer integer : map.keySet()) {
                 System.out.println(integer + " > " + map.get(integer));
+
+                //ResultSearchItem rSI = new ResultSearchItem(integer,map.get(integer),map.get(integer));
+                //list.add(rSI);
             }
+            //***********************************************************************
             jtResult.setModel( TestTableModel.toTableModel(map) );
+            //***********************************************************************
+
+            //ResultSearchItem.addRowToJTable(jtResult,list);
 
             /*ProgressRenderer renderer = new ProgressRenderer(0, 100);
             renderer.setStringPainted(true); // show progress text

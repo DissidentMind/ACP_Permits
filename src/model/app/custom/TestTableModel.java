@@ -2,6 +2,7 @@ package model.app.custom;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class TestTableModel{
