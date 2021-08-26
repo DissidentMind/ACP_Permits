@@ -21,6 +21,7 @@ import model.app.custom.ResultSearchItem;
 import model.app.custom.TestTableModel;
 import utils.regex.Regex_Utility;
 import utils.files.FileCSV_Utility;
+import vault.VaultValuesLoader;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -32,19 +33,14 @@ public class SearchFile {
     private static final char DEFAULT_SEPARATOR = ',';
     private static final char DEFAULT_QUOTE = '"';
 
-    //static final String PATH_FILE_CSV = "C:/Users/fabio_rodriguez/OneDrive - TransCanada Corporation/Documents/IT/Paths-CSV-CopyFiles/TVDR-paths_files-letters-inout-total_3Sep20.csv";
-    //static final String PATH_FOLDER = "C:/Users/fabio_rodriguez/OneDrive - TransCanada Corporation/Documents/TGNH/TVDR_Project/PermisosTramosPendientes/Files-Pendientes/";
-
     List<String> listCommunications = new ArrayList<String>();
 
     public String getListCommunications(int indexGet) {
         return listCommunications.get(indexGet);
     }
-
     public void setListCurrentCommunication(List<String> lst){
         this.listCommunications = lst;
     }
-
     public List<String> getListCurrentCommunication(){
         return this.listCommunications;
     }
@@ -52,7 +48,7 @@ public class SearchFile {
     public SearchFile(){
         FileCSV_Utility getText = new FileCSV_Utility();
         try {
-            this.setListCurrentCommunication(getText.getRowStringFromCSVtoList(DefaultsLoader.getDefaultLog_TVDR(),0));
+            this.setListCurrentCommunication(getText.getRowStringFromCSVtoList(VaultValuesLoader.getDefaultLog_TVDR(),0));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,7 +134,7 @@ public class SearchFile {
             File temp = new File(this.getListCommunications(idR));
             System.out.println("Name File: "+temp.getName());
 
-            String tempDestPath = DefaultsLoader.defaultDowPathFol.concat(idP+"\\").concat(temp.getName());
+            String tempDestPath = VaultValuesLoader.defaultDowPathFol.concat(idP+"\\").concat(temp.getName());
             File dest = new File(tempDestPath);
 
             SearchFile.fileCopier(temp, dest);
@@ -158,7 +154,7 @@ public class SearchFile {
         FileCSV_Utility getText = new FileCSV_Utility();
 
         try {
-            listCommunications = getText.getRowStringFromCSVtoList(DefaultsLoader.defaultLog_TVDR,0);
+            listCommunications = getText.getRowStringFromCSVtoList(VaultValuesLoader.defaultLog_TVDR,0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -166,7 +162,7 @@ public class SearchFile {
         System.out.println("Size: "+listCommunications.size());
 
         for(int i = 0; i < listCommunications.size(); i++){
-            boolean success = ( new File(DefaultsLoader.defaultDowPathFol+listCommunications.get(i).toString())).mkdir();
+            boolean success = ( new File(VaultValuesLoader.defaultDowPathFol+listCommunications.get(i).toString())).mkdir();
             if (success) {
                 System.out.println("Directory: " + listCommunications.get(i).toString() + " created");
             }

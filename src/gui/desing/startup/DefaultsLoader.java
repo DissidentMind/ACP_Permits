@@ -22,117 +22,44 @@ public class DefaultsLoader {
             ".zip",".7z", ".rar", ".sql", ".mdb", ".email", ".msg", ".rtf", ".txt");
     public static final List<String> DEFAULT_IMAGE_EXTENSIONS = Arrays.asList(".png", ".gif", ".jpg", ".jpeg", ".tiff");
 
-    public static final String defaultDBName = "TGNH_TVDR_Permits";
-    public static final String sqlSerClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public static final String defaultDowPathFol = "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\TGNH\\TVDR_Project\\PermisosTramosPendientes\\Files-Pendientes\\licencias";
-    public static final String defaultLogsPath = "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\IT\\Paths-CSV-CopyFiles\\TVDR-paths_files-letters-inout-total_12Aug21.csv";
-    public static final String defaultLog_TVDR = "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\IT\\Paths-CSV-CopyFiles\\TVDR-paths_files-letters-inout-total_12Aug21.csv";
-    public static final String defaultLog_TOPO = "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\IT\\Paths-CSV-CopyFiles\\TOPO-totaldeliveries-permits-26Apr21.csv";
-    public static final String defaultLog_TXTL = "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\IT\\Paths-CSV-CopyFiles\\TXTL-paths_files-letters-inout-total_29Jan20.csv";
-    public static final String defaultLog_SDTT = "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\IT\\Paths-CSV-CopyFiles\\SDTT-paths_files-letters-inout-total_24Nov20.csv";
-    public static final String defaultDeadlinePath = "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\IT\\Paths-CSV-CopyFiles\\TVDR-DumpVencimientos-Mar21.xlsx";
-
-    private String customDBName = "";
-    private String customDowPathFol = "";
-    private String customDeadlinePath = "";
-
     public static String getTITLE() {
         return TITLE;
     }
-
     public static String getErrorDialogTitle() {
         return ERROR_DIALOG_TITLE;
     }
-
     public static String getWarningDialogTitle() {
         return WARNING_DIALOG_TITLE;
     }
-
     public static String getInfoDialogTitle() {
         return INFO_DIALOG_TITLE;
     }
-
     public static String getRegexDocNaming() {
         return REGEX_DOC_NAMING;
     }
-
     public static String getRegexFilenet() {
         return REGEX_FILENET;
     }
-
     public static String getRegexDateOk() {
         return REGEX_DATE_OK;
     }
-
     public static String getRegexDateEng() {
         return REGEX_DATE_ENG;
     }
-
     public static String getRegexDateReng() {
         return REGEX_DATE_RENG;
     }
-
     public static String getRegexDateDdmmmmyy() {
         return REGEX_DATE_DDMMMMYY;
     }
-
     public static String getRegexDateDdmmyy() {
         return REGEX_DATE_DDMMYY;
     }
-
     public static List<String> getDefaultFileExtensions() {
         return DEFAULT_FILE_EXTENSIONS;
     }
-
     public static List<String> getDefaultImageExtensions() {
         return DEFAULT_IMAGE_EXTENSIONS;
     }
 
-    public static String getDefaultDBName() {
-        return defaultDBName;
-    }
-
-    public static String getSqlSerClass() {
-        return sqlSerClass;
-    }
-
-    public static String getDefaultDowPathFol() {
-        return defaultDowPathFol;
-    }
-
-    public static String getDefaultLogsPath() {
-        return defaultLogsPath;
-    }
-
-    public static String getDefaultLog_TVDR() {
-        return defaultLog_TVDR;
-    }
-
-    public static String getDefaultLog_TOPO() {
-        return defaultLog_TOPO;
-    }
-
-    public static String getDefaultLog_TXTL() {
-        return defaultLog_TXTL;
-    }
-
-    public static String getDefaultLog_SDTT() {
-        return defaultLog_SDTT;
-    }
-
-    public static String getDefaultDeadlinePath() {
-        return defaultDeadlinePath;
-    }
-
-    public String getCustomDBName() {
-        return customDBName;
-    }
-
-    public String getCustomDowPathFol() {
-        return customDowPathFol;
-    }
-
-    public String getCustomDeadlinePath() {
-        return customDeadlinePath;
-    }
 }

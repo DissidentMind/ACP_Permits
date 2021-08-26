@@ -42,8 +42,9 @@ public class MainAppLauncher extends JFrame {
     private JButton btnCancelDownload;
     private JTable srchResult_JTable;
     private JPanel strProTab;
-    private JTextField storeProcedure_Txt;
     private JButton btnStoreProcedure;
+    private JComboBox comboBox3;
+    private JButton addNewProcedureButton;
     private ImageIcon srcImg;
 
     ImgsLoader imgsLoader;
@@ -131,7 +132,7 @@ public class MainAppLauncher extends JFrame {
         JMenuItem fileExitMenuItem = new JMenuItem("Exit",KeyEvent.VK_X);
         fileExitMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //actionExit();
+                System.exit(0);
             }
         });
         fileMenu.add(fileExitMenuItem);
@@ -151,7 +152,7 @@ public class MainAppLauncher extends JFrame {
         tabbedPTabs.addTab("Download Files", imgsLoader.getDowloIcon(), dwnTab, null);
         tabbedPTabs.addTab("Bulk CSV/DB", imgsLoader.getBdIcon(), csvTab, null);
         tabbedPTabs.addTab("Bulk Logs", imgsLoader.getOpenFolderIcon(), bulkTab, null);
-        tabbedPTabs.addTab("Store Procedures", imgsLoader.getInfoIcon(), storeTab, null);
+        tabbedPTabs.addTab("Store Procedures", imgsLoader.getInfoIcon(), strProTab, null);
         tabbedPTabs.addTab("Config", imgsLoader.getConfgIcon(), confTab, null);
 
         addButton.setIcon(imgsLoader.getAddIcon());
@@ -173,6 +174,10 @@ public class MainAppLauncher extends JFrame {
 
         btnSelectDest.setIcon(imgsLoader.getSelectFolder16Ico());
         btnSelectBulkCsv.setIcon(imgsLoader.getSelect16Ico());
+
+        btnStoreProcedure.setIcon(imgsLoader.getExecIcon());
+        addNewProcedureButton.setIcon(imgsLoader.getAddIcon());
+
 
     }
 }
