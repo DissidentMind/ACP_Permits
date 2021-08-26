@@ -1,9 +1,9 @@
-package gui.controller;
+package utils.files;
 
 import java.awt.*;
 import java.io.File;
 
-public class SysValidations {
+public class FileValidations_Utility {
     /**
      * Validations for system requirements
      */

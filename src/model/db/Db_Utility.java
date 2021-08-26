@@ -1,12 +1,9 @@
 package model.db;
-import gui.desing.startup.ConnectorLoader;
+
 import vault.VaultValuesLoader;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
+import javax.swing.*;
+import java.sql.*;
 
 //Arguments
 //-Djava.library.path="C:\Users\fabio_rodriguez\OneDrive - TransCanada Corporation\Documents\IT\JODBC\;${env_var:PATH}"
@@ -99,29 +96,46 @@ public class Db_Utility {
         } catch (Exception e) {
             System.out.println("Error: "+e);
         }
-
     }
 
-    public void TestConnection_JDBC(String server, int port, String db, String table){
+    public static void TestConnection_JDBC(String server, int port, String db, String table){
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded");
             String jdbcUrl = "jdbc:sqlserver://"+server+":"+port+";databaseName="+db+";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
             System.out.println("# - Connection Obtanied: ");
             Statement stmt = con.createStatement();
             System.out.println("# - Statement Created");
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM "+table);
-            System.out.println("# - Statement Created");
-            if(rs.next()){
-                System.out.println("Resultado Query: "+rs.getInt(1));
-            }
+            System.out.println("# - Verify Table Permits...");
+            ResultSet rs = stmt.executeQuery("SELECT OBJECT_ID FROM sys.objects WHERE name = '"+table+"';");
+                if(rs==null){
+                    rs.close();
+                    JOptionPane.showMessageDialog(null, "Database connection is available but table was not found. Verify.","Table Doesn't Exist",JOptionPane.WARNING_MESSAGE);
+                    System.exit(0);
+                }
+            System.out.println("# - Table was Found... Starting GUI");
             rs.close();
+            //**********************************************
+             /* String SQL = "SELECT * FROM "+table+";";
+                ResultSet rSet = stmt.executeQuery(SQL);
+                displayRow("PRODUCTS", rSet);
+                rSet.close();*/
+            //**********************************************
             stmt.close();
             con.close();
             System.out.println("Closed Connection");
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "The connection to Database is not available. Verify.","DB Verification Error",JOptionPane.ERROR_MESSAGE);
             System.out.println("Error: "+e);
+            System.exit(0);
+        }
+    }
+
+    private static void displayRow(String title, ResultSet rs) throws SQLException {
+        System.out.println(title);
+        while (rs.next()) {
+            System.out.println(rs.getString("ID_MATRIZ") + " : " + rs.getString("ID_PERMISO"));
         }
     }
 
@@ -131,18 +145,14 @@ public class Db_Utility {
         Connection conTemp = null;
 
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded");
             String server = "localhost\\sqlexpress";
             String jdbcUrl = "jdbc:sqlserver://"+server+":"+port+";databaseName="+db+";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
-
             conTemp = con;
-
             //Statement stmt = con.createStatement();
             //		  stmt.executeQuery("SET NOCOUNT ON");
-
-
         } catch (Exception e) {
             System.out.println("Error: "+e);
         }
@@ -197,7 +207,7 @@ public class Db_Utility {
         int port = 1433;
 
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded");
             String server = "localhost\\sqlexpress";
             String jdbcUrl = "jdbc:sqlserver://"+server+":"+port+";databaseName="+db+";integratedSecurity=true";

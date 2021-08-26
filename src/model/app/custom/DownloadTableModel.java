@@ -1,9 +1,12 @@
 package model.app.custom;
 
-import java.util.*;
-import javax.swing.*;
-import javax.swing.table.*;
 import model.app.Download;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 
 // This class manages the download table's data.

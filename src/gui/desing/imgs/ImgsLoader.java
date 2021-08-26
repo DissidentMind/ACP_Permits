@@ -1,6 +1,7 @@
 package gui.desing.imgs;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 public class ImgsLoader {
 
@@ -26,7 +27,7 @@ public class ImgsLoader {
     private final ImageIcon removeIcon = new ImageIcon("imgs/remove.png");
     private final ImageIcon select16Ico = new ImageIcon("imgs/select-file16-ico.png");
     private final ImageIcon selectFolder16Ico = new ImageIcon("imgs/select-folder16-ico.png");
-
+    private final String splashHeaderImage = "imgs/splash.jpg";
 
     public ImageIcon getSearchIcon() {
         return searchIcon;
@@ -114,5 +115,9 @@ public class ImgsLoader {
 
     public ImageIcon getSelectFolder16Ico() {
         return selectFolder16Ico;
+    }
+
+    public String getSplashHeaderImage() {
+        return splashHeaderImage;
     }
 }

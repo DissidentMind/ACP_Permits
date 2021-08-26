@@ -1,32 +1,15 @@
 package model.process;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
-import gui.desing.startup.DefaultsLoader;
-import gui.render.ProgressRenderer;
-import model.app.custom.MapTableModel;
-import model.app.custom.ResultSearchItem;
 import model.app.custom.TestTableModel;
-import utils.regex.Regex_Utility;
 import utils.files.FileCSV_Utility;
+import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableModel;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SearchFile {
 

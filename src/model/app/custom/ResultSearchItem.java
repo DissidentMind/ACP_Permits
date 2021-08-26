@@ -2,7 +2,6 @@ package model.app.custom;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ResultSearchItem {

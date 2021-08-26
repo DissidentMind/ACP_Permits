@@ -1,8 +1,8 @@
 package gui.render;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 
 // This class renders a JProgressBar in a table cell.
 public class ProgressRenderer extends JProgressBar

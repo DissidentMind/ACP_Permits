@@ -1,8 +1,10 @@
 package model.app;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Observable;
 
 // This class downloads a file from a URL.
 public class Download extends Observable implements Runnable {

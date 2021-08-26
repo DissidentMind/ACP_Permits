@@ -1,6 +1,8 @@
 package gui.desing.test;
 
+import gui.controller.init.InitialStratupGui;
 import gui.desing.imgs.ImgsLoader;
+import gui.desing.startup.SplashLoaderLauncher;
 import model.process.SearchFile;
 
 import javax.swing.*;
@@ -51,8 +53,24 @@ public class MainAppLauncher extends JFrame {
 
     public MainAppLauncher() {
         super("Permits Documents Downloader Manager - Ver. 1.0.0.2021");
+        /*
+        Starting App
+         */
         setContentPane(frameJPanelParent);
+
         createUIComponents();
+        InitialStratupGui.loadingDBApp();
+
+        /*SplashLoaderLauncher dialog = new SplashLoaderLauncher();
+        dialog.setSize(520,360);
+        dialog.pack();
+        dialog.setVisible(true);*/
+
+        //System.exit(0);
+
+        /*
+        Endig Init Validations
+         */
 
         runSearch.addActionListener(new ActionListener() {
             @Override
@@ -111,6 +129,12 @@ public class MainAppLauncher extends JFrame {
                 }
             }
         });
+        clearSelectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //srchResult_JTable.removeAll();
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -135,6 +159,7 @@ public class MainAppLauncher extends JFrame {
                 System.exit(0);
             }
         });
+
         fileMenu.add(fileExitMenuItem);
         menuBar.add(fileMenu);
         setJMenuBar(menuBar);
