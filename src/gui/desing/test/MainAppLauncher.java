@@ -49,6 +49,8 @@ public class MainAppLauncher extends JFrame {
     private JButton addNewProcedureButton;
     private ImageIcon srcImg;
 
+    private JDialog jDial;
+
     ImgsLoader imgsLoader;
 
     public MainAppLauncher() {
@@ -57,21 +59,23 @@ public class MainAppLauncher extends JFrame {
         Starting App
          */
         setContentPane(frameJPanelParent);
-
         createUIComponents();
         InitialStratupGui.loadingDBApp();
+
+        //SplashLoaderLauncher splashL = new SplashLoaderLauncher();
+        //jDial = new SplashLoaderLauncher();
+        //jDial.setVisible(true);
 
         /*SplashLoaderLauncher dialog = new SplashLoaderLauncher();
         dialog.setSize(520,360);
         dialog.pack();
         dialog.setVisible(true);*/
-
         //System.exit(0);
+
 
         /*
         Endig Init Validations
          */
-
         runSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

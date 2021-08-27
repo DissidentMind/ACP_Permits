@@ -124,7 +124,7 @@ public class Db_Utility {
             //**********************************************
             stmt.close();
             con.close();
-            System.out.println("Closed Connection");
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "The connection to Database is not available. Verify.","DB Verification Error",JOptionPane.ERROR_MESSAGE);
             System.out.println("Error: "+e);
