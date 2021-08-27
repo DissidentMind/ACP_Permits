@@ -27,7 +27,7 @@ public class ImgsLoader {
     private final ImageIcon removeIcon = new ImageIcon("imgs/remove.png");
     private final ImageIcon select16Ico = new ImageIcon("imgs/select-file16-ico.png");
     private final ImageIcon selectFolder16Ico = new ImageIcon("imgs/select-folder16-ico.png");
-    private final String splashHeaderImage = "imgs/splash.jpg";
+    private final static String splashHeaderImage = "imgs/splash.jpg";
 
     public ImageIcon getSearchIcon() {
         return searchIcon;
@@ -117,7 +117,7 @@ public class ImgsLoader {
         return selectFolder16Ico;
     }
 
-    public String getSplashHeaderImage() {
+    public static String getSplashHeaderImage() {
         return splashHeaderImage;
     }
 }

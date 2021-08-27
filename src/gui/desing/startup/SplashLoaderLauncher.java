@@ -6,70 +6,96 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Frame;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class SplashLoaderLauncher extends JDialog {
     private JPanel contentPane;
     private JProgressBar progressBarSplash;
-    private JPanel headerSplashPanel;
     private JLabel infoSplash_Txt;
-    private JLabel imgHeader_Lbl;
+    private JPanel splashMainContent;
+    private JPanel splashProBarFooter;
+    private JPanel splashFooter;
+    private JLabel imgSplash_Txt;
     private BufferedImage splashHeader;
 
-    public static final int OK_OPTION = 0;
-    public static final int CANCEL_OPTION = 1;
-    private int result = -1;
-
-    JPanel content;
-    ImgsLoader imgL = new ImgsLoader();
-
-    public SplashLoaderLauncher(Frame parent) {
-        super(parent, true);
-
-        headerSplashPanel = new JPanel(new BorderLayout(3, 3));
-        headerSplashPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        content = new JPanel(new BorderLayout());
-
-        headerSplashPanel.add(content, BorderLayout.CENTER);
-        JPanel buttons = new JPanel(new FlowLayout(4));
-        headerSplashPanel.add(buttons, BorderLayout.SOUTH);
-
-        imgHeader_Lbl = new JLabel(new ImageIcon(imgL.getSplashHeaderImage()));
-        headerSplashPanel.add(imgHeader_Lbl,BorderLayout.NORTH);
-
-        JButton ok = new JButton("OK");
-        buttons.add(ok);
-        ok.addActionListener(e -> {
-            result = OK_OPTION;
-            setVisible(false);
-        });
-
-        JButton cancel = new JButton("Cancel");
-        buttons.add(cancel);
-        cancel.addActionListener(e -> {
-            result = CANCEL_OPTION;
-            setVisible(false);
-        });
-
-        setContentPane(headerSplashPanel);
+    SplashLoaderLauncher(){
+        super();
+        imgSplash_Txt = new JLabel(new ImageIcon(ImgsLoader.getSplashHeaderImage()));
+        splashMainContent.add(imgSplash_Txt,BorderLayout.CENTER);
+        setContentPane(splashMainContent);
     }
 
-    public static void main(String[] args) {
-        JFrame f = new JFrame();
-        final SplashLoaderLauncher dialog = new SplashLoaderLauncher(f);
+    protected void initUI(JDialog dialog) throws MalformedURLException {
+        SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                for (int i = 0; i < 100; i++) {
+                    Thread.sleep(100);// Simulate loading
+                    publish(i);// Notify progress
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(List<Integer> chunks) {
+                progressBarSplash.setValue(chunks.get(chunks.size() - 1));
+            }
+
+            @Override
+            protected void done() {
+                //showFrame();
+                //hideSplashScreen();
+                dialog.setVisible(false);
+                dialog.dispose();
+            }
+
+        };
+        worker.execute();
+    }
+
+    public static void main(String[] args)throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        /*final SplashLoaderLauncher dialog = new SplashLoaderLauncher();
         dialog.pack();
         dialog.setVisible(true);
         dialog.setTitle("Loading... ");
-        dialog.setSize(560, 400);
-    }
+        dialog.setSize(560, 400);*/
 
-    public int showConfirmDialog(JComponent child, String title) {
-        setTitle(title);
-        content.removeAll();
-        content.add(child, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(getParent());
-        setVisible(true);
-        return result;
-    }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //new TestSplashScreen().initUI();
+                    SplashLoaderLauncher dialog = new SplashLoaderLauncher();
+                    dialog.pack();
+                    dialog.setVisible(true);
+                    dialog.setTitle("Loading... ");
+                    dialog.setSize(560, 400);
+                    new SplashLoaderLauncher().initUI(dialog);
 
-}
+                } catch (MalformedURLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //dialog.initUI(dialog);
+        //dialog.setSize(560, 400);
+        }
+    }
