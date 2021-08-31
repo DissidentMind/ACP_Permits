@@ -38,7 +38,7 @@ public class MapTableModel extends AbstractTableModel {
      * Creates a new instance of MapTableModel.
      */
     public MapTableModel(Map map) {
-        this(map,"Entry","Value");
+        this(map, "Entry", "Value");
     }
 
     /**
@@ -47,12 +47,13 @@ public class MapTableModel extends AbstractTableModel {
     public MapTableModel(Map map, String keyName, String valueName) {
         this();
         setMap(map);
-        setColumnNames(keyName,valueName);
+        setColumnNames(keyName, valueName);
     }
 
     // ------------------------------------------------------------------------
     // --- methods                                                          ---
     // ------------------------------------------------------------------------
+
     /**
      * Returns the row count.
      */
@@ -71,14 +72,14 @@ public class MapTableModel extends AbstractTableModel {
      * Returns the value at.
      */
     public Object getValueAt(int row, int column) {
-        Object[] entries=map.entrySet().toArray();
-        Map.Entry entry=(Map.Entry)entries[row];
-        if (column==0) {
+        Object[] entries = map.entrySet().toArray();
+        Map.Entry entry = (Map.Entry) entries[row];
+        if (column == 0) {
             return entry.getKey();
-        } else if (column==1) { // column==1
+        } else if (column == 1) { // column==1
             return entry.getValue();
         } else {
-            throw new IndexOutOfBoundsException("MapTableModel provides a 2-column table, column-index "+column+" is illegal.");
+            throw new IndexOutOfBoundsException("MapTableModel provides a 2-column table, column-index " + column + " is illegal.");
         }
     }
 
@@ -93,8 +94,8 @@ public class MapTableModel extends AbstractTableModel {
      * Sets the column names.
      */
     public void setColumnNames(String keyName, String valueName) {
-        String[] names={keyName,valueName};
-        columnNames=names;
+        String[] names = {keyName, valueName};
+        columnNames = names;
     }
 
     /**
@@ -111,13 +112,13 @@ public class MapTableModel extends AbstractTableModel {
         map = _map;
     }
 
-    public void addRow(Object download){
+    public void addRow(Object download) {
         //download.addObserver(this);
         downloadList.add((Download) download);
         fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
     }
 
-    public void insertRow(int x,Object download){
+    public void insertRow(int x, Object download) {
         //download.addObserver(this);
         downloadList.add((Download) download);
         fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);

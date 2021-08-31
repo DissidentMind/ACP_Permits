@@ -14,7 +14,7 @@ class DownloadsTableModel extends AbstractTableModel implements Observer {
 
     // These are the names for the table's columns.
     private static final String[] columnNames = {"URL", "Size in MB", "Progress", "Speed in KB/s",
-            "Avg Speed in KB/s", "Elapsed Time", "Remaing Time" ,"Status"};
+            "Avg Speed in KB/s", "Elapsed Time", "Remaing Time", "Status"};
 
     // These are the classes for each column's values.
     private static final Class[] columnClasses = {String.class, String.class,
@@ -77,7 +77,7 @@ class DownloadsTableModel extends AbstractTableModel implements Observer {
                 return download.getUrl();
             case 1: // Size
                 long size = download.getSize();
-                return (size == -1) ? "" : Float.toString((float)size/1048576);
+                return (size == -1) ? "" : Float.toString((float) size / 1048576);
             case 2: // Progress
                 return new Float(download.getProgress());
             case 3: //Speed

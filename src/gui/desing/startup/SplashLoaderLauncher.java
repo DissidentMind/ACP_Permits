@@ -3,30 +3,22 @@ package gui.desing.startup;
 import gui.desing.imgs.ImgsLoader;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Frame;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class SplashLoaderLauncher extends JDialog {
     private JPanel contentPane;
     private JProgressBar progressBarSplash;
+
+    public String getInfoSplash_Txt() {
+        return infoSplash_Txt.getText();
+    }
+
+    public void setInfoSplash_Txt(String infoSplash_Txt) {
+        this.infoSplash_Txt.setText(infoSplash_Txt);
+    }
+
     private JLabel infoSplash_Txt;
     private JPanel splashMainContent;
     private JPanel splashProBarFooter;
@@ -34,20 +26,25 @@ public class SplashLoaderLauncher extends JDialog {
     private JLabel imgSplash_Txt;
     private BufferedImage splashHeader;
 
-    SplashLoaderLauncher(){
+    SplashLoaderLauncher() {
         super();
+        setContentPane(contentPane);
+        progressBarSplash.setForeground(new Color(46, 139, 100));
         imgSplash_Txt = new JLabel(new ImageIcon(ImgsLoader.getSplashHeaderImage()));
-        splashMainContent.add(imgSplash_Txt,BorderLayout.CENTER);
-        setContentPane(splashMainContent);
+        splashMainContent.add(imgSplash_Txt, BorderLayout.NORTH);
     }
 
-    protected void initUI(JDialog dialog) throws MalformedURLException {
+    public void updateProgressBar() {
         SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
             @Override
             protected Void doInBackground() throws Exception {
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 80; i++) {
                     Thread.sleep(100);// Simulate loading
                     publish(i);// Notify progress
+                    //TODO Update Text
+                    if (i % 20 == 0) {
+                        setInfoSplash_Txt("Update: " + i);
+                    }
                 }
                 return null;
             }
@@ -59,43 +56,25 @@ public class SplashLoaderLauncher extends JDialog {
 
             @Override
             protected void done() {
-                //showFrame();
-                //hideSplashScreen();
-                dialog.setVisible(false);
-                dialog.dispose();
+                setVisible(false);
+                dispose();
             }
-
         };
         worker.execute();
     }
 
-    public static void main(String[] args)throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        /*final SplashLoaderLauncher dialog = new SplashLoaderLauncher();
-        dialog.pack();
-        dialog.setVisible(true);
-        dialog.setTitle("Loading... ");
-        dialog.setSize(560, 400);*/
-
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                try {
-                    //new TestSplashScreen().initUI();
-                    SplashLoaderLauncher dialog = new SplashLoaderLauncher();
-                    dialog.pack();
-                    dialog.setVisible(true);
-                    dialog.setTitle("Loading... ");
-                    dialog.setSize(560, 400);
-                    new SplashLoaderLauncher().initUI(dialog);
-
-                } catch (MalformedURLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                SplashLoaderLauncher dialog = new SplashLoaderLauncher();
+                dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+                dialog.setTitle("Loading... ");
+                dialog.setSize(560, 280);
+                dialog.setLocationRelativeTo(null);
+                dialog.updateProgressBar();
             }
         });
-
-        //dialog.initUI(dialog);
-        //dialog.setSize(560, 400);
-        }
     }
+}

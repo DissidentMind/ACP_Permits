@@ -62,7 +62,7 @@
           <component id="32839" class="javax.swing.JLabel" binding="imgSplash_Txt">
             <constraints border-constraint="Center"/>
             <properties>
-              <text value="Label"/>
+              <text value=""/>
             </properties>
           </component>
         </children>

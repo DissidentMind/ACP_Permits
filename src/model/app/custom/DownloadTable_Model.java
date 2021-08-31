@@ -16,18 +16,24 @@ public class DownloadTable_Model extends AbstractTableModel implements Observer 
     public Download getDownload(int row) {
         return downloadList.get(row);
     }
+
     public int getColumnCount() {
         return columnNames.length;
     }
-    public String getColumnName(int col) { return columnNames[col];  }
+
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
+
     public Class getColumnClass(int col) {
         return columnClasses[col];
     }
+
     public int getRowCount() {
         return downloadList.size();
     }
 
-    public void addRecord(Download download){
+    public void addRecord(Download download) {
         download.addObserver(this);
         downloadList.add(download);
         fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
@@ -51,7 +57,7 @@ public class DownloadTable_Model extends AbstractTableModel implements Observer 
                 return download.getUrl();
             case 1: // Size
                 long size = download.getSize();
-                return (size == -1) ? "" : Float.toString((float)size/1048576);
+                return (size == -1) ? "" : Float.toString((float) size / 1048576);
             case 2: // Progress
                 return new Float(download.getProgress());
             case 3: //Speed

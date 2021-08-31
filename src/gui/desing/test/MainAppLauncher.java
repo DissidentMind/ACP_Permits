@@ -2,7 +2,6 @@ package gui.desing.test;
 
 import gui.controller.init.InitialStratupGui;
 import gui.desing.imgs.ImgsLoader;
-import gui.desing.startup.SplashLoaderLauncher;
 import model.process.SearchFile;
 
 import javax.swing.*;
@@ -80,12 +79,12 @@ public class MainAppLauncher extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Action Run");
-                if(!itemSearch_Txt.getText().equals("")){
+                if (!itemSearch_Txt.getText().equals("")) {
                     //Pass parameter to search and the object to fill
-                    SearchFile.runProcessByIdFile(itemSearch_Txt.getText(),srchResult_JTable);
+                    SearchFile.runProcessByIdFile(itemSearch_Txt.getText(), srchResult_JTable);
 
-                }else{
-                    JOptionPane.showMessageDialog(null, "Search Parameter is Empty","Input Error",JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Search Parameter is Empty", "Input Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -157,7 +156,7 @@ public class MainAppLauncher extends JFrame {
         JMenu fileMenu = new JMenu("File");
 
         fileMenu.setMnemonic(KeyEvent.VK_F);
-        JMenuItem fileExitMenuItem = new JMenuItem("Exit",KeyEvent.VK_X);
+        JMenuItem fileExitMenuItem = new JMenuItem("Exit", KeyEvent.VK_X);
         fileExitMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);

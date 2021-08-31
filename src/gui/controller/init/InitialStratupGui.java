@@ -1,4 +1,5 @@
 package gui.controller.init;
+
 import model.db.Db_Utility;
 import vault.VaultValuesLoader;
 
@@ -7,11 +8,11 @@ import vault.VaultValuesLoader;
  */
 public class InitialStratupGui {
 
-    InitialStratupGui(){
+    InitialStratupGui() {
         System.out.println("Loading App...");
     }
 
-    public static void loadingDBApp(){
+    public static void loadingDBApp() {
         /*
         Validate connection if exist
         Required Path to Library (VM Argument): -Djava.library.path="C:\Users\fabio_rodriguez\OneDrive - TransCanada Corporation\Documents\IT\JODBC\;${env_var:PATH}"
@@ -19,7 +20,6 @@ public class InitialStratupGui {
         Required Path to Library (VM Argument): -Djava.library.path="C:\Users\fabio_rodriguez\OneDrive - TransCanada Corporation\Documents\IT\JODBC\sqljdbc_9.2\enu\auth\x64"
          */
         Db_Utility.TestConnection_JDBC(VaultValuesLoader.getDefaultHost(), VaultValuesLoader.getJdbcPort(), VaultValuesLoader.getDefaultDBName(), VaultValuesLoader.getDefaultTable());
-
 
 
     }

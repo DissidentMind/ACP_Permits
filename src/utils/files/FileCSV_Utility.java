@@ -14,10 +14,11 @@ public class FileCSV_Utility {
     /**
      * Function that read the records line by line using readLine() in BufferedReader.
      * Then we'll split the line into tokens based on the comma delimiter.
+     *
      * @param {String} csvFile
      * @return records
      */
-    public List<List<String>> readLineByLineCSVintoList_BufferReader(String csvFile){
+    public List<List<String>> readLineByLineCSVintoList_BufferReader(String csvFile) {
         List<List<String>> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String line;
@@ -34,10 +35,11 @@ public class FileCSV_Utility {
 
     /**
      * We’re going to use a java.util.Scanner to run through the contents of the file and retrieve lines serially, one by one.
-     * @param  {String} csvFile
+     *
+     * @param {String} csvFile
      * @return records
      */
-    public List<List<String>> readLibeByLineCSVintoList_Scanner(String csvFile){
+    public List<List<String>> readLibeByLineCSVintoList_Scanner(String csvFile) {
         List<List<String>> records = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(csvFile));) {
             while (scanner.hasNextLine()) {
@@ -52,7 +54,8 @@ public class FileCSV_Utility {
 
     /**
      * Function that parse the lines and store it into an array
-     * @param  {String} line
+     *
+     * @param {String} line
      * @return
      */
     private List<String> getRecordFromLine(String line) {
@@ -69,12 +72,13 @@ public class FileCSV_Utility {
     /**
      * This function retrieve from CSV File the specified column to move it to a single List<String>
      * We’re going to use a java.util.Scanner to run through the contents of the file and retrieve lines serially, one by one.
-     * @param  {String} csvFilePathPath Path CSV File
-     * @param {int} columnInput Number of Column from the CSV File that will be move to the List
+     *
+     * @param {String} csvFilePathPath Path CSV File
+     * @param {int}    columnInput Number of Column from the CSV File that will be move to the List
      * @return
      * @throws Exception
      */
-    public List<String> getRowStringFromCSVtoList(String csvFilePathPath, int columnInput) throws Exception{
+    public List<String> getRowStringFromCSVtoList(String csvFilePathPath, int columnInput) throws Exception {
         List<String> list = new ArrayList<String>();
         Scanner scanner = new Scanner(new File(csvFilePathPath));
 
@@ -90,7 +94,8 @@ public class FileCSV_Utility {
 
     /**
      * Function parse line into list
-     * @param  {String} cvsLine
+     *
+     * @param {String} cvsLine
      * @return List<String>
      */
     public static List<String> parseLine(String cvsLine) {
@@ -98,9 +103,8 @@ public class FileCSV_Utility {
     }
 
     /**
-     *
-     * @param  {String} cvsLine
-     * @param {char} separators
+     * @param {String} cvsLine
+     * @param {char}   separators
      * @return
      */
     public static List<String> parseLine(String cvsLine, char separators) {
@@ -108,7 +112,6 @@ public class FileCSV_Utility {
     }
 
     /**
-     *
      * @param cvsLine
      * @param separators
      * @param customQuote

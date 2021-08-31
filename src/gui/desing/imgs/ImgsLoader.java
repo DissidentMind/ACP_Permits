@@ -1,7 +1,6 @@
 package gui.desing.imgs;
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 
 public class ImgsLoader {
 

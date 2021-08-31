@@ -10,14 +10,15 @@ public class FileValidations_Utility {
 
     /**
      * Function that confirms if file exist
+     *
      * @param filePathString
      * @return
      */
-    public static Boolean fileExistInPath(String filePathString){
+    public static Boolean fileExistInPath(String filePathString) {
         Boolean flagConfirm = false;
         File f = new File(filePathString);
 
-        if(f.exists() && !f.isDirectory()) {
+        if (f.exists() && !f.isDirectory()) {
             flagConfirm = true;
         }
         return flagConfirm;
@@ -25,13 +26,14 @@ public class FileValidations_Utility {
 
     /**
      * Function that confirms if path is a folder
+     *
      * @param filePathString
      * @return
      */
-    public static Boolean fileIsFolder(String filePathString){
+    public static Boolean fileIsFolder(String filePathString) {
         Boolean flagConfirm = false;
         File f = new File(filePathString);
-        if(f.exists() && f.isDirectory()) {
+        if (f.exists() && f.isDirectory()) {
             flagConfirm = true;
         }
         return flagConfirm;
@@ -39,6 +41,7 @@ public class FileValidations_Utility {
 
     /**
      * Function that open a file if this exist in path
+     *
      * @param file
      */
     public void openPDFFileIfExistInPath(String file) {

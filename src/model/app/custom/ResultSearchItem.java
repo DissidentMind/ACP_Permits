@@ -9,13 +9,13 @@ public class ResultSearchItem {
     public String fileName;
     public String pathFile;
 
-    public ResultSearchItem(int idFile, String fileName, String pathFile){
+    public ResultSearchItem(int idFile, String fileName, String pathFile) {
         this.idFile = idFile;
         this.fileName = fileName;
         this.pathFile = pathFile;
     }
 
-    public static void addRowToJTable(JTable jtable, ArrayList<ResultSearchItem> list){
+    public static void addRowToJTable(JTable jtable, ArrayList<ResultSearchItem> list) {
         DefaultTableModel model = (DefaultTableModel) jtable.getModel();
         Object rowData[] = new Object[3];
         for (int i = 0; i < list.size(); i++) {

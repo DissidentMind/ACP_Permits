@@ -15,11 +15,11 @@ public class FileSystem_Utility {
      * @param {String} filePathString
      * @return {String} flagConfirm
      */
-    public static Boolean fileExistInPath(String filePathString){
+    public static Boolean fileExistInPath(String filePathString) {
         Boolean flagConfirm = false;
         File f = new File(filePathString);
 
-        if(f.exists() && !f.isDirectory()) {
+        if (f.exists() && !f.isDirectory()) {
             flagConfirm = true;
         }
         return flagConfirm;
@@ -27,14 +27,15 @@ public class FileSystem_Utility {
 
     /**
      * Function that copy files.
+     *
      * @param {File} input
      * @param {File} output
      */
-    public static void fileCopier(File input, File output){
+    public static void fileCopier(File input, File output) {
         try {
-            if(input.exists() && output.exists()){
-                copyFileUsingStream(input,output);
-            }else JOptionPane.showMessageDialog(null, "File dont exist - Input and/or output");
+            if (input.exists() && output.exists()) {
+                copyFileUsingStream(input, output);
+            } else JOptionPane.showMessageDialog(null, "File dont exist - Input and/or output");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,22 +43,25 @@ public class FileSystem_Utility {
 
     /**
      * Function that copy file from location to other destination. Generate two temp files to another temp file calling a file Copier function.
+     *
      * @param {String} tempFile
      * @param {String} destPath
      */
-    public void generateCopyFileInPath(String tempFile,String destPath){
-        try{
+    public void generateCopyFileInPath(String tempFile, String destPath) {
+        try {
             File temp = new File(tempFile);
             destPath = destPath.concat(temp.getName());
             File dest = new File(destPath);
             fileCopier(temp, dest);
-        }catch(NullPointerException e){
-            System.out.println("Error in file: "+e);
+        } catch (NullPointerException e) {
+            System.out.println("Error in file: " + e);
         }
 
     }
+
     /**
      * Function that copy file using stream
+     *
      * @param {File} source
      * @param {File} dest
      * @throws IOException
@@ -81,9 +85,10 @@ public class FileSystem_Utility {
 
     /**
      * Function that create a directory and return the path
+     *
      * @param {String} destDir Directory name
-     * @param {String}  pathMain Path destination
-     * @return  {String}
+     * @param {String} pathMain Path destination
+     * @return {String}
      * @throws IOException
      */
     public String createDirectoryAndGetPath(String destDir, String pathMain) throws IOException {
@@ -94,13 +99,15 @@ public class FileSystem_Utility {
                 directory.mkdir();
                 tempStr = pathMain.concat(directory.getName());
             }
-        } catch (Exception  e) {
+        } catch (Exception e) {
 
         }
         return tempStr;
     }
+
     /**
      * Function that creates a Directory
+     *
      * @param {String} destDir Path and name of the new folder
      * @throws IOException
      */
@@ -113,10 +120,11 @@ public class FileSystem_Utility {
 
     /**
      * Copy Entire Contents of File as String
+     *
      * @param {String} pathOutputFile Path of destination file
      * @param {String} strToBeSaved Data to be saved - required string
      */
-    public void writeToFile(String pathOutputFile, String strToBeSaved){
+    public void writeToFile(String pathOutputFile, String strToBeSaved) {
         try {
             FileOutputStream outputStream = new FileOutputStream(pathOutputFile);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-16");
@@ -131,24 +139,26 @@ public class FileSystem_Utility {
 
     /**
      * Copy and Append Single String in Existing File
+     *
      * @param {String} pathOutputFile Destination file path
      * @param {String} sstrToBeSaved String to be appended to the current file
      */
-    public void writeToFileApend(String pathOutputFile, String sstrToBeSaved){
+    public void writeToFileApend(String pathOutputFile, String sstrToBeSaved) {
         try {
             Files.write(Paths.get(pathOutputFile), sstrToBeSaved.getBytes(), StandardOpenOption.APPEND);
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
         }
     }
+
     /**
      * Function that display files description in given path
+     *
      * @param {String} path
      */
-    public static void getFilesinFolder(String path){
+    public static void getFilesinFolder(String path) {
         try {
             File directoryPath = new File(path);
-            FileFilter textFilefilter = new FileFilter(){
+            FileFilter textFilefilter = new FileFilter() {
                 public boolean accept(File file) {
                     boolean isFile = file.isFile();
                     if (isFile) {
@@ -161,47 +171,51 @@ public class FileSystem_Utility {
             //List of all the text files
             File filesList[] = directoryPath.listFiles(textFilefilter);
             System.out.println("List of the text files in the specified directory:");
-            for(File file : filesList) {
-                System.out.println("File name: "+file.getName());
-                System.out.println("File path: "+file.getAbsolutePath());
-                System.out.println("Size :"+file.getTotalSpace());
+            for (File file : filesList) {
+                System.out.println("File name: " + file.getName());
+                System.out.println("File path: " + file.getAbsolutePath());
+                System.out.println("Size :" + file.getTotalSpace());
                 System.out.println(" ");
             }
         } catch (Exception e) {
             // TODO: handle exception
-            System.out.println("File Error: "+e.getMessage());
+            System.out.println("File Error: " + e.getMessage());
         }
     }
+
     /**
      * Function that return a List<String> that contains the absolute path of given path
+     *
      * @param {String} path
      * @return
      */
-    public static List<String> getFileListInFolder(String path){
+    public static List<String> getFileListInFolder(String path) {
         File directoryPath = new File(path);
         File filesList[] = directoryPath.listFiles();
         List<String> fileLst = new ArrayList<String>();
 
-        for(File file : filesList) {
+        for (File file : filesList) {
             fileLst.add(file.getAbsolutePath());
         }
         return fileLst;
     }
+
     /**
      * Function that return a List<String> that contains the absolute path of given path by file extension
+     *
      * @param {String} path
      * @param {String} extension
      * @return
      */
-    public static List<String> getFileListInFolderByExtension(String path, final String extension){
+    public static List<String> getFileListInFolderByExtension(String path, final String extension) {
         //TODO - Create validation if file exist / trycatch
         File directoryPath = new File(path);
         final List<String> fileLst = new ArrayList<String>();
 
-        FilenameFilter textFilefilter = new FilenameFilter(){
+        FilenameFilter textFilefilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 //String lowercaseName = name.toLowerCase();
-                String lowercaseName = dir.getAbsolutePath().toLowerCase().concat("\\"+name.toLowerCase());
+                String lowercaseName = dir.getAbsolutePath().toLowerCase().concat("\\" + name.toLowerCase());
                 if (lowercaseName.endsWith(extension)) {
                     fileLst.add(lowercaseName);
                     return true;
@@ -217,6 +231,7 @@ public class FileSystem_Utility {
 
     /**
      * Function that return a extension from a file
+     *
      * @param file
      * @return
      */

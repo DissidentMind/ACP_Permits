@@ -28,11 +28,11 @@ public class Download extends Observable implements Runnable {
     private long initTime; //inital time when download started or resumed
     private long startTime; // start time for current bytes
     private long readSinceStart; // number of bytes downloaded since startTime
-    private long elapsedTime=0; // elapsed time till now
-    private long prevElapsedTime=0; // time elapsed before resuming download
-    private long remainingTime=-1; //time remaining to finish download
-    private float avgSpeed=0; //average download speed in KB/s
-    private float speed=0; //download speed in KB/s
+    private long elapsedTime = 0; // elapsed time till now
+    private long prevElapsedTime = 0; // time elapsed before resuming download
+    private long remainingTime = -1; //time remaining to finish download
+    private float avgSpeed = 0; //average download speed in KB/s
+    private float speed = 0; //download speed in KB/s
 
     // Constructor for Download.
     public Download(URL url) {
@@ -48,37 +48,44 @@ public class Download extends Observable implements Runnable {
     public String getUrl() {
         return url.toString();
     }
+
     // Get this download's size.
     public long getSize() {
         return size;
     }
+
     // Get download speed.
     public float getSpeed() {
         return speed;
     }
+
     // Get average speed
     public float getAvgSpeed() {
         return avgSpeed;
     }
+
     // Get elapsed time
     public String getElapsedTime() {
-        return formatTime(elapsedTime/1000000000);
+        return formatTime(elapsedTime / 1000000000);
     }
+
     // Get remaining time
     public String getRemainingTime() {
-        if(remainingTime<0)   return "Unknown";
-        else    return formatTime(remainingTime);
+        if (remainingTime < 0) return "Unknown";
+        else return formatTime(remainingTime);
     }
+
     // Format time
     public String formatTime(long time) { //time in seconds
-        String s="";
-        s+=(String.format("%02d", time/3600))+":";
-        time%=3600;
-        s+=(String.format("%02d", time/60))+":";
-        time%=60;
-        s+=String.format("%02d", time);
+        String s = "";
+        s += (String.format("%02d", time / 3600)) + ":";
+        time %= 3600;
+        s += (String.format("%02d", time / 60)) + ":";
+        time %= 60;
+        s += String.format("%02d", time);
         return s;
     }
+
     // Get this download's progress.
     public float getProgress() {
         return ((float) downloaded / size) * 100;
@@ -91,7 +98,7 @@ public class Download extends Observable implements Runnable {
 
     // Pause this download.
     public void pause() {
-        prevElapsedTime=elapsedTime;
+        prevElapsedTime = elapsedTime;
         status = PAUSED;
         stateChanged();
     }
@@ -105,14 +112,14 @@ public class Download extends Observable implements Runnable {
 
     // Cancel this download.
     public void cancel() {
-        prevElapsedTime=elapsedTime;
+        prevElapsedTime = elapsedTime;
         status = CANCELLED;
         stateChanged();
     }
 
     // Mark this download as having an error.
     private void error() {
-        prevElapsedTime=elapsedTime;
+        prevElapsedTime = elapsedTime;
         status = ERROR;
         stateChanged();
     }
@@ -164,7 +171,7 @@ public class Download extends Observable implements Runnable {
                 stateChanged();
             }
             // used to update speed at regular intervals
-            int i=0;
+            int i = 0;
             // Open file and seek to the end of it.
             file = new RandomAccessFile(getFileName(url), "rw");
             file.seek(downloaded);
@@ -174,15 +181,15 @@ public class Download extends Observable implements Runnable {
             while (status == DOWNLOADING) {
 				/* Size buffer according to how much of the
            file is left to download. */
-                if(i==0)
-                {   startTime = System.nanoTime();
+                if (i == 0) {
+                    startTime = System.nanoTime();
                     readSinceStart = 0;
                 }
                 byte buffer[];
                 if (size - downloaded > MAX_BUFFER_SIZE) {
                     buffer = new byte[MAX_BUFFER_SIZE];
                 } else {
-                    buffer = new byte[(int)(size - downloaded)];
+                    buffer = new byte[(int) (size - downloaded)];
                 }
                 // Read from server into buffer.
                 int read = stream.read(buffer);
@@ -191,16 +198,16 @@ public class Download extends Observable implements Runnable {
                 // Write buffer to file.
                 file.write(buffer, 0, read);
                 downloaded += read;
-                readSinceStart+=read;
+                readSinceStart += read;
                 //update speed
                 i++;
-                if(i>=50)
-                {   speed=(readSinceStart*976562.5f)/(System.nanoTime()-startTime);
-                    if(speed>0) remainingTime=(long)((size-downloaded)/(speed*1024));
-                    else remainingTime=-1;
-                    elapsedTime=prevElapsedTime+(System.nanoTime()-initTime);
-                    avgSpeed=(downloaded*976562.5f)/elapsedTime;
-                    i=0;
+                if (i >= 50) {
+                    speed = (readSinceStart * 976562.5f) / (System.nanoTime() - startTime);
+                    if (speed > 0) remainingTime = (long) ((size - downloaded) / (speed * 1024));
+                    else remainingTime = -1;
+                    elapsedTime = prevElapsedTime + (System.nanoTime() - initTime);
+                    avgSpeed = (downloaded * 976562.5f) / elapsedTime;
+                    i = 0;
                 }
                 stateChanged();
             }
@@ -219,14 +226,16 @@ public class Download extends Observable implements Runnable {
             if (file != null) {
                 try {
                     file.close();
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
 
             // Close connection to server.
             if (stream != null) {
                 try {
                     stream.close();
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
         }
     }

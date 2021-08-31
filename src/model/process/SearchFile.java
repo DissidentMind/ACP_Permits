@@ -21,32 +21,34 @@ public class SearchFile {
     public String getListCommunications(int indexGet) {
         return listCommunications.get(indexGet);
     }
-    public void setListCurrentCommunication(List<String> lst){
+
+    public void setListCurrentCommunication(List<String> lst) {
         this.listCommunications = lst;
     }
-    public List<String> getListCurrentCommunication(){
+
+    public List<String> getListCurrentCommunication() {
         return this.listCommunications;
     }
 
-    public SearchFile(){
+    public SearchFile() {
         FileCSV_Utility getText = new FileCSV_Utility();
         try {
-            this.setListCurrentCommunication(getText.getRowStringFromCSVtoList(VaultValuesLoader.getDefaultLog_TVDR(),0));
+            this.setListCurrentCommunication(getText.getRowStringFromCSVtoList(VaultValuesLoader.getDefaultLog_TVDR(), 0));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void runProcessByIdFile(String idFile, JTable jtResult){
+    public static void runProcessByIdFile(String idFile, JTable jtResult) {
         System.out.println("Folio de Comunicación: ");
-        System.out.println("Item: "+idFile);
+        System.out.println("Item: " + idFile);
 
         SearchFile bCtApp = new SearchFile();
         Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(bCtApp.getListCurrentCommunication(), idFile);
 
         if (map.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No Results Found","No Results",JOptionPane.ERROR_MESSAGE);
-        }else{
+            JOptionPane.showMessageDialog(null, "No Results Found", "No Results", JOptionPane.ERROR_MESSAGE);
+        } else {
 
             //ArrayList<ResultSearchItem> list = new ArrayList<ResultSearchItem>();
 
@@ -57,7 +59,7 @@ public class SearchFile {
                 //list.add(rSI);
             }
             //***********************************************************************
-            jtResult.setModel( TestTableModel.toTableModel(map) );
+            jtResult.setModel(TestTableModel.toTableModel(map));
             //***********************************************************************
 
             //ResultSearchItem.addRowToJTable(jtResult,list);
@@ -111,13 +113,13 @@ public class SearchFile {
         }*/
     }
 
-    public void copyFileToDestination(String idP, int idR){
+    public void copyFileToDestination(String idP, int idR) {
 
-        try{
+        try {
             File temp = new File(this.getListCommunications(idR));
-            System.out.println("Name File: "+temp.getName());
+            System.out.println("Name File: " + temp.getName());
 
-            String tempDestPath = VaultValuesLoader.defaultDowPathFol.concat(idP+"\\").concat(temp.getName());
+            String tempDestPath = VaultValuesLoader.defaultDowPathFol.concat(idP + "\\").concat(temp.getName());
             File dest = new File(tempDestPath);
 
             SearchFile.fileCopier(temp, dest);
@@ -126,26 +128,26 @@ public class SearchFile {
             System.out.println("-------------------------Archivo Copiado---------------------------- ");
             System.out.println();
 
-        }catch(NullPointerException e){
-            System.out.println("Error in file: "+e);
+        } catch (NullPointerException e) {
+            System.out.println("Error in file: " + e);
         }
         //main(new String[] {"a"});
     }
 
-    public void creationOfFoldersFromListofCSVFile(){
+    public void creationOfFoldersFromListofCSVFile() {
         List<String> listCommunications = new ArrayList<String>();
         FileCSV_Utility getText = new FileCSV_Utility();
 
         try {
-            listCommunications = getText.getRowStringFromCSVtoList(VaultValuesLoader.defaultLog_TVDR,0);
+            listCommunications = getText.getRowStringFromCSVtoList(VaultValuesLoader.defaultLog_TVDR, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println("Size: "+listCommunications.size());
+        System.out.println("Size: " + listCommunications.size());
 
-        for(int i = 0; i < listCommunications.size(); i++){
-            boolean success = ( new File(VaultValuesLoader.defaultDowPathFol+listCommunications.get(i).toString())).mkdir();
+        for (int i = 0; i < listCommunications.size(); i++) {
+            boolean success = (new File(VaultValuesLoader.defaultDowPathFol + listCommunications.get(i).toString())).mkdir();
             if (success) {
                 System.out.println("Directory: " + listCommunications.get(i).toString() + " created");
             }
@@ -169,10 +171,10 @@ public class SearchFile {
         }
     }
 
-    public static void fileCopier(File input, File output){
+    public static void fileCopier(File input, File output) {
 
-        System.out.println("Input: "+input);
-        System.out.println("Output: "+output);
+        System.out.println("Input: " + input);
+        System.out.println("Output: " + output);
 
         try {
 	        /*System.out.println("File name :"+input.getName());
@@ -180,15 +182,14 @@ public class SearchFile {
 	        System.out.println("Absolute path:" +input.getAbsolutePath());
 	        System.out.println("Parent:"+input.getParent());
 	        System.out.println("Exists :"+input.exists());*/
-            if(input.exists())
-            {
+            if (input.exists()) {
                 //System.out.println("Is writeable:"+input.canWrite());
                 //System.out.println("Is readable"+input.canRead());
                 //System.out.println("Is a directory:"+input.isDirectory());
                 //System.out.println("File Size in bytes "+input.length());
             }
 
-            copyFileUsingStream(input,output);
+            copyFileUsingStream(input, output);
             //System.out.println(fCopier.fixSlash("C:\\Users\\evanf\\Documents\\Ebooks\\Profesional SharePoint Administration.pdf"));
 
         } catch (IOException e) {
@@ -287,8 +288,8 @@ public class SearchFile {
         return result;
     }
 
-   /* private void tableSelectionChanged() {
-    *//* Unregister from receiving notifications
+    /* private void tableSelectionChanged() {
+     *//* Unregister from receiving notifications
        from the last selected download. *//*
         if (selectedDownload != null)
             selectedDownload.deleteObserver(DownloadManager.this);
