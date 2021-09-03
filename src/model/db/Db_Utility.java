@@ -1,5 +1,6 @@
 package model.db;
 
+import gui.controller.init.ConnectionStat;
 import gui.desing.test.SplashLoaderLauncher;
 import vault.VaultValuesLoader;
 
@@ -108,32 +109,27 @@ public class Db_Utility {
      * @param table
      */
     public static void TestConnection_JDBC(String server, int port, String db, String table) {
-        SplashLoaderLauncher sp = new SplashLoaderLauncher();
-
+        ConnectionStat connectStatus = new ConnectionStat();
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded...");
-            //sp.setInfoSplash_Txt("Driver Loaded");
-
             String jdbcUrl = "jdbc:sqlserver://" + server + ":" + port + ";databaseName=" + db + ";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
             System.out.println("# - Connection Obtanied...");
-            //sp.setInfoSplash_Txt("Connection Obtanieds");
-
+            connectStatus.setValidateExistConnection(true);
+            connectStatus.setValidateExistDb(true);
             Statement stmt = con.createStatement();
             System.out.println("# - Statement Created...");
-            //sp.setInfoSplash_Txt("Statememt Created");
-
             System.out.println("# - Verify Table Permits...");
-            //sp.setInfoSplash_Txt("Table Exist");
-
             ResultSet rs = stmt.executeQuery("SELECT OBJECT_ID FROM sys.objects WHERE name = '" + table + "';");
             if (rs == null) {
                 rs.close();
                 JOptionPane.showMessageDialog(null, "Database connection is available but table was not found. Verify.", "Table Doesn't Exist", JOptionPane.WARNING_MESSAGE);
                 System.exit(0);
+            }else{
+                System.out.println("# - Table was Found... Starting GUI");
+                connectStatus.setValidateExistTable(true);
             }
-            System.out.println("# - Table was Found... Starting GUI");
             rs.close();
             //**********************************************
              /* String SQL = "SELECT * FROM "+table+";";
@@ -143,7 +139,6 @@ public class Db_Utility {
             //**********************************************
             stmt.close();
             con.close();
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "The connection to Database is not available. Verify.", "DB Verification Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("Error: " + e);
@@ -159,10 +154,8 @@ public class Db_Utility {
     }
 
     public Connection startConnection_WAuth(String db) {
-
         int port = 1433;
         Connection conTemp = null;
-
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded");
@@ -187,7 +180,6 @@ public class Db_Utility {
             int count = stmt.executeUpdate(SQL, Statement.RETURN_GENERATED_KEYS);
             //System.out.println("Generated Keys: "+count);
             ResultSet rs = stmt.getGeneratedKeys();
-
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
             if (rs.next()) {
@@ -203,11 +195,9 @@ public class Db_Utility {
             rs.close();
             stmt.close();
         } catch (Exception e) {
-            //System.out.println("Query Fail: "+query);
+            JOptionPane.showMessageDialog(null, "Query Fails. Verify.", "Error in Query", JOptionPane.ERROR_MESSAGE);
             System.out.println("Query Fail: " + e);
-
             //e.printStackTrace();
-
         }
     }
 
@@ -249,6 +239,4 @@ public class Db_Utility {
         }
 
     }
-
-
 }

@@ -1,6 +1,6 @@
 package gui.controller.init;
 
-public class ConnectorLoader {
+public class ConnectionStat {
 
     private Boolean validateExistConnection;
     private Boolean validateExistDb;
