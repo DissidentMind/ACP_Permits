@@ -1,4 +1,4 @@
-package gui.desing.startup;
+package gui.desing.test;
 
 import gui.desing.imgs.ImgsLoader;
 
@@ -10,15 +10,6 @@ import java.util.List;
 public class SplashLoaderLauncher extends JDialog {
     private JPanel contentPane;
     private JProgressBar progressBarSplash;
-
-    public String getInfoSplash_Txt() {
-        return infoSplash_Txt.getText();
-    }
-
-    public void setInfoSplash_Txt(String infoSplash_Txt) {
-        this.infoSplash_Txt.setText(infoSplash_Txt);
-    }
-
     private JLabel infoSplash_Txt;
     private JPanel splashMainContent;
     private JPanel splashProBarFooter;
@@ -26,12 +17,20 @@ public class SplashLoaderLauncher extends JDialog {
     private JLabel imgSplash_Txt;
     private BufferedImage splashHeader;
 
-    SplashLoaderLauncher() {
+    public SplashLoaderLauncher() {
         super();
         setContentPane(contentPane);
         progressBarSplash.setForeground(new Color(46, 139, 100));
         imgSplash_Txt = new JLabel(new ImageIcon(ImgsLoader.getSplashHeaderImage()));
         splashMainContent.add(imgSplash_Txt, BorderLayout.NORTH);
+    }
+
+    public String getInfoSplash_Txt() {
+        return infoSplash_Txt.getText();
+    }
+
+    public void setInfoSplash_Txt(String infoSplash_Txt) {
+        this.infoSplash_Txt.setText(infoSplash_Txt);
     }
 
     public void updateProgressBar() {
@@ -63,7 +62,7 @@ public class SplashLoaderLauncher extends JDialog {
         worker.execute();
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    /*public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -76,5 +75,5 @@ public class SplashLoaderLauncher extends JDialog {
                 dialog.updateProgressBar();
             }
         });
-    }
+    } */
 }

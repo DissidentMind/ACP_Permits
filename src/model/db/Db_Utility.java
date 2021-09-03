@@ -1,5 +1,6 @@
 package model.db;
 
+import gui.desing.test.SplashLoaderLauncher;
 import vault.VaultValuesLoader;
 
 import javax.swing.*;
@@ -99,16 +100,33 @@ public class Db_Utility {
         }
     }
 
+    /**
+     * Function that validate if connection exist - Driver, Connection, Statement and if default table exist
+     * @param server
+     * @param port
+     * @param db
+     * @param table
+     */
     public static void TestConnection_JDBC(String server, int port, String db, String table) {
+        SplashLoaderLauncher sp = new SplashLoaderLauncher();
+
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
-            System.out.println("Driver Loaded");
+            System.out.println("Driver Loaded...");
+            //sp.setInfoSplash_Txt("Driver Loaded");
+
             String jdbcUrl = "jdbc:sqlserver://" + server + ":" + port + ";databaseName=" + db + ";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
-            System.out.println("# - Connection Obtanied: ");
+            System.out.println("# - Connection Obtanied...");
+            //sp.setInfoSplash_Txt("Connection Obtanieds");
+
             Statement stmt = con.createStatement();
-            System.out.println("# - Statement Created");
+            System.out.println("# - Statement Created...");
+            //sp.setInfoSplash_Txt("Statememt Created");
+
             System.out.println("# - Verify Table Permits...");
+            //sp.setInfoSplash_Txt("Table Exist");
+
             ResultSet rs = stmt.executeQuery("SELECT OBJECT_ID FROM sys.objects WHERE name = '" + table + "';");
             if (rs == null) {
                 rs.close();

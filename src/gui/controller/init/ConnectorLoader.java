@@ -1,4 +1,4 @@
-package gui.desing.startup;
+package gui.controller.init;
 
 public class ConnectorLoader {
 

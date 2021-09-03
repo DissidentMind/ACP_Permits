@@ -59,18 +59,33 @@ public class MainAppLauncher extends JFrame {
          */
         setContentPane(frameJPanelParent);
         createUIComponents();
+
+        //Lambda expression equivalent to new Runnable with out override the run method
+
+
+       /* SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                SplashLoaderLauncher dialog = new SplashLoaderLauncher();
+                dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+                dialog.setTitle("Loading... ");
+                dialog.setSize(560, 280);
+                dialog.setLocationRelativeTo(null);
+                dialog.updateProgressBar();
+            }
+        });*/
+
         InitialStratupGui.loadingDBApp();
 
         //SplashLoaderLauncher splashL = new SplashLoaderLauncher();
         //jDial = new SplashLoaderLauncher();
         //jDial.setVisible(true);
-
         /*SplashLoaderLauncher dialog = new SplashLoaderLauncher();
         dialog.setSize(520,360);
         dialog.pack();
         dialog.setVisible(true);*/
         //System.exit(0);
-
 
         /*
         Endig Init Validations
@@ -141,6 +156,17 @@ public class MainAppLauncher extends JFrame {
     }
 
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+                    SplashLoaderLauncher dialog = new SplashLoaderLauncher();
+                    dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
+                    dialog.setVisible(true);
+                    dialog.setTitle("Loading... ");
+                    dialog.setSize(560, 280);
+                    dialog.setLocationRelativeTo(null);
+                    dialog.updateProgressBar();
+                }
+        );
+
         JFrame j = new JFrame("MainAppLauncher");
         j.setContentPane(new MainAppLauncher().frameJPanelParent);
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

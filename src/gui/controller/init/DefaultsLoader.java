@@ -1,4 +1,4 @@
-package gui.desing.startup;
+package gui.controller.init;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,51 +26,39 @@ public class DefaultsLoader {
     public static String getTITLE() {
         return TITLE;
     }
-
     public static String getErrorDialogTitle() {
         return ERROR_DIALOG_TITLE;
     }
-
     public static String getWarningDialogTitle() {
         return WARNING_DIALOG_TITLE;
     }
-
     public static String getInfoDialogTitle() {
         return INFO_DIALOG_TITLE;
     }
-
     public static String getRegexDocNaming() {
         return REGEX_DOC_NAMING;
     }
-
     public static String getRegexFilenet() {
         return REGEX_FILENET;
     }
-
     public static String getRegexDateOk() {
         return REGEX_DATE_OK;
     }
-
     public static String getRegexDateEng() {
         return REGEX_DATE_ENG;
     }
-
     public static String getRegexDateReng() {
         return REGEX_DATE_RENG;
     }
-
     public static String getRegexDateDdmmmmyy() {
         return REGEX_DATE_DDMMMMYY;
     }
-
     public static String getRegexDateDdmmyy() {
         return REGEX_DATE_DDMMYY;
     }
-
     public static List<String> getDefaultFileExtensions() {
         return DEFAULT_FILE_EXTENSIONS;
     }
-
     public static List<String> getDefaultImageExtensions() {
         return DEFAULT_IMAGE_EXTENSIONS;
     }
