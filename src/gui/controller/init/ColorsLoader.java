@@ -14,12 +14,15 @@ public enum ColorsLoader {
     ORANGE_SHOCK(new Color(255, 96, 0));
 
     private Color code;
-
     ColorsLoader(Color code) {
         this.code = code;
     }
-
     public Color getCode() {
         return this.code;
     }
+
+    /*public static void main(String[] args) {
+        ColorsLoader cD = ColorsLoader.BLUE_TEMPER;
+        System.out.println(cD.getCode());
+    }*/
 }

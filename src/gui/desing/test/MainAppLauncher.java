@@ -46,6 +46,7 @@ public class MainAppLauncher extends JFrame {
     private JButton btnStoreProcedure;
     private JComboBox comboBox3;
     private JButton addNewProcedureButton;
+    private JCheckBox defaultDestinationCheckBox;
     private ImageIcon srcImg;
 
     private JDialog jDial;

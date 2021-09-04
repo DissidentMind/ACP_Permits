@@ -1,5 +1,6 @@
 package gui.desing.test;
 
+import gui.controller.init.ColorsLoader;
 import gui.desing.imgs.ImgsLoader;
 
 import javax.swing.*;
@@ -20,7 +21,9 @@ public class SplashLoaderLauncher extends JDialog {
     public SplashLoaderLauncher() {
         super();
         setContentPane(contentPane);
+
         progressBarSplash.setForeground(new Color(46, 139, 100));
+
         imgSplash_Txt = new JLabel(new ImageIcon(ImgsLoader.getSplashHeaderImage()));
         splashMainContent.add(imgSplash_Txt, BorderLayout.NORTH);
     }
