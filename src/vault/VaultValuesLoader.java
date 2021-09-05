@@ -1,8 +1,8 @@
 package vault;
 
 public class VaultValuesLoader {
-    public static final String JDBC_POSTGRESS_DRIVER = "org.postgresql.Driver";
     public static final String JDBC_MYSQL_DRIVER = "com.mysql.jdbc.Driver";
+    public static final String JDBC_POSTGRESS_DRIVER = "org.postgresql.Driver";
     public static final String JDBC_SQLSERVER_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
     public static String DEFAULT_HOST = "localhost";
@@ -82,7 +82,7 @@ public class VaultValuesLoader {
         return sqlSerClass;
     }
 
-    public String getDefaultDowPathFol() {
+    public static String getDefaultDowPathFol() {
         return defaultDowPathFol;
     }
 
