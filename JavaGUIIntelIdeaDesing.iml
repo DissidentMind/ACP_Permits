@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/OneDrive - TransCanada Corporation/Documents/IT/JODBC/apache-poi_4.1/poi-ooxml-4.1.2.jar!/" />
+          <root url="jar://$USER_HOME$/OneDrive - TransCanada Corporation/Documents/IT/JODBC/sqljdbc_9.2/enu/mssql-jdbc-9.2.0.jre8.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,16 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/OneDrive - TransCanada Corporation/Documents/IT/JODBC/sqljdbc_9.2/enu/mssql-jdbc-9.2.0.jre8.jar!/" />
+          <root url="jar://$USER_HOME$/OneDrive - TransCanada Corporation/Documents/IT/JODBC/poi-ooxml-schemas-4.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/OneDrive - TransCanada Corporation/Documents/IT/JODBC/poi-excelant-4.1.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

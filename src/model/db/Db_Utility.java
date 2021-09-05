@@ -1,7 +1,6 @@
 package model.db;
 
 import gui.controller.init.ConnectionStat;
-import gui.desing.test.SplashLoaderLauncher;
 import vault.VaultValuesLoader;
 
 import javax.swing.*;
@@ -153,18 +152,17 @@ public class Db_Utility {
         }
     }
 
-    public Connection startConnection_WAuth(String db) {
-        int port = 1433;
+    public static Connection startConnection_WAuth(String db) {
         Connection conTemp = null;
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded");
             String server = "localhost\\sqlexpress";
-            String jdbcUrl = "jdbc:sqlserver://" + server + ":" + port + ";databaseName=" + db + ";integratedSecurity=true";
+            String jdbcUrl = "jdbc:sqlserver://" + VaultValuesLoader.getDefaultHost() + ":" + VaultValuesLoader.getJdbcPort() + ";databaseName=" + db + ";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
             conTemp = con;
             //Statement stmt = con.createStatement();
-            //		  stmt.executeQuery("SET NOCOUNT ON");
+            //stmt.executeQuery("SET NOCOUNT ON");
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -172,8 +170,12 @@ public class Db_Utility {
         return conTemp;
     }
 
-
-    public void executeInsertWithKeys(Connection con, String query) {
+    /**
+     * Function that store in database - used in program.
+     * @param con
+     * @param query
+     */
+    public static void executeInsertWithKeys(Connection con, String query) {
         try {
             String SQL = query;
             Statement stmt = con.createStatement();
