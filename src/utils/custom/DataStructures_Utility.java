@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class DataStructures_Utility {
     /**
      * Function that retur last item in List<String>
-     *
      * @param list
      * @return
      */
@@ -16,7 +15,6 @@ public class DataStructures_Utility {
 
     /**
      * Function that replace found characters in another string
-     *
      * @param inputString
      * @param matchToReplace
      * @param newString
@@ -40,14 +38,12 @@ public class DataStructures_Utility {
             System.out.println("Error Replacer : " + e.getMessage());
             e.printStackTrace();
             //return result.toString();
-
         }
         return strResult;
     }
 
     /**
      * Function GETs DataType Name of an object
-     *
      * @param o Object Type
      * @return Object DataType by it's name
      */
@@ -57,7 +53,6 @@ public class DataStructures_Utility {
 
     /**
      * Function that returns DataType Name of an Array of Objects
-     *
      * @param objT Object Array
      */
     public static void getDataTypeObject(Object[] objT) {
