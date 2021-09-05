@@ -2,6 +2,7 @@ package utils.files;
 
 import javax.swing.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -16,7 +17,7 @@ public class FileSystem_Utility {
      * @return {String} flagConfirm
      */
     public static Boolean fileExistInPath(String filePathString) {
-        Boolean flagConfirm = false;
+        boolean flagConfirm = false;
         File f = new File(filePathString);
 
         if (f.exists() && !f.isDirectory()) {
@@ -100,7 +101,8 @@ public class FileSystem_Utility {
                 tempStr = pathMain.concat(directory.getName());
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Error Creating the File. Verify", "File Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
         return tempStr;
     }
@@ -127,7 +129,7 @@ public class FileSystem_Utility {
     public void writeToFile(String pathOutputFile, String strToBeSaved) {
         try {
             FileOutputStream outputStream = new FileOutputStream(pathOutputFile);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-16");
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_16);
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
             bufferedWriter.write(strToBeSaved);
             bufferedWriter.newLine();
@@ -147,6 +149,8 @@ public class FileSystem_Utility {
         try {
             Files.write(Paths.get(pathOutputFile), sstrToBeSaved.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error to Append in File. Verify.", "File Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
@@ -161,15 +165,11 @@ public class FileSystem_Utility {
             FileFilter textFilefilter = new FileFilter() {
                 public boolean accept(File file) {
                     boolean isFile = file.isFile();
-                    if (isFile) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return isFile;
                 }
             };
             //List of all the text files
-            File filesList[] = directoryPath.listFiles(textFilefilter);
+            File[] filesList = directoryPath.listFiles(textFilefilter);
             System.out.println("List of the text files in the specified directory:");
             for (File file : filesList) {
                 System.out.println("File name: " + file.getName());
@@ -191,7 +191,7 @@ public class FileSystem_Utility {
      */
     public static List<String> getFileListInFolder(String path) {
         File directoryPath = new File(path);
-        File filesList[] = directoryPath.listFiles();
+        File[] filesList = directoryPath.listFiles();
         List<String> fileLst = new ArrayList<String>();
 
         for (File file : filesList) {
@@ -225,7 +225,7 @@ public class FileSystem_Utility {
             }
         };
         @SuppressWarnings("unused")
-        String filesList[] = directoryPath.list(textFilefilter);
+        String[] filesList = directoryPath.list(textFilefilter);
         return fileLst;
     }
 

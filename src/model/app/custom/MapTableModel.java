@@ -11,7 +11,7 @@ public class MapTableModel extends AbstractTableModel {
     // ------------------------------------------------------------------------
     // --- fields                                                           ---
     // ------------------------------------------------------------------------
-    private ArrayList<Download> downloadList = new ArrayList<Download>();
+    private final ArrayList<Download> downloadList = new ArrayList<Download>();
     /**
      * The map.
      */
@@ -94,8 +94,9 @@ public class MapTableModel extends AbstractTableModel {
      * Sets the column names.
      */
     public void setColumnNames(String keyName, String valueName) {
-        String[] names = {keyName, valueName};
-        columnNames = names;
+        //String[] names = {keyName, valueName};
+        //columnNames = names;
+        columnNames = new String[]{keyName, valueName};
     }
 
     /**

@@ -11,7 +11,7 @@ public class DownloadTable_Model extends AbstractTableModel implements Observer 
 
     private static final String[] columnNames = {"File Id", "File Name / Document", "Path"};
     private static final Class[] columnClasses = {Integer.class, String.class, String.class};
-    private ArrayList<Download> downloadList = new ArrayList<Download>();
+    private final ArrayList<Download> downloadList = new ArrayList<Download>();
 
     public Download getDownload(int row) {
         return downloadList.get(row);

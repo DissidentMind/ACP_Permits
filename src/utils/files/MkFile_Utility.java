@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -19,7 +20,7 @@ public class MkFile_Utility {
     public void writeToFile(String pathOutputFile, String strToBeSaved) {
         try {
             FileOutputStream outputStream = new FileOutputStream(pathOutputFile);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-16");
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, StandardCharsets.UTF_16);
             BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
             bufferedWriter.write(strToBeSaved);
             bufferedWriter.newLine();

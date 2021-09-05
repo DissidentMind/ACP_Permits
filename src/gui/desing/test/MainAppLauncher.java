@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class MainAppLauncher extends JFrame {
+    ImgsLoader imgsLoader;
     private JPanel frameJPanelParent;
     private JTabbedPane tabbedPTabs;
     private JToggleButton btnDBSearch;
@@ -25,13 +26,13 @@ public class MainAppLauncher extends JFrame {
     private JTextField itemSearch_Txt;
     private JCheckBox useDefaultLocationCheckBox;
     private JButton btnExploreCSV;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
+    private JComboBox selectDb_List;
+    private JComboBox selectTable_List;
     private JTextArea textArea1;
     private JButton runSearch;
-    private JTextField textField2;
+    private JTextField csvFilePath_Chooser;
     private JButton btnSelectBulkCsv;
-    private JTextField textField3;
+    private JTextField logsFilePath_Chooser;
     private JButton btnSelectDest;
     private JPanel srcTab;
     private JPanel dwnTab;
@@ -44,14 +45,11 @@ public class MainAppLauncher extends JFrame {
     private JTable srchResult_JTable;
     private JPanel strProTab;
     private JButton btnStoreProcedure;
-    private JComboBox comboBox3;
+    private JComboBox selectStoreProc_List;
     private JButton addNewProcedureButton;
-    private JCheckBox defaultDestinationCheckBox;
+    private JCheckBox defaultDest_CheckBox;
     private ImageIcon srcImg;
-
     private JDialog jDial;
-
-    ImgsLoader imgsLoader;
 
     public MainAppLauncher() {
         super("Permits Documents Downloader Manager - Ver. 1.0.0.2021");
@@ -60,10 +58,9 @@ public class MainAppLauncher extends JFrame {
          */
         setContentPane(frameJPanelParent);
         createUIComponents();
+        InitialStratupGui.loadingDBApp();
 
         //Lambda expression equivalent to new Runnable with out override the run method
-
-
        /* SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -76,8 +73,6 @@ public class MainAppLauncher extends JFrame {
                 dialog.updateProgressBar();
             }
         });*/
-
-        InitialStratupGui.loadingDBApp();
 
         //SplashLoaderLauncher splashL = new SplashLoaderLauncher();
         //jDial = new SplashLoaderLauncher();
@@ -98,7 +93,6 @@ public class MainAppLauncher extends JFrame {
                 if (!itemSearch_Txt.getText().equals("")) {
                     //Pass parameter to search and the object to fill
                     SearchFile.runProcessByIdFile(itemSearch_Txt.getText(), srchResult_JTable);
-
                 } else {
                     JOptionPane.showMessageDialog(null, "Search Parameter is Empty", "Input Error", JOptionPane.ERROR_MESSAGE);
                 }

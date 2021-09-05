@@ -41,7 +41,7 @@ public class FileCSV_Utility {
      */
     public List<List<String>> readLibeByLineCSVintoList_Scanner(String csvFile) {
         List<List<String>> records = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(csvFile));) {
+        try (Scanner scanner = new Scanner(new File(csvFile))) {
             while (scanner.hasNextLine()) {
                 records.add(getRecordFromLine(scanner.nextLine()));
             }

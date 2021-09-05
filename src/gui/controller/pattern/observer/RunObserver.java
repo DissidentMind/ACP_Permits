@@ -5,6 +5,7 @@ public class RunObserver {
     public static void main(String[] args) {
         ObserverManager subject = new ObserverManager();
         new Suscriptor(subject);
+        new SuscriberSplashNotify(subject);
 
         int max = 434;
         int min = 109;

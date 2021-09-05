@@ -13,7 +13,7 @@ public enum ColorsLoader {
     GRAY_LIGHT(new Color(163, 175, 177)),
     ORANGE_SHOCK(new Color(255, 96, 0));
 
-    private Color code;
+    private final Color code;
     ColorsLoader(Color code) {
         this.code = code;
     }

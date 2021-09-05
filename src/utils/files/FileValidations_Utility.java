@@ -15,7 +15,7 @@ public class FileValidations_Utility {
      * @return
      */
     public static Boolean fileExistInPath(String filePathString) {
-        Boolean flagConfirm = false;
+        boolean flagConfirm = false;
         File f = new File(filePathString);
 
         if (f.exists() && !f.isDirectory()) {
@@ -31,7 +31,7 @@ public class FileValidations_Utility {
      * @return
      */
     public static Boolean fileIsFolder(String filePathString) {
-        Boolean flagConfirm = false;
+        boolean flagConfirm = false;
         File f = new File(filePathString);
         if (f.exists() && f.isDirectory()) {
             flagConfirm = true;

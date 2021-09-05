@@ -24,7 +24,6 @@ public class DataStructures_Utility {
         String strResult = null;
         try {
             StringBuilder result = new StringBuilder();
-            @SuppressWarnings("resource")
             Scanner scan = new Scanner(inputString);
             scan.useDelimiter(matchToReplace);
             while (scan.hasNext()) {

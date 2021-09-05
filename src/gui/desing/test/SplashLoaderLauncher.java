@@ -15,15 +15,13 @@ public class SplashLoaderLauncher extends JDialog {
     private JPanel splashMainContent;
     private JPanel splashProBarFooter;
     private JPanel splashFooter;
-    private JLabel imgSplash_Txt;
+    private final JLabel imgSplash_Txt;
     private BufferedImage splashHeader;
 
     public SplashLoaderLauncher() {
         super();
         setContentPane(contentPane);
-
         progressBarSplash.setForeground(new Color(46, 139, 100));
-
         imgSplash_Txt = new JLabel(new ImageIcon(ImgsLoader.getSplashHeaderImage()));
         splashMainContent.add(imgSplash_Txt, BorderLayout.NORTH);
     }

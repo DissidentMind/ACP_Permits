@@ -21,7 +21,7 @@ class DownloadsTableModel extends AbstractTableModel implements Observer {
             JProgressBar.class, String.class, String.class, String.class, String.class, String.class};
 
     // The table's list of downloads.
-    private ArrayList<Download> downloadList = new ArrayList<Download>();
+    private final ArrayList<Download> downloadList = new ArrayList<Download>();
 
     // Add a new download to the table.
     public void addDownload(Download download) {

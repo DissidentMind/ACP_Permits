@@ -39,7 +39,6 @@ public class CopyFiles_Utility {
         }
     }
 
-    @SuppressWarnings("static-access")
     public static void fileCopier(File input, File output) {
 
         //System.out.println("Input: "+input);

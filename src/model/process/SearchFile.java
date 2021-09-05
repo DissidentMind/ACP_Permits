@@ -147,9 +147,9 @@ public class SearchFile {
         System.out.println("Size: " + listCommunications.size());
 
         for (int i = 0; i < listCommunications.size(); i++) {
-            boolean success = (new File(VaultValuesLoader.defaultDowPathFol + listCommunications.get(i).toString())).mkdir();
+            boolean success = (new File(VaultValuesLoader.defaultDowPathFol + listCommunications.get(i))).mkdir();
             if (success) {
-                System.out.println("Directory: " + listCommunications.get(i).toString() + " created");
+                System.out.println("Directory: " + listCommunications.get(i) + " created");
             }
         }
     }

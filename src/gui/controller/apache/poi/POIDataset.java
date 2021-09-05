@@ -19,7 +19,12 @@ public class POIDataset {
     static int incidencesFound = 0;
     static int currentRow = 0;
 
-    static List<String> listPermits = new ArrayList<String>();
+    static List<String> listPermits;
+
+    static {
+        listPermits = new ArrayList<String>();
+    }
+
     static boolean validRecordFound = false;
     static String currentFileName;
 
@@ -209,7 +214,7 @@ public class POIDataset {
         //int counter
         //Columna 1 - FileName
         if(cell.getColumnIndex()==0 && cell.getCellType() != CellType.BLANK){
-            if(Regex_Utility.isRegexContainedIntoSingleString(POIDataset.setUpPOIDataType_Identifier(cell), DefaultsLoader.REGEX_DOC_NAMING)==true){
+            if(Regex_Utility.isRegexContainedIntoSingleString(POIDataset.setUpPOIDataType_Identifier(cell), DefaultsLoader.REGEX_DOC_NAMING)){
                 POIDataset.setValidRecordFound(true);
                 POIDataset.setCurrentRow(cell.getRowIndex());
                 POIDataset.setItemListPermits(cell.getStringCellValue());
@@ -217,7 +222,7 @@ public class POIDataset {
             }
         }
 
-        if(POIDataset.getValidRecordFound()==true){
+        if(POIDataset.getValidRecordFound()){
             if(cell.getRowIndex() == POIDataset.getCurrentRow()){
                 if(cell.getColumnIndex() > 0 && cell.getColumnIndex() <= 8){
 
@@ -243,15 +248,15 @@ public class POIDataset {
         String auxDate = null;
         if(currentCell.getColumnIndex() == 0){
 
-            if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_DOC_NAMING, currentCell.getRichStringCellValue().toString()) == true){
+            if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_DOC_NAMING, currentCell.getRichStringCellValue().toString())){
                 setValidRecordFound(true);
                 setItemListPermits(setUpPOIDataType_Identifier(currentCell));
                 setCurrentFileName(currentCell.getRichStringCellValue().toString());
             }
-        }else if(currentCell.getColumnIndex() == 1 && getValidRecordFound() == true){
+        }else if(currentCell.getColumnIndex() == 1 && getValidRecordFound()){
             auxDate = setUpPOIDataType_Identifier(currentCell);
             if(auxDate != null){
-                if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_DATE_OK, auxDate) == true) {
+                if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_DATE_OK, auxDate)) {
                     setItemListPermits(auxDate);
                 }else {
                     if(auxDate.length() <= 3){
@@ -263,10 +268,10 @@ public class POIDataset {
             }
 //			setItemListPermits(auxDate);
 //			setItemListPermits(setUpPOIDataType_Identifier(currentCell));
-        }else if(currentCell.getColumnIndex() == 2 && getValidRecordFound() == true){
+        }else if(currentCell.getColumnIndex() == 2 && getValidRecordFound()){
             auxDate = setUpPOIDataType_Identifier(currentCell);
             if(auxDate != null){
-                if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_DATE_OK, auxDate) == true) {
+                if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_DATE_OK, auxDate)) {
                     setItemListPermits(auxDate);
                 }else {
                     if(auxDate.length() <= 3){
@@ -277,17 +282,17 @@ public class POIDataset {
                 }
             }
 //			setItemListPermits(setUpPOIDataType_Identifier(currentCell));
-        }else if(currentCell.getColumnIndex() == 3 && getValidRecordFound() == true){
+        }else if(currentCell.getColumnIndex() == 3 && getValidRecordFound()){
             setItemListPermits(setUpPOIDataType_Identifier(currentCell));
-        }else if(currentCell.getColumnIndex() == 4 && getValidRecordFound() == true){
+        }else if(currentCell.getColumnIndex() == 4 && getValidRecordFound()){
             setItemListPermits(setUpPOIDataType_Identifier(currentCell));
-        }else if(currentCell.getColumnIndex() == 5 && getValidRecordFound() == true){
+        }else if(currentCell.getColumnIndex() == 5 && getValidRecordFound()){
             setItemListPermits(setUpPOIDataType_Identifier(currentCell));
-        }else if(currentCell.getColumnIndex() == 6 && getValidRecordFound() == true){
+        }else if(currentCell.getColumnIndex() == 6 && getValidRecordFound()){
             setItemListPermits(setUpPOIDataType_Identifier(currentCell));
-        }else if(currentCell.getColumnIndex() == 7 && getValidRecordFound() == true){
+        }else if(currentCell.getColumnIndex() == 7 && getValidRecordFound()){
             setItemListPermits(setUpPOIDataType_Identifier(currentCell));
-        }else if(currentCell.getColumnIndex() == 8 && getValidRecordFound() == true){
+        }else if(currentCell.getColumnIndex() == 8 && getValidRecordFound()){
             setItemListPermits(setUpPOIDataType_Identifier(currentCell));
         }
 
@@ -342,7 +347,7 @@ public class POIDataset {
         String tst = "INSERT INTO BD_BITACORAS(FOLIO_INTERNO, FECHA_COM, FECHA_RECEPCION, FILE_TYPE, ASUNTO, AUTOR, RECIBIDO, COMENTARIOS, REFERENCIA) VALUES(";
         String tstNetId = "INSERT INTO BD_FILENET(FILENET, FOLIO_INTERNO)VALUES(";
 
-        if(sizeList != 0 || listRecords.isEmpty()){
+        if(sizeList != 0 ){
             if(sizeList == 9){
 
                 for (int i = 1; i < sizeList; i++) {
@@ -368,7 +373,7 @@ public class POIDataset {
                     //Finding FileNet
                     if(i>3 && i<=sizeList - 1){
                         if(listRecords.get(i) != null){
-                            if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_FILENET,listRecords.get(i)) == true){
+                            if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_FILENET, listRecords.get(i))){
                                 netIdFound = Integer.parseInt(DataStructures_Utility.replaceCharMatchesWithAnotherChar(Regex_Utility.findCurrentIncidenceInStringMatches1(listRecords.get(i), DefaultsLoader.REGEX_FILENET),",",""));
                                 tstNetId = tstNetId.concat("'"+netIdFound).concat("','"+POIDataset.getCurrentFileName()+"')");
 
@@ -401,7 +406,7 @@ public class POIDataset {
                         //if(i>=1 && i<=4){ //2 to 4 Bitacora to review if are date format
                         if(i==2){
                             if(listRecords.get(i) != null){
-                                if(!Regex_Utility.isRegexContainedIntoSingleString("([0-9]{4})-([0-9]{2})-([0-9]{2})", listRecords.get(i)) == true){
+                                if(!Regex_Utility.isRegexContainedIntoSingleString("([0-9]{4})-([0-9]{2})-([0-9]{2})", listRecords.get(i))){
                                     tst = tst.concat(null+",");
                                 }else{
                                     tst = tst.concat("'"+listRecords.get(i)+"',");
@@ -417,7 +422,7 @@ public class POIDataset {
                     //Finding FileNet
                     if(i>3 && i<=sizeList - 1){
                         if(listRecords.get(i) != null){
-                            if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_FILENET, listRecords.get(i)) == true){
+                            if(Regex_Utility.isRegexContainedIntoSingleString(DefaultsLoader.REGEX_FILENET, listRecords.get(i))){
                                 netIdFound = Integer.parseInt(DataStructures_Utility.replaceCharMatchesWithAnotherChar(Regex_Utility.findCurrentIncidenceInStringMatches1(listRecords.get(i), DefaultsLoader.REGEX_FILENET),",",""));
                                 tstNetId = tstNetId.concat("'"+netIdFound).concat("','"+POIDataset.getCurrentFileName()+"')");
                                 outputQuery.add(tstNetId);

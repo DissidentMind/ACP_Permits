@@ -103,7 +103,7 @@ public class Regex_Utility {
     public Boolean isRegexContainedInList(String strToSearch, List<String> listToFind) {
 
         Pattern pattern = Pattern.compile(strToSearch);
-        Boolean flagConfirm = false;
+        boolean flagConfirm = false;
 
         for (String value : listToFind) {
             Matcher m = pattern.matcher(value);
@@ -125,7 +125,7 @@ public class Regex_Utility {
 
         Pattern pattern = Pattern.compile(strToSearch);
         Matcher m = pattern.matcher(toFind);
-        Boolean flagExist = false;
+        boolean flagExist = false;
 
         while (m.find()) {
             //System.out.println("Pattern found from " + m.start() + " to " + (m.end()-1));
@@ -186,7 +186,7 @@ public class Regex_Utility {
         Regex_Utility frU = new Regex_Utility();
 
         for (int i = 0; i < inputList.size(); i++) {
-            if (frU.findCurrentIncidenteInString(inputList.get(i).toString(), inputSearchParam) != null) {
+            if (frU.findCurrentIncidenteInString(inputList.get(i), inputSearchParam) != null) {
 
                 File tmp = new File(inputList.get(i));
                 tempList.add(tmp.getName());
@@ -208,10 +208,10 @@ public class Regex_Utility {
         Regex_Utility frU = new Regex_Utility();
 
         for (int i = 0; i < inputList.size(); i++) {
-            if (frU.findCurrentIncidenteInString(inputList.get(i).toString(), inputSearchParam) != null) {
+            if (frU.findCurrentIncidenteInString(inputList.get(i), inputSearchParam) != null) {
 
                 File tmp = new File(inputList.get(i));
-                map.put(i, tmp.getName().toString());
+                map.put(i, tmp.getName());
             }
         }
         return map;
@@ -279,7 +279,7 @@ public class Regex_Utility {
 
         //System.out.println("Date: "+textToReview);
 
-        if(matcher.find() == true){
+        if(matcher.find()){
             //System.out.println("Group 2: "+matcher.group(2));
             //System.out.println("Group 3: "+matcher.group(3));
             //System.out.println("Group 4: "+matcher.group(4));
@@ -298,7 +298,7 @@ public class Regex_Utility {
                     if(lst == "April"||lst == "Abril"||lst == "Apr"||lst == "Abr"){
                         montString="04";
                     }
-                    if(lst == "May"||lst == "Mayo"||lst == "May"){
+                    if(lst == "May"||lst == "Mayo"){
                         montString="05";
                     }
                     if(lst == "June"||lst == "Junio"||lst == "Jun"){
@@ -333,7 +333,7 @@ public class Regex_Utility {
 				System.out.println("Date Converted 2: "+rstString);
 			}*/
 
-        }else if(matcherInv.find() == true){
+        }else if(matcherInv.find()){
             for(String lst:lstMonths){
                 if(matcherInv.group(4).equals(lst)){
                     if(lst == "January"||lst == "Enero"||lst == "Ene"||lst == "Jan"){
@@ -348,7 +348,7 @@ public class Regex_Utility {
                     if(lst == "April"||lst == "Abril"||lst == "Abr"||lst == "Apr"){
                         montString="04";
                     }
-                    if(lst == "May"||lst == "Mayo"||lst == "May"){
+                    if(lst == "May"||lst == "Mayo"){
                         montString="05";
                     }
                     if(lst == "June"||lst == "Junio"||lst == "Jun"){
@@ -384,9 +384,9 @@ public class Regex_Utility {
                 System.out.println("Date Converted: "+rstString);
                 //System.out.println(">>>>>LENG>>>> "+matcher.group(2).length());
             }
-        }else if(matcherDMY.find() == true){
+        }else if(matcherDMY.find()){
             rstString = rstString.concat("20"+matcherDMY.group(2)).concat("-").concat(matcherDMY.group(3)).concat("-").concat(matcherDMY.group(4));
-        }else if(matcherDMMMMY.find() == true){
+        }else if(matcherDMMMMY.find()){
             for(String lst:lstMonths){
                 if(matcherDMMMMY.group(3).equals(lst)){
                     if(lst == "January"||lst == "Enero"||lst == "Ene"||lst == "Jan"){
@@ -401,7 +401,7 @@ public class Regex_Utility {
                     if(lst == "April"||lst == "Abril"||lst == "Apr"||lst == "Abr"){
                         montString="04";
                     }
-                    if(lst == "May"||lst == "Mayo"||lst == "May"){
+                    if(lst == "May"||lst == "Mayo"){
                         montString="05";
                     }
                     if(lst == "June"||lst == "Junio"||lst == "Jun"){

@@ -17,7 +17,7 @@ public class ResultSearchItem {
 
     public static void addRowToJTable(JTable jtable, ArrayList<ResultSearchItem> list) {
         DefaultTableModel model = (DefaultTableModel) jtable.getModel();
-        Object rowData[] = new Object[3];
+        Object[] rowData = new Object[3];
         for (int i = 0; i < list.size(); i++) {
             rowData[0] = list.get(i).idFile;
             rowData[1] = list.get(i).fileName;

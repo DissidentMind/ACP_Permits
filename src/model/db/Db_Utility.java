@@ -112,7 +112,6 @@ public class Db_Utility {
                 System.out.println("# - Verify Table Permits...");
             ResultSet rs = stmt.executeQuery("SELECT OBJECT_ID FROM sys.objects WHERE name = '" + table + "';");
             if (rs == null) {
-                rs.close();
                 JOptionPane.showMessageDialog(null, "Database connection is available but table was not found. Verify.", "Table Doesn't Exist", JOptionPane.WARNING_MESSAGE);
                 System.exit(0);
             }else{
@@ -143,19 +142,18 @@ public class Db_Utility {
     }
 
     public static Connection startConnection_WAuth(String db) {
-        Connection conTemp = null;
+        Connection con = null;
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded");
             String jdbcUrl = "jdbc:sqlserver://" + VaultValuesLoader.getDefaultHost() + ":" + VaultValuesLoader.getJdbcPort() + ";databaseName=" + db + ";integratedSecurity=true";
-            Connection con = DriverManager.getConnection(jdbcUrl);
-            conTemp = con;
+            con = DriverManager.getConnection(jdbcUrl);
             //Statement stmt = con.createStatement();
             //stmt.executeQuery("SET NOCOUNT ON");
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        return conTemp;
+        return con;
     }
 
     /**
@@ -165,9 +163,8 @@ public class Db_Utility {
      */
     public static void executeInsertWithKeys(Connection con, String query) {
         try {
-            String SQL = query;
             Statement stmt = con.createStatement();
-            int count = stmt.executeUpdate(SQL, Statement.RETURN_GENERATED_KEYS);
+            int count = stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             //System.out.println("Generated Keys: "+count);
             ResultSet rs = stmt.getGeneratedKeys();
             ResultSetMetaData rsmd = rs.getMetaData();

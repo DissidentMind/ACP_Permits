@@ -19,19 +19,17 @@ import java.util.List;
 
 public class Bulk_Censo {
     private boolean validTable = false;
-    private boolean validRow = false;
-    private List<Repo_Deadlines> data = new ArrayList<>();
+    private final List<Repo_Deadlines> data = new ArrayList<>();
     private final static String validaQuery = "SELECT COUNT(*) FROM [TGNH_TVDR_Permits].[dbo].[CENSO_PERMISOS]";
-    private static final String insertQuery = "INSERT INTO CENSO_PERMISOS(ID_MATRIZ,ID_CRUCE,DESCRIPCION,DEPENDENCIA,TRAMITE,PERMISO,DEPARTAMENTO,DETALLE) VALUES (";
-    private Repo_Censo p;
-    private Connection con;
+    private final static String insertQuery = "INSERT INTO CENSO_PERMISOS(ID_MATRIZ,ID_CRUCE,DESCRIPCION,DEPENDENCIA,TRAMITE,PERMISO,DEPARTAMENTO,DETALLE) VALUES (";
+    private final Repo_Censo p = new Repo_Censo();;
 
-    Bulk_Censo(){
+    /*Bulk_Censo(){
         super();
         p = new Repo_Censo();
-        con = Db_Utility.startConnection_WAuth(VaultValuesLoader.getDefaultDBName());
+        Connection con = Db_Utility.startConnection_WAuth(VaultValuesLoader.getDefaultDBName());
         processCenso_Bulk(con);
-    }
+    }*/
 
     public void processCenso_Bulk(Connection con){
         try{
@@ -65,12 +63,12 @@ public class Bulk_Censo {
                             if(cell.getRowIndex()>= 1){
 
                                 if(cell.getColumnIndex()==0 && cell.getCellType() != CellType.BLANK){
-                                    validRow = true;
+                                    boolean validRow = true;
                                     p.setIdMatriz(POIDataset.setUpPOIDataType_Identifier(cell));
                                     p.setFlagT(true);
                                 }
 
-                                if(p.getFlagT() == true && cell.getColumnIndex() <= 8){
+                                if(p.getFlagT() && cell.getColumnIndex() <= 8){
                                     switch(cell.getColumnIndex()){
 
                                         case 1:
@@ -133,15 +131,14 @@ public class Bulk_Censo {
                             }
                         }//End While Son
 
-                        if(p.getIdCruce()!= null){
-                            String query = insertQuery+"'"+p.getIdMatriz()+"','"+p.getIdCruce()+"','"+p.getDescripcionPermiso()+"','"+p.getDependencia()+"','"+p.getTramite()+"','"+p.getFolioPermiso()+"','"+p.getTipoPermiso()+"','"+p.getDetalle()+"')";
-                            System.out.println(">: "+query);
-                            Db_Utility.executeInsertWithKeys(con, query);
+                        String query;
+                        if(p.getIdCruce() != null){
+                            query = insertQuery + "'" + p.getIdMatriz() + "','" + p.getIdCruce() + "','" + p.getDescripcionPermiso() + "','" + p.getDependencia() + "','" + p.getTramite() + "','" + p.getFolioPermiso() + "','" + p.getTipoPermiso() + "','" + p.getDetalle() + "')";
                         }else{
-                            String query = insertQuery+"'"+p.getIdMatriz()+"',"+p.getIdCruce()+",'"+p.getDescripcionPermiso()+"','"+p.getDependencia()+"','"+p.getTramite()+"','"+p.getFolioPermiso()+"','"+p.getTipoPermiso()+"','"+p.getDetalle()+"')";
-                            System.out.println(">: "+query);
-                            Db_Utility.executeInsertWithKeys(con, query);
+                            query = insertQuery + "'" + p.getIdMatriz() + "'," + p.getIdCruce() + ",'" + p.getDescripcionPermiso() + "','" + p.getDependencia() + "','" + p.getTramite() + "','" + p.getFolioPermiso() + "','" + p.getTipoPermiso() + "','" + p.getDetalle() + "')";
                         }
+                        System.out.println(">: "+query);
+                        Db_Utility.executeInsertWithKeys(con, query);
                     }//End While Parent
 
                 }catch(Exception e){

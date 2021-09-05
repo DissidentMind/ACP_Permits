@@ -427,7 +427,7 @@
                           <text value="Select DB Destination:  "/>
                         </properties>
                       </component>
-                      <component id="59c48" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+                      <component id="59c48" class="javax.swing.JComboBox" binding="selectDb_List">
                         <constraints/>
                         <properties/>
                       </component>
@@ -465,7 +465,7 @@
                               <text value="Select Table DB: "/>
                             </properties>
                           </component>
-                          <component id="b8df1" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+                          <component id="b8df1" class="javax.swing.JComboBox" binding="selectTable_List">
                             <constraints/>
                             <properties/>
                           </component>
@@ -573,7 +573,7 @@
                           <text value="  CSV File:   "/>
                         </properties>
                       </component>
-                      <component id="9193d" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                      <component id="9193d" class="javax.swing.JTextField" binding="csvFilePath_Chooser">
                         <constraints/>
                         <properties/>
                       </component>
@@ -600,7 +600,7 @@
                           <text value="  Logs Destination:   "/>
                         </properties>
                       </component>
-                      <component id="5c0ee" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+                      <component id="5c0ee" class="javax.swing.JTextField" binding="logsFilePath_Chooser">
                         <constraints/>
                         <properties/>
                       </component>
@@ -612,7 +612,7 @@
                       </component>
                     </children>
                   </toolbar>
-                  <component id="65fa0" class="javax.swing.JCheckBox" binding="defaultDestinationCheckBox" default-binding="true">
+                  <component id="65fa0" class="javax.swing.JCheckBox" binding="defaultDest_CheckBox">
                     <constraints>
                       <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -724,7 +724,7 @@
                           <text value="  Select Store Procedure:   "/>
                         </properties>
                       </component>
-                      <component id="fdd91" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+                      <component id="fdd91" class="javax.swing.JComboBox" binding="selectStoreProc_List">
                         <constraints/>
                         <properties/>
                       </component>

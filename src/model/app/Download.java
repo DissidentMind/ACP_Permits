@@ -1,5 +1,6 @@
 package model.app;
 
+import javax.swing.*;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
@@ -12,7 +13,7 @@ public class Download extends Observable implements Runnable {
     // Max size of download buffer.
     private static final int MAX_BUFFER_SIZE = 1024;
     // These are the status names.
-    public static final String STATUSES[] = {"Downloading", "Paused", "Complete", "Cancelled", "Error"};
+    public static final String[] STATUSES = {"Downloading", "Paused", "Complete", "Cancelled", "Error"};
 
     // These are the status codes.
     public static final int DOWNLOADING = 0;
@@ -21,11 +22,10 @@ public class Download extends Observable implements Runnable {
     public static final int CANCELLED = 3;
     public static final int ERROR = 4;
 
-    private URL url; // download URL
+    private final URL url; // download URL
     private long size; // size of download in bytes
     private long downloaded; // number of bytes downloaded
     private int status; // current status of download
-    private long initTime; //inital time when download started or resumed
     private long startTime; // start time for current bytes
     private long readSinceStart; // number of bytes downloaded since startTime
     private long elapsedTime = 0; // elapsed time till now
@@ -177,7 +177,8 @@ public class Download extends Observable implements Runnable {
             file.seek(downloaded);
 
             stream = connection.getInputStream();
-            initTime = System.nanoTime();
+            //inital time when download started or resumed
+            long initTime = System.nanoTime();
             while (status == DOWNLOADING) {
 				/* Size buffer according to how much of the
            file is left to download. */
@@ -185,7 +186,7 @@ public class Download extends Observable implements Runnable {
                     startTime = System.nanoTime();
                     readSinceStart = 0;
                 }
-                byte buffer[];
+                byte[] buffer;
                 if (size - downloaded > MAX_BUFFER_SIZE) {
                     buffer = new byte[MAX_BUFFER_SIZE];
                 } else {
@@ -227,6 +228,8 @@ public class Download extends Observable implements Runnable {
                 try {
                     file.close();
                 } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error to Close File", "File Error", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
                 }
             }
 
@@ -235,6 +238,8 @@ public class Download extends Observable implements Runnable {
                 try {
                     stream.close();
                 } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error to Close Connection", "Connection Error", JOptionPane.ERROR_MESSAGE);
+                    System.out.println("Error to Close Connection: "+e);
                 }
             }
         }
