@@ -2,7 +2,6 @@ package model.db;
 
 import gui.controller.init.ConnectionStat;
 import vault.VaultValuesLoader;
-
 import javax.swing.*;
 import java.sql.*;
 
@@ -23,7 +22,7 @@ public class Db_Utility {
         try {
             Class.forName(VaultValuesLoader.JDBC_SQLSERVER_DRIVER);
             System.out.println("Driver Loaded");
-            String jdbcUrl = "jdbc:sqlserver://" + server + ":" + port + ";user=" + user + ";password=" + pass + ";databaseName=" + db + "";
+            String jdbcUrl = "jdbc:sqlserver://"+ server +":" + port + ";user=" + user + ";password=" + pass + ";databaseName=" + db + "";
             Connection con = DriverManager.getConnection(jdbcUrl);
             System.out.println("# - Connection Obtanied: ");
             Statement stmt = con.createStatement();
@@ -44,12 +43,9 @@ public class Db_Utility {
 
     public void TestConnection_JDBC(String user, String pass, String db) {
         try {
-            String server = "localhost\\sqlexpress";
-            int port = 1433;
-
             Class.forName(VaultValuesLoader.JDBC_SQLSERVER_DRIVER);
             System.out.println("Driver Loaded");
-            String jdbcUrl = "jdbc:sqlserver://" + server + ":" + port + ";user=" + user + ";password=" + pass + ";databaseName=" + db + "";
+            String jdbcUrl = "jdbc:sqlserver://"+ VaultValuesLoader.getDefaultHost() +":" + VaultValuesLoader.getJdbcPort() + ";user=" + user + ";password=" + pass + ";databaseName=" + db + "";
             Connection con = DriverManager.getConnection(jdbcUrl);
             System.out.println("# - Connection Obtanied: ");
             Statement stmt = con.createStatement();
@@ -68,32 +64,26 @@ public class Db_Utility {
         }
     }
 
-    public void TestConnection_JDBC_WindowsAuthentification() {
-
+    public void TestConnection_JDBC_WindowsAuthentification(String queryValidation) {
+        /*
+        SELECT OBJECT_ID FROM sys.objects WHERE name = '';
+         */
         try {
             Class.forName(VaultValuesLoader.JDBC_SQLSERVER_DRIVER);
             System.out.println("Driver Loaded");
-            String server = "localhost\\sqlexpress";
-            //String server = "jdbc:sqlserver://";
-            //String user = "TCPL\fabio_rodriguez";;
-            //String db = "TGNH_Permits";
-
-            int port = 1433;
-            String db = VaultValuesLoader.DEFAULT_DB;
-
-            String jdbcUrl = "jdbc:sqlserver://" + server + ":" + port + ";databaseName=" + db + ";integratedSecurity=true";
+            String jdbcUrl = "jdbc:sqlserver://"+ VaultValuesLoader.getDefaultHost() +":" + VaultValuesLoader.getDefaultHost() + ";databaseName=" + VaultValuesLoader.getDefaultDBName() + ";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
             System.out.println("# - Connection Obtanied: ");
             Statement stmt = con.createStatement();
             System.out.println("# - Statement Created");
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM CAT_TIPO_CRUCE");
+            ResultSet rs = stmt.executeQuery(queryValidation);
             System.out.println("# - Statement Created");
-            if (rs.next()) {
-                System.out.println("Resultado Query: " + rs.getInt(1));
-            }
-            rs.close();
-            stmt.close();
-            con.close();
+                if (rs.next()) {
+                    System.out.println("Resultado Query: " + rs.getInt(1));
+                }
+                rs.close();
+                stmt.close();
+                con.close();
             System.out.println("Closed Connection");
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -111,15 +101,15 @@ public class Db_Utility {
         ConnectionStat connectStatus = new ConnectionStat();
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
-            System.out.println("Driver Loaded...");
-            String jdbcUrl = "jdbc:sqlserver://" + server + ":" + port + ";databaseName=" + db + ";integratedSecurity=true";
+                System.out.println("Driver Loaded...");
+            String jdbcUrl = "jdbc:sqlserver://" + server +":" + port + ";databaseName=" + db + ";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
-            System.out.println("# - Connection Obtanied...");
+                System.out.println("# - Connection Obtanied...");
             connectStatus.setValidateExistConnection(true);
             connectStatus.setValidateExistDb(true);
             Statement stmt = con.createStatement();
-            System.out.println("# - Statement Created...");
-            System.out.println("# - Verify Table Permits...");
+                System.out.println("# - Statement Created...");
+                System.out.println("# - Verify Table Permits...");
             ResultSet rs = stmt.executeQuery("SELECT OBJECT_ID FROM sys.objects WHERE name = '" + table + "';");
             if (rs == null) {
                 rs.close();
@@ -157,7 +147,6 @@ public class Db_Utility {
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded");
-            String server = "localhost\\sqlexpress";
             String jdbcUrl = "jdbc:sqlserver://" + VaultValuesLoader.getDefaultHost() + ":" + VaultValuesLoader.getJdbcPort() + ";databaseName=" + db + ";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
             conTemp = con;
@@ -166,7 +155,6 @@ public class Db_Utility {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-
         return conTemp;
     }
 
@@ -212,33 +200,25 @@ public class Db_Utility {
     public void ExecQuery_WAuth(String db, String qry) {
 
         System.out.println("Query >> " + qry);
-
-        int port = 1433;
-
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
             System.out.println("Driver Loaded");
-            String server = "localhost\\sqlexpress";
-            String jdbcUrl = "jdbc:sqlserver://" + server + ":" + port + ";databaseName=" + db + ";integratedSecurity=true";
+            String jdbcUrl = "jdbc:sqlserver://" + VaultValuesLoader.getDefaultHost() +":" + VaultValuesLoader.getJdbcPort() + ";databaseName=" + VaultValuesLoader.getDefaultDBName() + ";integratedSecurity=true";
             Connection con = DriverManager.getConnection(jdbcUrl);
-            //System.out.println("# - Connection Obtanied: ");
+            System.out.println("# - Connection Obtanied: ");
             Statement stmt = con.createStatement();
-            //System.out.println("# - Statement Created");
+            System.out.println("# - Statement Created");
             ResultSet rs = stmt.executeQuery(qry);
-            //System.out.println("# - Statement Created");
-
-            if (rs.next()) {
-                System.out.println("Resultado Query: " + rs.getInt(1));
-            }
-
+            System.out.println("# - Statement Created");
+                if (rs.next()) {
+                    System.out.println("Resultado Query: " + rs.getInt(1));
+                }
             rs.close();
             stmt.close();
             con.close();
             System.out.println("Closed Connection");
-
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-
     }
 }
