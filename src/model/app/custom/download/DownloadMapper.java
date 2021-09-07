@@ -1,4 +1,4 @@
-package model.app.custom;
+package model.app.custom.download;
 
 import model.app.Download;
 
@@ -6,66 +6,34 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MapTableModel extends AbstractTableModel {
-
-    // ------------------------------------------------------------------------
-    // --- fields                                                           ---
-    // ------------------------------------------------------------------------
-    private final ArrayList<Download> downloadList = new ArrayList<Download>();
-    /**
-     * The map.
-     */
+public class DownloadMapper extends AbstractTableModel {
     protected Map map;
-    /**
-     * The column names array.
-     */
     protected String[] columnNames;
-    // ------------------------------------------------------------------------
-    // --- constructors                                                     ---
-    // ------------------------------------------------------------------------
-    /**
-     * Creates a new instance of MapTableModel.
-     */
-    public MapTableModel() {
+    private final ArrayList<Download> downloadList = new ArrayList<Download>();
+
+    public DownloadMapper() {
         super();
     }
-    /**
-     * Creates a new instance of MapTableModel.
-     */
-    public MapTableModel(Map map) {
+    public DownloadMapper(Map map) {
         this(map, "Entry", "Value");
     }
-
-    /**
-     * Creates a new instance of MapTableModel.
-     */
-    public MapTableModel(Map map, String keyName, String valueName) {
+    public DownloadMapper(Map map, String keyName, String valueName) {
         this();
         setMap(map);
         setColumnNames(keyName, valueName);
     }
 
-    // ------------------------------------------------------------------------
-    // --- methods                                                          ---
-    // ------------------------------------------------------------------------
-
-    /**
-     * Returns the row count.
-     */
+    @Override
     public int getRowCount() {
         return map.size();
     }
 
-    /**
-     * Returns the column count.
-     */
+    @Override
     public int getColumnCount() {
         return 2;
     }
 
-    /**
-     * Returns the value at.
-     */
+    @Override
     public Object getValueAt(int row, int column) {
         Object[] entries = map.entrySet().toArray();
         Map.Entry entry = (Map.Entry) entries[row];
@@ -78,32 +46,17 @@ public class MapTableModel extends AbstractTableModel {
         }
     }
 
-    /**
-     * Returns the column name.
-     */
     public String getColumnName(int column) {
         return columnNames[column];
     }
-
-    /**
-     * Sets the column names.
-     */
     public void setColumnNames(String keyName, String valueName) {
         //String[] names = {keyName, valueName};
         //columnNames = names;
         columnNames = new String[]{keyName, valueName};
     }
-
-    /**
-     * Returns the map.
-     */
     public Map getMap() {
         return map;
     }
-
-    /**
-     * Sets the map.
-     */
     public void setMap(Map _map) {
         map = _map;
     }
@@ -119,5 +72,4 @@ public class MapTableModel extends AbstractTableModel {
         downloadList.add((Download) download);
         fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
     }
-
-} // end MapTableModel
+}

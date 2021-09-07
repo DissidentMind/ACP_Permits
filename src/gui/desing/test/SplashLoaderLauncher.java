@@ -15,7 +15,7 @@ public class SplashLoaderLauncher extends JDialog {
     private JPanel splashMainContent;
     private JPanel splashProBarFooter;
     private JPanel splashFooter;
-    private final JLabel imgSplash_Txt;
+    private JLabel imgSplash_Txt;
     private BufferedImage splashHeader;
 
     public SplashLoaderLauncher() {

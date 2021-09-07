@@ -14,7 +14,7 @@ class DownloadsTableModel extends AbstractTableModel implements Observer {
 
     // These are the names for the table's columns.
     private static final String[] columnNames = {"URL", "Size in MB", "Progress", "Speed in KB/s",
-            "Avg Speed in KB/s", "Elapsed Time", "Remaing Time", "Status"};
+            "Avg Speed in KB/s", "Elapsed Time", "Remaning Time", "Status"};
 
     // These are the classes for each column's values.
     private static final Class[] columnClasses = {String.class, String.class,
