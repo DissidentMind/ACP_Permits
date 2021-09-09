@@ -22,7 +22,7 @@ public class Bulk_Censo {
     private final List<Repo_Deadlines> data = new ArrayList<>();
     private final static String validaQuery = "SELECT COUNT(*) FROM [TGNH_TVDR_Permits].[dbo].[CENSO_PERMISOS]";
     private final static String insertQuery = "INSERT INTO CENSO_PERMISOS(ID_MATRIZ,ID_CRUCE,DESCRIPCION,DEPENDENCIA,TRAMITE,PERMISO,DEPARTAMENTO,DETALLE) VALUES (";
-    private final Repo_Censo p = new Repo_Censo();;
+    private final Repo_Censo p = new Repo_Censo();
 
     /*Bulk_Censo(){
         super();

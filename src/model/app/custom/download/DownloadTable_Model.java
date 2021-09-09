@@ -12,7 +12,7 @@ public class DownloadTable_Model extends AbstractTableModel implements Observer 
     private static final Class[] columnClasses = {
             Checkbox.class, Integer.class, String.class, String.class
     };
-    private ArrayList<DownloadItems> downloadList = new ArrayList<DownloadItems>();
+    private final ArrayList<DownloadItems> downloadList = new ArrayList<DownloadItems>();
 
     /*public static void setColumnNames(String[] columnNames) {
         //{"File Id", "File Name / Document", "Path"};

@@ -92,7 +92,8 @@ public class MainAppLauncher extends JFrame {
                 System.out.println("Action Run");
                 if (!itemSearch_Txt.getText().equals("")) {
                     //Pass parameter to search and the object to fill
-                    SearchFile.runProcessByIdFile(itemSearch_Txt.getText(), srchResult_JTable);
+                    //SearchFile.runProcessByIdFile(itemSearch_Txt.getText(), srchResult_JTable);
+                    System.out.println("Input: "+itemSearch_Txt.getText());
                 } else {
                     JOptionPane.showMessageDialog(null, "Search Parameter is Empty", "Input Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -142,24 +143,32 @@ public class MainAppLauncher extends JFrame {
                 }
             }
         });
+
         clearSelectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 //srchResult_JTable.removeAll();
             }
         });
+
+        btnStoreProcedure.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-                    SplashLoaderLauncher dialog = new SplashLoaderLauncher();
-                    dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
-                    dialog.setVisible(true);
-                    dialog.setTitle("Loading... ");
-                    dialog.setSize(560, 280);
-                    dialog.setLocationRelativeTo(null);
-                    dialog.updateProgressBar();
-                }
+            SplashLoaderLauncher dialog = new SplashLoaderLauncher();
+            dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
+            dialog.setTitle("Loading... ");
+            dialog.setSize(560, 280);
+            dialog.setLocationRelativeTo(null);
+            dialog.updateProgressBar();
+            }
         );
 
         JFrame j = new JFrame("MainAppLauncher");
@@ -171,13 +180,12 @@ public class MainAppLauncher extends JFrame {
 
     private void createUIComponents() {
         imgsLoader = new ImgsLoader();
-
         //Menu Declaration
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-
         fileMenu.setMnemonic(KeyEvent.VK_F);
         JMenuItem fileExitMenuItem = new JMenuItem("Exit", KeyEvent.VK_X);
+
         fileExitMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);

@@ -15,19 +15,16 @@ public class SearchFile {
 
     private static final char DEFAULT_SEPARATOR = ',';
     private static final char DEFAULT_QUOTE = '"';
-
     List<String> listCommunications = new ArrayList<String>();
-
-    public String getListCommunications(int indexGet) {
-        return listCommunications.get(indexGet);
-    }
-
-    public void setListCurrentCommunication(List<String> lst) {
-        this.listCommunications = lst;
-    }
 
     public List<String> getListCurrentCommunication() {
         return this.listCommunications;
+    }
+    public String getListCommunications(int indexGet) {
+        return listCommunications.get(indexGet);
+    }
+    public void setListCurrentCommunication(List<String> lst) {
+        this.listCommunications = lst;
     }
 
     public SearchFile() {
@@ -40,20 +37,17 @@ public class SearchFile {
     }
 
     public void copyFileToDestination(String idP, int idR) {
-
         try {
             File temp = new File(this.getListCommunications(idR));
             System.out.println("Name File: " + temp.getName());
 
             String tempDestPath = VaultValuesLoader.defaultDowPathFol.concat(idP + "\\").concat(temp.getName());
+
             File dest = new File(tempDestPath);
-
             SearchFile.fileCopier(temp, dest);
-
             System.out.println();
             System.out.println("-------------------------Archivo Copiado---------------------------- ");
             System.out.println();
-
         } catch (NullPointerException e) {
             System.out.println("Error in file: " + e);
         }
@@ -98,7 +92,6 @@ public class SearchFile {
     }
 
     public static void fileCopier(File input, File output) {
-
         System.out.println("Input: " + input);
         System.out.println("Output: " + output);
 
@@ -109,15 +102,15 @@ public class SearchFile {
 	        System.out.println("Parent:"+input.getParent());
 	        System.out.println("Exists :"+input.exists());*/
             if (input.exists()) {
-                //System.out.println("Is writeable:"+input.canWrite());
-                //System.out.println("Is readable"+input.canRead());
-                //System.out.println("Is a directory:"+input.isDirectory());
-                //System.out.println("File Size in bytes "+input.length());
+                /*
+                System.out.println("Is writeable:"+input.canWrite());
+                System.out.println("Is readable"+input.canRead());
+                System.out.println("Is a directory:"+input.isDirectory());
+                System.out.println("File Size in bytes "+input.length());
+                */
             }
-
             copyFileUsingStream(input, output);
             //System.out.println(fCopier.fixSlash("C:\\Users\\evanf\\Documents\\Ebooks\\Profesional SharePoint Administration.pdf"));
-
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -134,21 +127,19 @@ public class SearchFile {
     }
 
     public static List<String> parseLine(String cvsLine, char separators, char customQuote) {
-
         List<String> result = new ArrayList<>();
-
         //if empty, return!
-        if (cvsLine == null && cvsLine.isEmpty()) {
-            return result;
-        }
+            if (cvsLine == null && cvsLine.isEmpty()) {
+                return result;
+            }
 
-        if (customQuote == ' ') {
-            customQuote = DEFAULT_QUOTE;
-        }
+            if (customQuote == ' ') {
+                customQuote = DEFAULT_QUOTE;
+            }
 
-        if (separators == ' ') {
-            separators = DEFAULT_SEPARATOR;
-        }
+            if (separators == ' ') {
+                separators = DEFAULT_SEPARATOR;
+            }
 
         StringBuffer curVal = new StringBuffer();
         boolean inQuotes = false;
@@ -213,7 +204,6 @@ public class SearchFile {
         result.add(curVal.toString());
         return result;
     }
-
     /* private void tableSelectionChanged() {
      *//* Unregister from receiving notifications
        from the last selected download. *//*
