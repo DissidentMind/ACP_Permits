@@ -1,7 +1,5 @@
 package model.app.custom.download;
 
-import model.app.Download;
-
 import javax.swing.*;
 import java.io.InputStream;
 import java.io.RandomAccessFile;

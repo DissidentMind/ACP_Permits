@@ -2,7 +2,6 @@ package gui.desing.test;
 
 import gui.controller.init.InitialStratupGui;
 import gui.desing.imgs.ImgsLoader;
-import model.process.SearchFile;
 
 import javax.swing.*;
 import java.awt.*;

@@ -2,6 +2,7 @@ package model.db;
 
 import gui.controller.init.ConnectionStat;
 import vault.VaultValuesLoader;
+
 import javax.swing.*;
 import java.sql.*;
 

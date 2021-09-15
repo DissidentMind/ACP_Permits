@@ -1,8 +1,6 @@
 package model.process;
 
 import gui.controller.apache.poi.POIDataset;
-import gui.controller.apache.poi.POIDataset;
-import gui.controller.init.DefaultsLoader;
 import model.db.Db_Utility;
 import model.db.tables.Repo_Censo;
 import model.db.tables.Repo_Deadlines;

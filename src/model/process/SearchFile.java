@@ -1,15 +1,11 @@
 package model.process;
 
-import model.app.custom.TestTableModel;
 import utils.files.FileCSV_Utility;
-import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SearchFile {
 

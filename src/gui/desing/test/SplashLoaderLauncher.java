@@ -1,6 +1,5 @@
 package gui.desing.test;
 
-import gui.controller.init.ColorsLoader;
 import gui.desing.imgs.ImgsLoader;
 
 import javax.swing.*;
