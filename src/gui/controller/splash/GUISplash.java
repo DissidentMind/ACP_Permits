@@ -7,6 +7,10 @@ public class GUISplash extends GUIListen{
     SplashLoaderLauncher dialog;
 
     GUISplash(GUIManager gMan){
+
+        this.managerMsn = gMan;
+        this.managerMsn.attach(this);
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -23,6 +27,6 @@ public class GUISplash extends GUIListen{
 
     @Override
     public void update() {
-        dialog.setInfoSplash_Txt("Cambio Detectado");
+        dialog.setInfoSplash_Txt("Cambio Detectado: "+managerMsn.getState());
     }
 }

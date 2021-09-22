@@ -37,13 +37,9 @@ public class SplashLoaderLauncher extends JDialog {
         SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
             @Override
             protected Void doInBackground() throws Exception {
-                for (int i = 0; i < 80; i++) {
+                for (int i = 0; i < 50; i++) {
                     Thread.sleep(100);// Simulate loading
                     publish(i);// Notify progress
-                    //TODO Update Text
-                    if (i % 20 == 0) {
-                        setInfoSplash_Txt("Update: " + i);
-                    }
                 }
                 return null;
             }
