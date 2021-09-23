@@ -1,6 +1,4 @@
 package model.db.tables;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
