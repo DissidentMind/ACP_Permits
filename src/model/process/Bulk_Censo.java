@@ -1,9 +1,9 @@
 package model.process;
 
 import gui.controller.apache.poi.POIDataset;
-import model.db.Db_Utility;
-import model.db.tables.Repo_Censo;
-import model.db.tables.Repo_Deadlines;
+import model.db.utils.Db_Utility;
+import model.db.data.tables.Repo_Censo;
+import model.db.data.tables.Repo_Deadlines;
 import org.apache.poi.ss.usermodel.*;
 import vault.VaultValuesLoader;
 

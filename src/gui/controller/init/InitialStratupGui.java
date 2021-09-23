@@ -1,6 +1,6 @@
 package gui.controller.init;
 
-import model.db.Db_Utility;
+import model.db.utils.Db_Utility;
 import vault.VaultValuesLoader;
 
 /**

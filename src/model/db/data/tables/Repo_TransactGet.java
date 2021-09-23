@@ -1,14 +1,14 @@
-package model.db.tables;
+package model.db.data.tables;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Repo_TransactInput {
+public class Repo_TransactGet {
 
     private List<String> lstItem = new ArrayList<String>();
-    private int idMatriz;
+    private String idMatriz;
     private String idCom;
-    private String ingressDate;
+    private String adqDate;
     private int idAgency;
 
     public List<String> getLstItem() {
@@ -19,11 +19,11 @@ public class Repo_TransactInput {
         this.lstItem = lstItem;
     }
 
-    public int getIdMatriz() {
+    public String getIdMatriz() {
         return idMatriz;
     }
 
-    public void setIdMatriz(int idMatriz) {
+    public void setIdMatriz(String idMatriz) {
         this.idMatriz = idMatriz;
     }
 
@@ -35,12 +35,12 @@ public class Repo_TransactInput {
         this.idCom = idCom;
     }
 
-    public String getIngressDate() {
-        return ingressDate;
+    public String getAdqDate() {
+        return adqDate;
     }
 
-    public void setIngressDate(String ingressDate) {
-        this.ingressDate = ingressDate;
+    public void setAdqDate(String adqDate) {
+        this.adqDate = adqDate;
     }
 
     public int getIdAgency() {

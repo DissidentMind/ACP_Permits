@@ -1,4 +1,4 @@
-package model.db.tables;
+package model.db.data.tables;
 
 public class Repo_Censo {
 

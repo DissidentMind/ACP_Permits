@@ -1,4 +1,4 @@
-package model.db;
+package model.db.utils;
 
 import gui.controller.init.ConnectionStat;
 import vault.VaultValuesLoader;
