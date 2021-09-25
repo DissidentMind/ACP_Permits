@@ -6,8 +6,7 @@ import java.util.List;
 public class Repo_DDAgents {
 
     private List<String> lstItem = new ArrayList<String>();
-    private boolean validRecord;
-    private int ddAgent;
+    private boolean validRecord = false;
     private String agentName;
     private String emailAgent;
     private String depotAgent;
@@ -27,14 +26,6 @@ public class Repo_DDAgents {
 
     public void setLstItem(List<String> lstItem) {
         this.lstItem = lstItem;
-    }
-
-    public int getDdAgent() {
-        return ddAgent;
-    }
-
-    public void setDdAgent(int ddAgent) {
-        this.ddAgent = ddAgent;
     }
 
     public String getAgentName() {
