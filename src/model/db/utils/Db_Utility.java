@@ -135,6 +135,28 @@ public class Db_Utility {
         }
     }
 
+    public static boolean TestTableExist_JDBC(String table) {
+            ConnectionStat connectStatus = new ConnectionStat();
+            boolean tableExist = false;
+        try {
+            Class.forName(VaultValuesLoader.sqlSerClass);
+            String jdbcUrl = "jdbc:sqlserver://" + VaultValuesLoader.getDefaultHost() +":" + VaultValuesLoader.getJdbcPort() + ";databaseName=" + VaultValuesLoader.getDefaultDBName()+ ";integratedSecurity=true";
+            Connection con = DriverManager.getConnection(jdbcUrl);
+            connectStatus.setValidateExistConnection(true);
+            connectStatus.setValidateExistDb(true);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT OBJECT_ID FROM sys.objects WHERE name = '" + table + "';");
+            if (rs != null) { tableExist = true; }
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Table "+table+" is not present in current database. Verify.", "Table not found", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        return tableExist;
+    }
+
     private static void displayRow(String title, ResultSet rs) throws SQLException {
         System.out.println(title);
         while (rs.next()) {

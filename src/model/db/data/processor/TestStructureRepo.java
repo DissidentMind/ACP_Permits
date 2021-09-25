@@ -21,7 +21,6 @@ public class TestStructureRepo {
 
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(verifyQuery);
 
