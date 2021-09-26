@@ -8,6 +8,8 @@ import java.sql.*;
 
 //Arguments
 //-Djava.library.path="C:\Users\fabio_rodriguez\OneDrive - TransCanada Corporation\Documents\IT\JODBC\;${env_var:PATH}"
+//-Djava.library.path="C:\Users\evanf\Documents\Projects[Source]\JavaLibs\sqljdbc_8.2\enu\auth\x64"
+//-Djava.library.path="C:\Users\evanf\Documents\Projects[Source]\JavaLibs\sqljdbc_9.2\enu\auth\x64"
 
 public class Db_Utility {
     /**
@@ -30,9 +32,9 @@ public class Db_Utility {
             System.out.println("# - Statement Created");
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM CAT_MUNICIPIO");
             System.out.println("# - Statement Created");
-            if (rs.next()) {
-                System.out.println("Resultado Query: " + rs.getInt(1));
-            }
+                if (rs.next()) {
+                    System.out.println("Resultado Query: " + rs.getInt(1));
+                }
             rs.close();
             stmt.close();
             con.close();
@@ -147,11 +149,12 @@ public class Db_Utility {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT OBJECT_ID FROM sys.objects WHERE name = '" + table + "';");
             if (rs != null) { tableExist = true; }
-            rs.close();
-            stmt.close();
-            con.close();
+                rs.close();
+                stmt.close();
+                con.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Table "+table+" is not present in current database. Verify.", "Table not found", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Exception: "+e);
+            JOptionPane.showMessageDialog(null, "Query Fails. Verify.", "Error - Query Fails", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         return tableExist;
