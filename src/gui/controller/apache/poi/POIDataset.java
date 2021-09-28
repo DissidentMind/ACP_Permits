@@ -18,7 +18,6 @@ public class POIDataset {
 
     static int incidencesFound = 0;
     static int currentRow = 0;
-
     static List<String> listPermits;
 
     static {
@@ -39,27 +38,21 @@ public class POIDataset {
     public static Boolean getValidRecordFound(){
         return validRecordFound;
     }
-
     public static void setValidRecordFound(Boolean flagValid){
         validRecordFound = flagValid;
     }
-
     public static void clearList(){
         listPermits.clear();
     }
-
     public static List<String> getListPermits() {
         return listPermits;
     }
-
     public static void setItemListPermits(String str) {
         POIDataset.listPermits.add(str);
     }
-
     public static int getCurrentRow() {
         return currentRow;
     }
-
     public static void setCurrentRow(int currentRow) {
         POIDataset.currentRow = currentRow;
     }
@@ -227,13 +220,11 @@ public class POIDataset {
                 if(cell.getColumnIndex() > 0 && cell.getColumnIndex() <= 8){
 
                     POIDataset.setItemListPermits(POIDataset.setUpPOIDataType_Identifier(cell));
-
 //					if(cell.getColumnIndex() == 8){
 //						POIDataset.setItemListPermits(null);
 //					}else{
 //						POIDataset.setItemListPermits(POIDataset.setUpPOIDataType_Identifier(cell));
 //					}
-
                 }
             }
         }
