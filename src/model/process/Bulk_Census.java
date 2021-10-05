@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Bulk_Censo {
+public class Bulk_Census {
     private boolean validTable = false;
     private final List<Repo_Deadlines> data = new ArrayList<>();
     private final static String validaQuery = "SELECT COUNT(*) FROM [TGNH_TVDR_Permits].[dbo].[CENSO_PERMISOS]";
@@ -141,6 +141,7 @@ public class Bulk_Censo {
 
                 }catch(Exception e){
                     e.printStackTrace();
+                    //System.out.println("Error in Connection: "+e);
                 }
             }
         }catch(Exception e){

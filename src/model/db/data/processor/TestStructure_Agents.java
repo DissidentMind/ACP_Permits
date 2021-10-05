@@ -20,8 +20,8 @@ public class TestStructure_Agents {
 
     public TestStructure_Agents() throws ClassNotFoundException, SQLException {
         Repo_DDAgents repoAgent = new Repo_DDAgents();
-        //VaultValuesLoader.setDefaultDBName("TGNH_TVDR_Permits");
-        VaultValuesLoader.setDefaultDBName("TGNH_Permits");
+        VaultValuesLoader.setDefaultDBName("TGNH_TVDR_Permits");
+        //VaultValuesLoader.setDefaultDBName("TGNH_Permits");
         System.out.println("DB_Name New: "+VaultValuesLoader.getDefaultDBName());
 
         String verifyQry = "SELECT COUNT(*) FROM ["+VaultValuesLoader.getDefaultDBName()+"].[rol].[AGENTS]";

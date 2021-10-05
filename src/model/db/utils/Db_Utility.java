@@ -11,6 +11,18 @@ import java.sql.*;
 //-Djava.library.path="C:\Users\evanf\Documents\Projects[Source]\JavaLibs\sqljdbc_8.2\enu\auth\x64"
 //-Djava.library.path="C:\Users\evanf\Documents\Projects[Source]\JavaLibs\sqljdbc_9.2\enu\auth\x64"
 
+/*
+lib/commons-collections4-4.4.jar
+lib/commons-compress-1.19.jar
+lib/commons-math3-3.6.1.jar
+ooxml-lib/xmlbeans-3.1.0.jar
+poi-4.1.2.jar
+poi-ooxml-4.1.2.jar
+poi-ooxml-schemas-4.1.2.jar
+poi-scratchpad-4.1.2.jar
+mssql-jdbc-9.4.0.jre8.jar
+ */
+
 public class Db_Utility {
     /**
      * Function that test connection string for sql server using jdbc Ver 6.4
@@ -154,7 +166,7 @@ public class Db_Utility {
                 con.close();
         } catch (Exception e) {
             System.out.println("Exception: "+e);
-            JOptionPane.showMessageDialog(null, "Query Fails. Verify.", "Error - Query Fails", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Exception: "+e, "Error - SQL Exception", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         return tableExist;
