@@ -93,10 +93,10 @@ public class TestStructure_Agents {
                             System.out.println("Query: " + query);
                             Db_Utility.executeInsertWithKeys(currentConnection, query);
                         }
-
-                        rs.close();
-                        stmt.closeOnCompletion();
                     }
+                    rs.close();
+                    stmt.closeOnCompletion();
+
                 }//IF of validation to firt column
             }catch (FileNotFoundException e){
                 e.printStackTrace();
