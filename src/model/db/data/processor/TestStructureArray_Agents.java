@@ -43,7 +43,7 @@ public class TestStructureArray_Agents {
         }
     }
 
-    public void replacerArrayAsNull(String array[][]){
+    public void replacerArrayAsNull(String[][] array){
         for (int i = 0; i < this.getRowSize(); i++) {
             for (int j = 0; j < this.getColSize(); j++) {
                 if(itemsArray[i][j].equals("null")){

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Repo_GeoInfo {
-    private List<String> lstItem = new ArrayList<String>();
+    private final List<String> lstItem = new ArrayList<String>();
 
     private int idGeo;
     private String idCruce;

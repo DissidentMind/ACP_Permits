@@ -68,10 +68,18 @@ public class TestStructure_Agents {
 
                                 if (repoAgent.isValidRecord() && cell.getColumnIndex() <= noOfColumns) {
                                     switch (cell.getColumnIndex()) {
-                                        case 0 -> repoAgent.setAgentName(POIDataset.setUpPOIDataType_Identifier(cell));
-                                        case 1 -> repoAgent.setEmailAgent(POIDataset.setUpPOIDataType_Identifier(cell));
-                                        case 2 -> repoAgent.setDepotAgent(POIDataset.setUpPOIDataType_Identifier(cell));
-                                        case 3 -> repoAgent.setRolAgent(POIDataset.setUpPOIDataType_Identifier(cell));
+                                        case 0:
+                                            repoAgent.setAgentName(POIDataset.setUpPOIDataType_Identifier(cell));
+                                            break;
+                                        case 1:
+                                            repoAgent.setEmailAgent(POIDataset.setUpPOIDataType_Identifier(cell));
+                                            break;
+                                        case 2:
+                                            repoAgent.setDepotAgent(POIDataset.setUpPOIDataType_Identifier(cell));
+                                            break;
+                                        case 3:
+                                            repoAgent.setRolAgent(POIDataset.setUpPOIDataType_Identifier(cell));
+                                            break;
                                     }
                                 }
                             }

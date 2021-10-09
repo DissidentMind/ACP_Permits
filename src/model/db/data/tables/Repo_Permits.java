@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Repo_Permits {
 
-    private List<String> lstItem = new ArrayList<String>();
+    private final List<String> lstItem = new ArrayList<String>();
     private String idCruce;
     private String permitName;
     private String permitDescription;
