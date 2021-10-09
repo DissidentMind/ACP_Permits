@@ -1,5 +1,9 @@
 package model.db.data.processor;
 
+import model.db.data.dictionary.Repo_DDAgents;
+import model.db.utils.Db_Utility;
+import vault.VaultValuesLoader;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -53,18 +57,23 @@ public class TestStructureArray_Agents {
         }
     }
 
-    public void
+    public void TestStructureArray_Agents(
+            String tableName, String insertQry, String pathFile, int currentTab,
+            Connection currentConnection, int totalColumns, int totalRows,
+            Repo_DDAgents repoAgent ) throws ClassNotFoundException, SQLException{
 
-    TestStructureArray_Agents(
-            String verifyQry, String insertQry,
-            String pathFile, int currentTab,
-            Connection currentConnection,
-            int totalColumns, int totalRows
-    ) throws ClassNotFoundException, SQLException{
+        VaultValuesLoader.setDefaultTable(tableName);
 
-
-
+        Db_Utility.TestConnection_JDBC(
+                VaultValuesLoader.getDefaultHost(),
+                VaultValuesLoader.getJdbcPort(),
+                VaultValuesLoader.getDefaultDBName(),
+                VaultValuesLoader.getDefaultTable()
+        );
     }
 
+    public static void main(String[] args) {
+
+    }
 
 }

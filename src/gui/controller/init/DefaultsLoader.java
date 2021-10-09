@@ -23,6 +23,10 @@ public class DefaultsLoader {
             ".zip", ".7z", ".rar", ".sql", ".mdb", ".email", ".msg", ".rtf", ".txt");
     public static final List<String> DEFAULT_IMAGE_EXTENSIONS = Arrays.asList(".png", ".gif", ".jpg", ".jpeg", ".tiff");
 
+    public static String REGEX_META_TVDR_OUT = "((TVDR)-(TGNH)-[a-zA-Z]*-([0-9]*)-([0-9]*[^_-a-zA-Z.\\\\/ ]))";
+    public static String REGEX_META_TVDR_IN = "((TVDR)-([a-zA-Z]*)-(TGNH)-([0-9]*)-([0-9]*[^_-a-zA-Z.\\\\/ ]))";
+    public static String REGEX_SENTENCE_STR = "[a-zA-Z-*?¡{}_.;:&%+!¿()0-9].*";
+
     public static String getTITLE() {
         return TITLE;
     }
@@ -63,4 +67,15 @@ public class DefaultsLoader {
         return DEFAULT_IMAGE_EXTENSIONS;
     }
 
+    public static String getRegexMetaTvdrOut() {
+        return REGEX_META_TVDR_OUT;
+    }
+
+    public static String getRegexMetaTvdrIn() {
+        return REGEX_META_TVDR_IN;
+    }
+
+    public static String getRegexSentenceStr() {
+        return REGEX_SENTENCE_STR;
+    }
 }
