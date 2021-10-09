@@ -8,7 +8,6 @@ import vault.VaultValuesLoader;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,8 +25,8 @@ public class TestStructure_Agents {
 
         String verifyQry = "SELECT COUNT(*) FROM ["+VaultValuesLoader.getDefaultDBName()+"].[rol].[AGENTS]";
         String insertQry = "INSERT INTO [rol].[AGENTS](AGENT,EMAIL_AGENT,DEPTO_AGENT,ROL_AGENT) VALUES (";
-        String pathFile =  "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\IT\\Paths-CSV-CopyFiles\\TVDR-Agents.xlsx";
-        //String pathFile = "D:\\DumpFiles\\TVDR-Agents.xlsx";
+        //String pathFile =  "C:\\Users\\fabio_rodriguez\\OneDrive - TransCanada Corporation\\Documents\\IT\\Paths-CSV-CopyFiles\\TVDR-Agents.xlsx";
+        String pathFile = "D:\\DumpFiles\\TVDR-Agents.xlsx";
 
         int currentTab = 0;
         int noOfColumns = 0;
@@ -47,7 +46,8 @@ public class TestStructure_Agents {
 
                 //Get the first row and count each header to consider each one as phtsicalcell
                 //considering that exist almost one column.
-                noOfColumns = firstSheet.getRow(0).getPhysicalNumberOfCells();
+                noOfColumns = firstSheet.getRow(1).getPhysicalNumberOfCells();
+
                 System.out.println("Columns Found: " + noOfColumns);
 
                 if(noOfColumns != 0) {
@@ -68,40 +68,26 @@ public class TestStructure_Agents {
 
                                 if (repoAgent.isValidRecord() && cell.getColumnIndex() <= noOfColumns) {
                                     switch (cell.getColumnIndex()) {
-                                        case 0:
-                                            repoAgent.setAgentName(POIDataset.setUpPOIDataType_Identifier(cell));
-                                            break;
-
-                                        case 1:
-                                            repoAgent.setEmailAgent(POIDataset.setUpPOIDataType_Identifier(cell));
-                                            break;
-
-                                        case 2:
-                                            repoAgent.setDepotAgent(POIDataset.setUpPOIDataType_Identifier(cell));
-                                            break;
-
-                                        case 3:
-                                            repoAgent.setRolAgent(POIDataset.setUpPOIDataType_Identifier(cell));
-                                            break;
+                                        case 0 -> repoAgent.setAgentName(POIDataset.setUpPOIDataType_Identifier(cell));
+                                        case 1 -> repoAgent.setEmailAgent(POIDataset.setUpPOIDataType_Identifier(cell));
+                                        case 2 -> repoAgent.setDepotAgent(POIDataset.setUpPOIDataType_Identifier(cell));
+                                        case 3 -> repoAgent.setRolAgent(POIDataset.setUpPOIDataType_Identifier(cell));
                                     }
                                 }
                             }
                         }
 
-                        if (repoAgent.isValidRecord() == true) {
+                        if (repoAgent.isValidRecord()) {
                             String query = insertQry + "'" + repoAgent.getAgentName() + "','" + repoAgent.getEmailAgent() + "','" + repoAgent.getDepotAgent() + "','" + repoAgent.getRolAgent() + "')";
                             System.out.println("Query: " + query);
                             Db_Utility.executeInsertWithKeys(currentConnection, query);
                         }
-                    }
-                    rs.close();
-                    stmt.closeOnCompletion();
 
+                        rs.close();
+                        stmt.closeOnCompletion();
+                    }
                 }//IF of validation to firt column
-            }catch (FileNotFoundException e){
-                e.printStackTrace();
-                currentConnection.close();
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
                 currentConnection.close();
             }

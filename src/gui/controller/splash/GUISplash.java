@@ -1,6 +1,7 @@
 package gui.controller.splash;
 
 import gui.desing.test.SplashLoaderLauncher;
+
 import javax.swing.*;
 
 public class GUISplash extends GUIListen{
