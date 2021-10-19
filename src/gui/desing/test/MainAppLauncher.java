@@ -1,7 +1,10 @@
 package gui.desing.test;
 
 import gui.controller.init.InitialStratupGui;
+import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
+import utils.files.FileSystem_Utility;
+import vault.VaultValuesLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,6 +50,7 @@ public class MainAppLauncher extends JFrame {
     private JComboBox selectStoreProc_List;
     private JButton addNewProcedureButton;
     private JCheckBox defaultDest_CheckBox;
+    private JTextField currentDestFolderPath_Txt;
     private ImageIcon srcImg;
     private JDialog jDial;
 
@@ -103,6 +107,7 @@ public class MainAppLauncher extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("BD Search");
+                SettingsStat.setDbSearchActive(btnDBSearch.getModel().isSelected());
             }
         });
 
@@ -110,12 +115,25 @@ public class MainAppLauncher extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("CSV Search");
+                SettingsStat.setCsvSearchActive(btnCSVSearch.getModel().isSelected());
             }
         });
 
         btnStartDownload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+
+                //System.out.println("Exist: "+ FileSystem_Utility.fileExistInPath(SettingsStat.getCurrentPathFolderDest()));
+                //createDirectoryAndGetPath
+
+                /*
+                1. Verificar si el path es correcto
+                2. Verificar si existe el path
+                   OK
+                   Procede
+                   ELSE
+                   Notifación de Error
+                 */
                 System.out.println("Start Download...");
             }
         });
@@ -154,6 +172,33 @@ public class MainAppLauncher extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
+            }
+        });
+        useDefaultLocationCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                /*
+                Si está en false (default) se puede editar cualquier dirección
+                Si esta en true carga por default la ubicación por default en la configuración.
+                 */
+
+                if(useDefaultLocationCheckBox.getModel().isSelected())
+                {
+                    String currentDefaultPath = VaultValuesLoader.getDefaultDowPathFol();
+                    currentDestFolderPath_Txt.setEditable(false);
+                    currentDestFolderPath_Txt.setText(currentDefaultPath);
+                    SettingsStat.setCurrentPathFolderDest(currentDefaultPath);
+
+                }else{
+                    currentDestFolderPath_Txt.setEditable(true);
+                    currentDestFolderPath_Txt.setText("");
+                    SettingsStat.setCurrentPathFolderDest(currentDestFolderPath_Txt.getText());
+                }
+
+                //SettingsStat.setUseAsDefaultDestLocation(useDefaultLocationCheckBox.getModel().isSelected());
+                System.out.println("Check:"+useDefaultLocationCheckBox.getModel().isSelected());
+                System.out.println("Path: "+SettingsStat.getCurrentPathFolderDest());
             }
         });
     }

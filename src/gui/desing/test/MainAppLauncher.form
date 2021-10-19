@@ -259,7 +259,7 @@
                           <text value="Current Destination:  "/>
                         </properties>
                       </component>
-                      <component id="53eda" class="javax.swing.JTextField" default-binding="true">
+                      <component id="53eda" class="javax.swing.JTextField" binding="currentDestFolderPath_Txt">
                         <constraints/>
                         <properties/>
                       </component>
