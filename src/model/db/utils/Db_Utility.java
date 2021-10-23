@@ -179,6 +179,11 @@ public class Db_Utility {
         }
     }
 
+    /**
+     * Function that returns a connection with the default host and the required Database
+     * @param db DatabaseName
+     * @return Connection
+     */
     public static Connection startConnection_WAuth(String db) {
         Connection con = null;
         try {
@@ -190,6 +195,7 @@ public class Db_Utility {
             //stmt.executeQuery("SET NOCOUNT ON");
         } catch (Exception e) {
             System.out.println("Error: " + e);
+            return null;
         }
         return con;
     }

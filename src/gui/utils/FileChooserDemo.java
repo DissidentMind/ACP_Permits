@@ -43,14 +43,12 @@ public class FileChooserDemo extends JPanel
 
         //Create the open button.  We use the image from the JLF
         //Graphics Repository (but we extracted it from the jar).
-        openButton = new JButton("Open a File...",
-                createImageIcon("images/Open16.gif"));
+        openButton = new JButton("Open a File...",createImageIcon("images/Open16.gif"));
         openButton.addActionListener(this);
 
         //Create the save button.  We use the image from the JLF
         //Graphics Repository (but we extracted it from the jar).
-        saveButton = new JButton("Save a File...",
-                createImageIcon("images/Save16.gif"));
+        saveButton = new JButton("Save a File...",createImageIcon("images/Save16.gif"));
         saveButton.addActionListener(this);
 
         //For layout purposes, put the buttons in a separate panel

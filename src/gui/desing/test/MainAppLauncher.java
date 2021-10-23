@@ -3,6 +3,7 @@ package gui.desing.test;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
+import gui.utils.FileChooser_Utility;
 import utils.files.FileSystem_Utility;
 import vault.VaultValuesLoader;
 
@@ -34,7 +35,7 @@ public class MainAppLauncher extends JFrame {
     private JButton runSearch;
     private JTextField csvFilePath_Chooser;
     private JButton btnSelectBulkCsv;
-    private JTextField logsFilePath_Chooser;
+    private JTextField logsFolderPath_Txt;
     private JButton btnSelectDest;
     private JPanel srcTab;
     private JPanel dwnTab;
@@ -54,6 +55,8 @@ public class MainAppLauncher extends JFrame {
     private ImageIcon srcImg;
     private JDialog jDial;
 
+    private FileChooser_Utility chooserFile;
+
     public MainAppLauncher() {
         super("Permits Documents Downloader Manager - Ver. 1.0.0.2021");
         /*
@@ -62,6 +65,9 @@ public class MainAppLauncher extends JFrame {
         setContentPane(frameJPanelParent);
         createUIComponents();
         InitialStratupGui.loadingDBApp();
+
+        //Set Default JPanel Parent to set at middle the messages
+        SettingsStat.setCurrentPanel(frameJPanelParent);
 
         //Lambda expression equivalent to new Runnable with out override the run method
        /* SwingUtilities.invokeLater(new Runnable() {
@@ -98,7 +104,8 @@ public class MainAppLauncher extends JFrame {
                     //SearchFile.runProcessByIdFile(itemSearch_Txt.getText(), srchResult_JTable);
                     System.out.println("Input: "+itemSearch_Txt.getText());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Search Parameter is Empty", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Search Parameter is Empty", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    //JOptionPane.showInternalMessageDialog(SettingsStat.getCurrentPanel(), "information","information", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -122,10 +129,8 @@ public class MainAppLauncher extends JFrame {
         btnStartDownload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 //System.out.println("Exist: "+ FileSystem_Utility.fileExistInPath(SettingsStat.getCurrentPathFolderDest()));
                 //createDirectoryAndGetPath
-
                 /*
                 1. Verificar si el path es correcto
                 2. Verificar si existe el path
@@ -134,6 +139,11 @@ public class MainAppLauncher extends JFrame {
                    ELSE
                    Notifación de Error
                  */
+
+                if(!FileSystem_Utility.folderExistInPath(currentDestFolderPath_Txt.getText())){
+                    JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Destination Folder doesn´t exist", "File System Error", JOptionPane.ERROR_MESSAGE);
+                }
+
                 System.out.println("Start Download...");
             }
         });
@@ -148,16 +158,11 @@ public class MainAppLauncher extends JFrame {
         btnSetDowDestination.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                final JFileChooser fc = new JFileChooser();
-                fc.setDialogTitle("Select Download Destination...");
-                int returnVal = fc.showOpenDialog(frameJPanelParent);
-
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
-                    System.out.println("Opening: " + file.getName());
-                } else {
-                    System.out.println("Open command cancelled by user.");
-                }
+                SwingUtilities.invokeLater(() -> {
+                    UIManager.put("swing.boldMetal", Boolean.FALSE);
+                    //Parameter as 2: Folder Chooser
+                    FileChooser_Utility.createAndShowGUI(1);
+                });
             }
         });
 
@@ -199,6 +204,58 @@ public class MainAppLauncher extends JFrame {
                 //SettingsStat.setUseAsDefaultDestLocation(useDefaultLocationCheckBox.getModel().isSelected());
                 System.out.println("Check:"+useDefaultLocationCheckBox.getModel().isSelected());
                 System.out.println("Path: "+SettingsStat.getCurrentPathFolderDest());
+            }
+        });
+        btnSelectBulkCsv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("Bulk Select");
+
+                SwingUtilities.invokeLater(() -> {
+                    UIManager.put("swing.boldMetal", Boolean.FALSE);
+                    //Parameter as 2: Folder Chooser
+                    FileChooser_Utility.createAndShowGUI(0);
+                });
+            }
+        });
+        btnSelectDest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("Bulk Select");
+
+                SwingUtilities.invokeLater(() -> {
+                    UIManager.put("swing.boldMetal", Boolean.FALSE);
+                    //Parameter as 2: Folder Chooser
+                    FileChooser_Utility.createAndShowGUI(1);
+                });
+            }
+        });
+        btnExploreCSV.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("CSV Explorer Select");
+
+                SwingUtilities.invokeLater(() -> {
+                    UIManager.put("swing.boldMetal", Boolean.FALSE);
+                    //Parameter as 2: Folder Chooser
+                    FileChooser_Utility.createAndShowGUI(1);
+                });
+            }
+        });
+        defaultDest_CheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(defaultDest_CheckBox.getModel().isSelected())
+                {
+                    String currentLogPath = VaultValuesLoader.getDefaultLogsPath();
+                    logsFolderPath_Txt.setEditable(false);
+                    logsFolderPath_Txt.setText(currentLogPath);
+                    SettingsStat.setCurrentLogsDest(currentLogPath);
+                }else{
+                    logsFolderPath_Txt.setEditable(true);
+                    logsFolderPath_Txt.setText("");
+                    SettingsStat.setCurrentLogsDest(logsFolderPath_Txt.getText());
+                }
             }
         });
     }
@@ -278,7 +335,6 @@ public class MainAppLauncher extends JFrame {
 
         btnStoreProcedure.setIcon(imgsLoader.getExecIcon());
         addNewProcedureButton.setIcon(imgsLoader.getAddIcon());
-
 
     }
 }

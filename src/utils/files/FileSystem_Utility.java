@@ -11,6 +11,20 @@ import java.util.List;
 
 public class FileSystem_Utility {
     /**
+     * Function that verify if folder exist.
+     * @param {String} folderPathString
+     * @return
+     */
+    public static Boolean folderExistInPath(String folderPathString){
+        boolean flagConfirm = false;
+        File f = new File(folderPathString);
+        if (f.exists() && f.isDirectory()){
+            flagConfirm = true;
+        }
+        return flagConfirm;
+    }
+
+    /**
      * Function that verify if file exist.
      *
      * @param {String} filePathString
