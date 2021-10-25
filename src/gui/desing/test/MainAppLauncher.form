@@ -396,7 +396,7 @@
                           <text value="Select CSV File:  "/>
                         </properties>
                       </component>
-                      <component id="3968" class="javax.swing.JTextField" default-binding="true">
+                      <component id="3968" class="javax.swing.JTextField" binding="selectedCSVFile_Txt">
                         <constraints/>
                         <properties/>
                       </component>
@@ -573,7 +573,7 @@
                           <text value="  CSV File:   "/>
                         </properties>
                       </component>
-                      <component id="9193d" class="javax.swing.JTextField" binding="csvFilePath_Chooser">
+                      <component id="9193d" class="javax.swing.JTextField" binding="csvFilePath_Txt">
                         <constraints/>
                         <properties/>
                       </component>

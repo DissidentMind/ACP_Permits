@@ -4,7 +4,10 @@ import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
 import gui.utils.FileChooser_Utility;
+import gui.utils.TestFileChooser;
+import model.process.SearchFile;
 import utils.files.FileSystem_Utility;
+import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
 
 import javax.swing.*;
@@ -12,7 +15,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
+import java.util.Iterator;
+import java.util.Map;
 
 public class MainAppLauncher extends JFrame {
     ImgsLoader imgsLoader;
@@ -33,7 +37,7 @@ public class MainAppLauncher extends JFrame {
     private JComboBox selectTable_List;
     private JTextArea textArea1;
     private JButton runSearch;
-    private JTextField csvFilePath_Chooser;
+    private JTextField csvFilePath_Txt;
     private JButton btnSelectBulkCsv;
     private JTextField logsFolderPath_Txt;
     private JButton btnSelectDest;
@@ -52,6 +56,7 @@ public class MainAppLauncher extends JFrame {
     private JButton addNewProcedureButton;
     private JCheckBox defaultDest_CheckBox;
     private JTextField currentDestFolderPath_Txt;
+    private JTextField selectedCSVFile_Txt;
     private ImageIcon srcImg;
     private JDialog jDial;
 
@@ -68,30 +73,6 @@ public class MainAppLauncher extends JFrame {
 
         //Set Default JPanel Parent to set at middle the messages
         SettingsStat.setCurrentPanel(frameJPanelParent);
-
-        //Lambda expression equivalent to new Runnable with out override the run method
-       /* SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                SplashLoaderLauncher dialog = new SplashLoaderLauncher();
-                dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
-                dialog.setVisible(true);
-                dialog.setTitle("Loading... ");
-                dialog.setSize(560, 280);
-                dialog.setLocationRelativeTo(null);
-                dialog.updateProgressBar();
-            }
-        });*/
-
-        //SplashLoaderLauncher splashL = new SplashLoaderLauncher();
-        //jDial = new SplashLoaderLauncher();
-        //jDial.setVisible(true);
-        /*SplashLoaderLauncher dialog = new SplashLoaderLauncher();
-        dialog.setSize(520,360);
-        dialog.pack();
-        dialog.setVisible(true);*/
-        //System.exit(0);
-
         /*
         Endig Init Validations
          */
@@ -100,9 +81,22 @@ public class MainAppLauncher extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Action Run");
                 if (!itemSearch_Txt.getText().equals("")) {
-                    //Pass parameter to search and the object to fill
-                    //SearchFile.runProcessByIdFile(itemSearch_Txt.getText(), srchResult_JTable);
                     System.out.println("Input: "+itemSearch_Txt.getText());
+                    //SearchFile.runProcessByIdFile(itemSearch_Txt.getText(), srchResult_JTable);
+
+                    Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SearchFile.getListCurrentCommunication(), itemSearch_Txt.getText());
+                        if (map.isEmpty()) {
+                            System.out.println("Non Result Found");
+                            main(new String[] {"a"});
+                        }else{
+                            Iterator<Integer> mapIterator = map.keySet().iterator();
+                            while (mapIterator.hasNext()) {
+                                int key=(int)mapIterator.next();
+                                System.out.println(key+" > "+map.get(key));
+                            }
+                        }
+
+
                 } else {
                     JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Search Parameter is Empty", "Input Error", JOptionPane.ERROR_MESSAGE);
                     //JOptionPane.showInternalMessageDialog(SettingsStat.getCurrentPanel(), "information","information", JOptionPane.INFORMATION_MESSAGE);
@@ -160,8 +154,9 @@ public class MainAppLauncher extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 SwingUtilities.invokeLater(() -> {
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
-                    //Parameter as 2: Folder Chooser
-                    FileChooser_Utility.createAndShowGUI(1);
+                    System.out.println("File Chooser Test - Download");
+                    //System.out.println("Download Path Dest: "+TestFileChooser.createAndShowGUI(1));
+                    currentDestFolderPath_Txt.setText(TestFileChooser.createAndShowGUI(1));
                 });
             }
         });
@@ -194,11 +189,13 @@ public class MainAppLauncher extends JFrame {
                     currentDestFolderPath_Txt.setEditable(false);
                     currentDestFolderPath_Txt.setText(currentDefaultPath);
                     SettingsStat.setCurrentPathFolderDest(currentDefaultPath);
+                    //currentDestFolderPath_Txt.enable(false);
 
                 }else{
                     currentDestFolderPath_Txt.setEditable(true);
                     currentDestFolderPath_Txt.setText("");
                     SettingsStat.setCurrentPathFolderDest(currentDestFolderPath_Txt.getText());
+                    //currentDestFolderPath_Txt.enable(true);
                 }
 
                 //SettingsStat.setUseAsDefaultDestLocation(useDefaultLocationCheckBox.getModel().isSelected());
@@ -213,8 +210,9 @@ public class MainAppLauncher extends JFrame {
 
                 SwingUtilities.invokeLater(() -> {
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
-                    //Parameter as 2: Folder Chooser
-                    FileChooser_Utility.createAndShowGUI(0);
+                    System.out.println("File Chooser Test - Bulk CSV");
+                    //System.out.println("Bulk Path: "+TestFileChooser.createAndShowGUI(0));
+                    csvFilePath_Txt.setText(TestFileChooser.createAndShowGUI(0));
                 });
             }
         });
@@ -225,8 +223,9 @@ public class MainAppLauncher extends JFrame {
 
                 SwingUtilities.invokeLater(() -> {
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
-                    //Parameter as 2: Folder Chooser
-                    FileChooser_Utility.createAndShowGUI(1);
+                    System.out.println("File Chooser Test - CSV Destination");
+                    //System.out.println("Destination Path: "+TestFileChooser.createAndShowGUI(1));
+                    logsFolderPath_Txt.setText(TestFileChooser.createAndShowGUI(1));
                 });
             }
         });
@@ -236,9 +235,21 @@ public class MainAppLauncher extends JFrame {
                 System.out.println("CSV Explorer Select");
 
                 SwingUtilities.invokeLater(() -> {
+
+                    String newPathCsvFile = TestFileChooser.createAndShowGUI(0);
+
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
                     //Parameter as 2: Folder Chooser
-                    FileChooser_Utility.createAndShowGUI(1);
+                    //FileChooser_Utility.createAndShowGUI(1);
+
+                    System.out.println("File Chooser Test - Find CSV");
+                    //TestFileChooser.createAndShowGUI(0);
+                    //System.out.println("Path Explorer CSV: "+TestFileChooser.createAndShowGUI(0));
+
+                    selectedCSVFile_Txt.setText(newPathCsvFile);
+
+                    //selectedCSVFile_Txt.setText(TestFileChooser.createAndShowGUI(0));
+
                 });
             }
         });

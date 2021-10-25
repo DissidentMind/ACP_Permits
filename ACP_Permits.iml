@@ -7,6 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="mssql-jdbc-9.4.0.jre8" level="project" />
+    <orderEntry type="library" exported="" name="mssql-jdbc-9.4.0.jre8" level="project" />
+    <orderEntry type="library" name="poi-4.1.2" level="project" />
   </component>
 </module>

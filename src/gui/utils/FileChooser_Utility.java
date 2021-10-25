@@ -7,33 +7,28 @@ import java.io.File;
 
 public class FileChooser_Utility extends JPanel {
 
-    private static JFileChooser fc;
     private static final String newline = "\n";
-    private int returnVal;
-    /**
-     * Functon that callss
-     * @param selectFileChooser
-     */
-    public FileChooser_Utility(int selectFileChooser){
+
+    public static String FileChooserGetPath(int selectFileChooser) {
         String fileChooserPath = "";
-        fc = new JFileChooser();
-        switch (selectFileChooser){
+        JFileChooser fc = new JFileChooser();
+        switch (selectFileChooser) {
             case 0: //Open Files
                 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 //returnVal = fc.showOpenDialog(FileChooser_Utility.this);
-                returnVal = fc.showOpenDialog(SettingsStat.getCurrentParentPanel());
+                int returnVal = fc.showOpenDialog(SettingsStat.getCurrentParentPanel());
 
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName() + "." + newline);
-                    System.out.println("File Path: "+file.getAbsolutePath());
+                    System.out.println("File Path: " + file.getAbsolutePath());
 
-                    //fileChooserPath = file.getAbsolutePath();
+                    fileChooserPath = file.getAbsolutePath();
 
                 } else {
                     System.out.println("Open command cancelled by user." + newline);
                 }
-            break;
+                break;
             case 1: //Open Folder - Set Destination Folder
                 fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 //returnVal = fc.showOpenDialog(FileChooser_Utility.this);
@@ -43,9 +38,9 @@ public class FileChooser_Utility extends JPanel {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
                     System.out.println("Opening: " + file.getName() + "." + newline);
-                    System.out.println("File Path: "+file.getAbsolutePath());
+                    System.out.println("File Path: " + file.getAbsolutePath());
 
-                    //fileChooserPath = file.getAbsolutePath();
+                    fileChooserPath = file.getAbsolutePath();
 
                 } else {
                     System.out.println("Open command cancelled by user." + newline);
@@ -61,20 +56,13 @@ public class FileChooser_Utility extends JPanel {
                     //This is where a real application would save the file.
                     System.out.println("Saving: " + file.getName() + "." + newline);
 
-                    //fileChooserPath = file.getAbsolutePath();
+                    fileChooserPath = file.getAbsolutePath();
 
                 } else {
                     System.out.println("Save command cancelled by user." + newline);
                 }
                 break;
         }
-    }
-
-    public static void createAndShowGUI(int OptionChooser) {
-        JFrame frame = new JFrame("FileChooserDemo");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.add(new FileChooser_Utility(OptionChooser));
-        frame.pack();
-        frame.setVisible(true);
+        return fileChooserPath;
     }
 }

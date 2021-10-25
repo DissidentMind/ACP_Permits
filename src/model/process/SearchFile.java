@@ -11,12 +11,12 @@ public class SearchFile {
 
     private static final char DEFAULT_SEPARATOR = ',';
     private static final char DEFAULT_QUOTE = '"';
-    List<String> listCommunications = new ArrayList<String>();
+    private static List<String> listCommunications = new ArrayList<String>();
 
-    public List<String> getListCurrentCommunication() {
-        return this.listCommunications;
+    public static List<String> getListCurrentCommunication() {
+        return listCommunications;
     }
-    public String getListCommunications(int indexGet) {
+    public static String getListCommunications(int indexGet) {
         return listCommunications.get(indexGet);
     }
     public void setListCurrentCommunication(List<String> lst) {
