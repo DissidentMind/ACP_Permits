@@ -1,44 +1,40 @@
 package model.process;
 
+import gui.controller.init.SettingsStat;
 import utils.files.FileCSV_Utility;
+import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class SearchFile {
 
     private static final char DEFAULT_SEPARATOR = ',';
     private static final char DEFAULT_QUOTE = '"';
-    private static List<String> listCommunications = new ArrayList<String>();
 
-    public static List<String> getListCurrentCommunication() {
-        return listCommunications;
-    }
-    public static String getListCommunications(int indexGet) {
-        return listCommunications.get(indexGet);
-    }
-    public void setListCurrentCommunication(List<String> lst) {
-        this.listCommunications = lst;
-    }
-
-    public SearchFile() {
-        FileCSV_Utility getText = new FileCSV_Utility();
-        try {
-            this.setListCurrentCommunication(getText.getRowStringFromCSVtoList(VaultValuesLoader.getDefaultLog_TVDR(), 0));
-        } catch (Exception e) {
-            e.printStackTrace();
+    public SearchFile(String paramToSearch) {
+        Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), paramToSearch);
+        if (map.isEmpty()) {
+            JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Non Items Availables in List to Complete Search", "Input Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            Iterator<Integer> mapIterator = map.keySet().iterator();
+            while (mapIterator.hasNext()) {
+                int key=mapIterator.next();
+                System.out.println(key+" > "+map.get(key));
+            }
         }
     }
 
     public void copyFileToDestination(String idP, int idR) {
         try {
-            File temp = new File(this.getListCommunications(idR));
+            File temp = new File(SettingsStat.getItemsInCsvFileByIndexId(idR));
             System.out.println("Name File: " + temp.getName());
-
             String tempDestPath = VaultValuesLoader.defaultDowPathFol.concat(idP + "\\").concat(temp.getName());
-
             File dest = new File(tempDestPath);
             SearchFile.fileCopier(temp, dest);
             System.out.println();
@@ -47,7 +43,6 @@ public class SearchFile {
         } catch (NullPointerException e) {
             System.out.println("Error in file: " + e);
         }
-        //main(new String[] {"a"});
     }
 
     public void creationOfFoldersFromListofCSVFile() {
@@ -55,7 +50,7 @@ public class SearchFile {
         FileCSV_Utility getText = new FileCSV_Utility();
 
         try {
-            listCommunications = getText.getRowStringFromCSVtoList(VaultValuesLoader.defaultLog_TVDR, 0);
+            listCommunications = FileCSV_Utility.getRowStringFromCSVtoList(VaultValuesLoader.defaultLog_TVDR, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }

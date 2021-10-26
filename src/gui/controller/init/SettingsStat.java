@@ -1,6 +1,10 @@
 package gui.controller.init;
 
+import vault.VaultValuesLoader;
+
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsStat {
     private static boolean dbSearchActive = false;
@@ -15,8 +19,25 @@ public class SettingsStat {
 
     private static JPanel currentParentPanel = null;
     private static boolean datasetResultNotNull = false;
-
     private static String currentSelectedCSV = "";
+
+    private static List<String> itemsInCsvFile = new ArrayList<String>();
+
+    public static List<String> getItemsInCsvFile() {
+        return itemsInCsvFile;
+    }
+
+    public static String getItemsInCsvFileByIndexId(int index) {
+        return itemsInCsvFile.get(index);
+    }
+
+    public static void setItemsInCsvFile(List<String> itemsInCsvFile) {
+        SettingsStat.itemsInCsvFile = itemsInCsvFile;
+    }
+
+    public static int getTotalLogsInCSVFile(){
+        return SettingsStat.itemsInCsvFile.size();
+    }
 
     public static JPanel getCurrentParentPanel() {
         return currentParentPanel;

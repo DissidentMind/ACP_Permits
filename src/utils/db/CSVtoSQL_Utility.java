@@ -1,4 +1,4 @@
-package model.db.utils;
+package utils.db;
 
 import gui.controller.init.DefaultsLoader;
 import utils.files.FileCSV_Utility;
@@ -26,7 +26,7 @@ public class CSVtoSQL_Utility {
         String outputOn = "');\n";
         String failStr = "";
 
-        listCommunications = getText.getRowStringFromCSVtoList(PATH_FILE_CSV,0);
+        listCommunications = FileCSV_Utility.getRowStringFromCSVtoList(PATH_FILE_CSV,0);
 
         for(int i = 0; i < listCommunications.size(); i++){
             if(getRegexValid.findCurrentIncidenteInString(listCommunications.get(i), DefaultsLoader.getRegexMetaTvdrOut()) != null){

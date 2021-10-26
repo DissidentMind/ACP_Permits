@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
-public class MkDirFolder_Utility {
+public class MkFolder_Utility {
     /**
      * @param origin
      * @param destDir

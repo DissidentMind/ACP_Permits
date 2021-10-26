@@ -1,4 +1,4 @@
-package model.db.utils;
+package utils.db;
 
 import gui.controller.init.ConnectionStat;
 import vault.VaultValuesLoader;
@@ -112,7 +112,9 @@ public class Db_Utility {
      * @param db
      * @param table
      */
-    public static void TestConnection_JDBC(String server, int port, String db, String table) {
+
+    public static boolean TestConnection_JDBC(String server, int port, String db, String table) {
+        boolean dBtestSucess = true;
         ConnectionStat connectStatus = new ConnectionStat();
         try {
             Class.forName(VaultValuesLoader.sqlSerClass);
@@ -143,10 +145,10 @@ public class Db_Utility {
             stmt.close();
             con.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "The connection to Database is not available. Verify.", "DB Verification Error", JOptionPane.ERROR_MESSAGE);
+            dBtestSucess = false;
             System.out.println("Error: " + e);
-            System.exit(0);
         }
+        return dBtestSucess;
     }
 
     public static boolean TestTableExist_JDBC(String table) {

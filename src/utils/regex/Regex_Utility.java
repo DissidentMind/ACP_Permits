@@ -1,7 +1,7 @@
 package utils.regex;
 
 import gui.controller.init.DefaultsLoader;
-import utils.files.CopyFiles_Utility;
+import utils.files.FilesCopier_Utility;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class Regex_Utility {
 
                     if (!matcherAvoid.find()) {
 
-                        CopyFiles_Utility getCopyFile = new CopyFiles_Utility();
+                        FilesCopier_Utility getCopyFile = new FilesCopier_Utility();
                         getCopyFile.generateCopyFileInPath(listToFind.get(i), destinationPath);
 
                         System.out.println("File Copied: " + listToFind.get(i));
@@ -203,13 +203,10 @@ public class Regex_Utility {
      * @return
      */
     public static HashMap<Integer, String> getHashIfCoincidenceFound(List<String> inputList, String inputSearchParam) {
-
         HashMap<Integer, String> map = new HashMap<>();
         Regex_Utility frU = new Regex_Utility();
-
         for (int i = 0; i < inputList.size(); i++) {
             if (frU.findCurrentIncidenteInString(inputList.get(i), inputSearchParam) != null) {
-
                 File tmp = new File(inputList.get(i));
                 map.put(i, tmp.getName());
             }
@@ -224,7 +221,6 @@ public class Regex_Utility {
         Matcher matcher = pattern.matcher(textToReview);
         if (matcher.find()) {
             rtnStr = matcher.group(0);
-
             //this.setListOutLetters(matcher.group(2));
             //this.setListInLetters(matcher.group(3));
         }

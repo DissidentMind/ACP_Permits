@@ -1,4 +1,4 @@
-package gui.utils;
+package utils.choosers;
 
 import gui.controller.init.SettingsStat;
 

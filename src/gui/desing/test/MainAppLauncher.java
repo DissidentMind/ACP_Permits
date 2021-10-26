@@ -3,8 +3,8 @@ package gui.desing.test;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
-import gui.utils.FileChooser_Utility;
-import gui.utils.TestFileChooser;
+import utils.choosers.FileChooser_Utility;
+import utils.choosers.RunFileChooser;
 import model.process.SearchFile;
 import utils.files.FileSystem_Utility;
 import utils.regex.Regex_Utility;
@@ -80,26 +80,29 @@ public class MainAppLauncher extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Action Run");
+
                 if (!itemSearch_Txt.getText().equals("")) {
                     System.out.println("Input: "+itemSearch_Txt.getText());
-                    //SearchFile.runProcessByIdFile(itemSearch_Txt.getText(), srchResult_JTable);
 
-                    Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SearchFile.getListCurrentCommunication(), itemSearch_Txt.getText());
-                        if (map.isEmpty()) {
-                            System.out.println("Non Result Found");
-                            main(new String[] {"a"});
-                        }else{
-                            Iterator<Integer> mapIterator = map.keySet().iterator();
-                            while (mapIterator.hasNext()) {
-                                int key=(int)mapIterator.next();
-                                System.out.println(key+" > "+map.get(key));
+                    SearchFile newSearch = new SearchFile(itemSearch_Txt.getText());
+
+/*                    if(!SettingsStat.getItemsInCsvFile().isEmpty()){
+                            Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
+                            if (map.isEmpty()) {
+                                System.out.println("Non Result Found");
+                                //main(new String[] {"a"});
+                            }else{
+                                Iterator<Integer> mapIterator = map.keySet().iterator();
+                                while (mapIterator.hasNext()) {
+                                    int key= mapIterator.next();
+                                    System.out.println(key+" > "+map.get(key));
+                                }
                             }
-                        }
-
-
-                } else {
+                        } else{
+                        JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Non Items Availables in List to Complete Search", "Input Error", JOptionPane.ERROR_MESSAGE);
+                     }*/
+                    }else {
                     JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Search Parameter is Empty", "Input Error", JOptionPane.ERROR_MESSAGE);
-                    //JOptionPane.showInternalMessageDialog(SettingsStat.getCurrentPanel(), "information","information", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -155,8 +158,8 @@ public class MainAppLauncher extends JFrame {
                 SwingUtilities.invokeLater(() -> {
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
                     System.out.println("File Chooser Test - Download");
-                    //System.out.println("Download Path Dest: "+TestFileChooser.createAndShowGUI(1));
-                    currentDestFolderPath_Txt.setText(TestFileChooser.createAndShowGUI(1));
+                    //System.out.println("Download Path Dest: "+RunFileChooser.createAndShowGUI(1));
+                    currentDestFolderPath_Txt.setText(RunFileChooser.createAndShowGUI(1));
                 });
             }
         });
@@ -211,8 +214,8 @@ public class MainAppLauncher extends JFrame {
                 SwingUtilities.invokeLater(() -> {
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
                     System.out.println("File Chooser Test - Bulk CSV");
-                    //System.out.println("Bulk Path: "+TestFileChooser.createAndShowGUI(0));
-                    csvFilePath_Txt.setText(TestFileChooser.createAndShowGUI(0));
+                    //System.out.println("Bulk Path: "+RunFileChooser.createAndShowGUI(0));
+                    csvFilePath_Txt.setText(RunFileChooser.createAndShowGUI(0));
                 });
             }
         });
@@ -224,8 +227,8 @@ public class MainAppLauncher extends JFrame {
                 SwingUtilities.invokeLater(() -> {
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
                     System.out.println("File Chooser Test - CSV Destination");
-                    //System.out.println("Destination Path: "+TestFileChooser.createAndShowGUI(1));
-                    logsFolderPath_Txt.setText(TestFileChooser.createAndShowGUI(1));
+                    //System.out.println("Destination Path: "+RunFileChooser.createAndShowGUI(1));
+                    logsFolderPath_Txt.setText(RunFileChooser.createAndShowGUI(1));
                 });
             }
         });
@@ -236,20 +239,17 @@ public class MainAppLauncher extends JFrame {
 
                 SwingUtilities.invokeLater(() -> {
 
-                    String newPathCsvFile = TestFileChooser.createAndShowGUI(0);
-
+                    String newPathCsvFile = RunFileChooser.createAndShowGUI(0);
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
                     //Parameter as 2: Folder Chooser
                     //FileChooser_Utility.createAndShowGUI(1);
-
                     System.out.println("File Chooser Test - Find CSV");
-                    //TestFileChooser.createAndShowGUI(0);
-                    //System.out.println("Path Explorer CSV: "+TestFileChooser.createAndShowGUI(0));
+                    //RunFileChooser.createAndShowGUI(0);
+                    //System.out.println("Path Explorer CSV: "+RunFileChooser.createAndShowGUI(0));
 
                     selectedCSVFile_Txt.setText(newPathCsvFile);
 
-                    //selectedCSVFile_Txt.setText(TestFileChooser.createAndShowGUI(0));
-
+                    //selectedCSVFile_Txt.setText(RunFileChooser.createAndShowGUI(0));
                 });
             }
         });

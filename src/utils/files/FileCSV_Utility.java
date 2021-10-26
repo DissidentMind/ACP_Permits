@@ -78,10 +78,9 @@ public class FileCSV_Utility {
      * @return
      * @throws Exception
      */
-    public List<String> getRowStringFromCSVtoList(String csvFilePathPath, int columnInput) throws Exception {
+    public static List<String> getRowStringFromCSVtoList(String csvFilePathPath, int columnInput) throws Exception {
         List<String> list = new ArrayList<String>();
         Scanner scanner = new Scanner(new File(csvFilePathPath));
-
         while (scanner.hasNext()) {
             List<String> line = parseLine(scanner.nextLine());
             list.add(line.get(columnInput));

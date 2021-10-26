@@ -1,14 +1,8 @@
-package gui.utils;
+package utils.choosers;
 
 import javax.swing.*;
 
-public class TestFileChooser extends JFrame {
-
-    public TestFileChooser(){
-
-        //createAndShowGUI(2);
-    }
-
+public class RunFileChooser extends JFrame {
     public static String createAndShowGUI(int OptionChooser) {
         for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             if ("Nimbus".equals(info.getName())) {
@@ -22,8 +16,6 @@ public class TestFileChooser extends JFrame {
                 break;
             }
         }
-        //System.out.println("Path -> "+FileChooser_Utility.FileChooserGetPath(OptionChooser));
         return FileChooser_Utility.FileChooserGetPath(OptionChooser);
     }
-
 }

@@ -2,7 +2,7 @@ package utils.files;
 
 import java.io.*;
 
-public class CopyFiles_Utility {
+public class FilesCopier_Utility {
 
     public void generateCopyFileInPath(String tempFile, String destPath) {
         try {
