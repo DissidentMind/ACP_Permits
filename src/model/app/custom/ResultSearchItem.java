@@ -23,6 +23,7 @@ public class ResultSearchItem {
             rowData[1] = list.get(i).fileName;
             rowData[2] = list.get(i).pathFile;
             model.addRow(rowData);
+            //fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
         }
 
         jtable.setModel(model);

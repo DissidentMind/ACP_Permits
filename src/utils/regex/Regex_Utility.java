@@ -1,6 +1,7 @@
 package utils.regex;
 
 import gui.controller.init.DefaultsLoader;
+import model.process.Record;
 import utils.files.FilesCopier_Utility;
 
 import java.io.File;
@@ -212,6 +213,28 @@ public class Regex_Utility {
             }
         }
         return map;
+    }
+
+    /**
+     * Function that returns a Array List of Records that contains index, filename, path of the inputList that contains
+     * the parameter searched.
+     *
+     * @param inputList
+     * @param inputSearchParam
+     * @return
+     */
+    public static ArrayList<Record> getArrayListResultsIfCoincidenceFound(List<String> inputList,String inputSearchParam){
+        ArrayList<Record> rcdS = new ArrayList<Record>();
+        Regex_Utility frU = new Regex_Utility();
+
+        for (int i = 0; i < inputList.size(); i++) {
+            if (frU.findCurrentIncidenteInString(inputList.get(i), inputSearchParam) != null) {
+                File tmp = new File(inputList.get(i));
+                Record rd = new Record(i,tmp.getName(),tmp.getAbsolutePath());
+                rcdS.add(rd);
+            }
+        }
+        return rcdS;
     }
 
     //------------ Working and Tested ----------------------------

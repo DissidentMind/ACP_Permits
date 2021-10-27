@@ -18,6 +18,8 @@ public class SettingsStat {
     private static String currentStoreProcedure = "";
 
     private static JPanel currentParentPanel = null;
+    private static JTable searchResultTable = null;
+
     private static boolean datasetResultNotNull = false;
     private static String currentSelectedCSV = "";
 
@@ -41,6 +43,14 @@ public class SettingsStat {
 
     public static JPanel getCurrentParentPanel() {
         return currentParentPanel;
+    }
+
+    public static JTable getSearchResultTable() {
+        return searchResultTable;
+    }
+
+    public static void setSearchResultTable(JTable searchResultTable) {
+        SettingsStat.searchResultTable = searchResultTable;
     }
 
     public static void setCurrentParentPanel(JPanel currentParentPanel) {

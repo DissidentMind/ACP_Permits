@@ -1,6 +1,8 @@
 package model.process;
 
 import gui.controller.init.SettingsStat;
+import gui.desing.test.MainAppLauncher;
+import gui.render.JTableRenderer;
 import utils.files.FileCSV_Utility;
 import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
@@ -19,6 +21,15 @@ public class SearchFile {
 
     public SearchFile(String paramToSearch) {
         Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), paramToSearch);
+
+        /* Array List */
+        ArrayList<Record> resultsList = Regex_Utility.getArrayListResultsIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), paramToSearch);
+        System.out.println("List Result Size: "+resultsList.size());
+
+        JTableRenderer.updateJTableModelRecord(SettingsStat.getSearchResultTable());
+
+        //System.out.println(resultsList.get());
+        /* Array List */
 
         if (map.isEmpty()) {
             JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Non Items Availables in List to Complete Search", "Input Error", JOptionPane.ERROR_MESSAGE);

@@ -3,6 +3,7 @@ package gui.desing.test;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
+import model.process.SearchRecords_Model;
 import utils.choosers.FileChooser_Utility;
 import utils.choosers.RunFileChooser;
 import model.process.SearchFile;
@@ -49,7 +50,6 @@ public class MainAppLauncher extends JFrame {
     private JPanel confTab;
     private JButton btnSetDowDestination;
     private JButton btnCancelDownload;
-    private JTable srchResult_JTable;
     private JPanel strProTab;
     private JButton btnStoreProcedure;
     private JComboBox selectStoreProc_List;
@@ -59,7 +59,7 @@ public class MainAppLauncher extends JFrame {
     private JTextField selectedCSVFile_Txt;
     private ImageIcon srcImg;
     private JDialog jDial;
-
+    public JTable srchResult_JTable;
     private FileChooser_Utility chooserFile;
 
     public MainAppLauncher() {
@@ -85,8 +85,7 @@ public class MainAppLauncher extends JFrame {
                     System.out.println("Input: "+itemSearch_Txt.getText());
                     SearchFile newSearch = new SearchFile(itemSearch_Txt.getText());
 
-
-
+                    //srchResult_JTable = new srchResult_JTable(SearchRecords_Model());
                     /*if(!SettingsStat.getItemsInCsvFile().isEmpty()){
                             Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
                             if (map.isEmpty()) {
