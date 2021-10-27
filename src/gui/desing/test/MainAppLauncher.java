@@ -83,10 +83,11 @@ public class MainAppLauncher extends JFrame {
 
                 if (!itemSearch_Txt.getText().equals("")) {
                     System.out.println("Input: "+itemSearch_Txt.getText());
-
                     SearchFile newSearch = new SearchFile(itemSearch_Txt.getText());
 
-/*                    if(!SettingsStat.getItemsInCsvFile().isEmpty()){
+
+
+                    /*if(!SettingsStat.getItemsInCsvFile().isEmpty()){
                             Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
                             if (map.isEmpty()) {
                                 System.out.println("Non Result Found");

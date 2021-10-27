@@ -19,6 +19,7 @@ public class SearchFile {
 
     public SearchFile(String paramToSearch) {
         Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), paramToSearch);
+
         if (map.isEmpty()) {
             JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Non Items Availables in List to Complete Search", "Input Error", JOptionPane.ERROR_MESSAGE);
         }else{
