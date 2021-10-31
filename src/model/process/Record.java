@@ -1,23 +1,31 @@
 package model.process;
+public class Record {
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.util.ArrayList;
-import java.util.Observable;
+    public int indexId;
+    public String fileName;
+    public String filePath;
+    public boolean selectedId;
 
-public class Record{
-    public int indexItem;
-    public  String fileName;
-    public String pathFileName;
-    public static ArrayList<Record> recordsList = new ArrayList<Record>();
+    public int getIndexId() {
+        return indexId;
+    }
 
-    public Record(int indexItem, String fileName, String pathFileName){
-        this.indexItem = indexItem;
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public boolean getStatSelection(){
+        return selectedId;
+    }
+
+    public Record(int index, String fileName, String filePath){
+        this.indexId =index;
         this.fileName = fileName;
-        this.pathFileName = pathFileName;
+        this.filePath = filePath;
     }
 
-    public static ArrayList<Record> getRecordsList() {
-        return recordsList;
-    }
 }

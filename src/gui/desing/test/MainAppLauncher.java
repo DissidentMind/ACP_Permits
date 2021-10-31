@@ -3,6 +3,9 @@ package gui.desing.test;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
+import gui.render.ProgressRenderer;
+import model.app.Download;
+import model.process.Record;
 import model.process.SearchRecords_Model;
 import utils.choosers.FileChooser_Utility;
 import utils.choosers.RunFileChooser;
@@ -12,10 +15,14 @@ import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -62,6 +69,10 @@ public class MainAppLauncher extends JFrame {
     public JTable srchResult_JTable;
     private FileChooser_Utility chooserFile;
 
+    private Record selectedDownload;
+    private ArrayList<Record> resultQuery;
+    private SearchRecords_Model rModel;
+
     public MainAppLauncher() {
         super("Permits Documents Downloader Manager - Ver. 1.0.0.2021");
         /*
@@ -79,31 +90,9 @@ public class MainAppLauncher extends JFrame {
         runSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Action Run");
 
-                if (!itemSearch_Txt.getText().equals("")) {
-                    System.out.println("Input: "+itemSearch_Txt.getText());
-                    SearchFile newSearch = new SearchFile(itemSearch_Txt.getText());
+                actionAdd();
 
-                    //srchResult_JTable = new srchResult_JTable(SearchRecords_Model());
-                    /*if(!SettingsStat.getItemsInCsvFile().isEmpty()){
-                            Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
-                            if (map.isEmpty()) {
-                                System.out.println("Non Result Found");
-                                //main(new String[] {"a"});
-                            }else{
-                                Iterator<Integer> mapIterator = map.keySet().iterator();
-                                while (mapIterator.hasNext()) {
-                                    int key= mapIterator.next();
-                                    System.out.println(key+" > "+map.get(key));
-                                }
-                            }
-                        } else{
-                        JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Non Items Availables in List to Complete Search", "Input Error", JOptionPane.ERROR_MESSAGE);
-                     }*/
-                    }else {
-                    JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Search Parameter is Empty", "Input Error", JOptionPane.ERROR_MESSAGE);
-                }
             }
         });
 
@@ -347,5 +336,52 @@ public class MainAppLauncher extends JFrame {
         btnStoreProcedure.setIcon(imgsLoader.getExecIcon());
         addNewProcedureButton.setIcon(imgsLoader.getAddIcon());
 
+    }
+
+     public void actionAdd(){
+        System.out.println("Action Run");
+        if (!itemSearch_Txt.getText().equals("")) {
+
+            srchResult_JTable.removeAll();
+
+            rModel = new SearchRecords_Model();
+
+            resultQuery = getArrayListResultsIfCoincidenceFound((List) SettingsStat.getItemsInCsvFile(),itemSearch_Txt.getText());
+            System.out.println("Query Size: "+resultQuery.size());
+
+            for (int i = 0; i < resultQuery.size(); i++) {
+                System.out.println("Id: "+resultQuery.get(i).indexId);
+                System.out.println("File: "+resultQuery.get(i).fileName);
+                System.out.println("Path: "+resultQuery.get(i).filePath);
+                rModel.addNewMatchResult(new Record(resultQuery.get(i).indexId, resultQuery.get(i).fileName,resultQuery.get(i).filePath));
+            }
+
+            srchResult_JTable.setModel(rModel);
+
+            srchResult_JTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+            srchResult_JTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+            srchResult_JTable.getColumnModel().getColumn(2).setPreferredWidth(650);
+
+            //table = new JTable(rModel);
+            itemSearch_Txt.setText("");
+            //table.setModel(rModel);
+        }else{
+            JOptionPane.showMessageDialog(null,
+                    "Empty Input Field", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static ArrayList<Record> getArrayListResultsIfCoincidenceFound(List inputList, String inputSearchParam){
+        ArrayList<Record> rcdS = new ArrayList<Record>();
+        Regex_Utility frU = new Regex_Utility();
+        for (int i = 0; i < inputList.getItemCount(); i++) {
+            if(frU.findCurrentIncidenteInString(inputList.getItem(i), inputSearchParam)!=null){
+                File tmp = new File(inputList.getItem(i));
+                Record rd = new Record(i,tmp.getName(),tmp.getAbsolutePath());
+                rcdS.add(rd);
+            }
+        }
+        return rcdS;
     }
 }

@@ -1,8 +1,6 @@
 package model.process;
 
 import gui.controller.init.SettingsStat;
-import gui.desing.test.MainAppLauncher;
-import gui.render.JTableRenderer;
 import utils.files.FileCSV_Utility;
 import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
@@ -19,17 +17,15 @@ public class SearchFile {
     private static final char DEFAULT_SEPARATOR = ',';
     private static final char DEFAULT_QUOTE = '"';
 
-    public SearchFile(String paramToSearch) {
+    /**
+     * Function that retrieve search results in Map <Index, FileName>
+     * @param paramToSearch
+     * @return
+     */
+    public Map<Integer, String> getSearchResultMap(String paramToSearch){
+        /* Map Results*/
         Map<Integer, String> map = Regex_Utility.getHashIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), paramToSearch);
-
-        /* Array List */
-        ArrayList<Record> resultsList = Regex_Utility.getArrayListResultsIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), paramToSearch);
-        System.out.println("List Result Size: "+resultsList.size());
-
-        JTableRenderer.updateJTableModelRecord(SettingsStat.getSearchResultTable());
-
-        //System.out.println(resultsList.get());
-        /* Array List */
+        System.out.println("Map Result Size: "+map.size());
 
         if (map.isEmpty()) {
             JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Non Items Availables in List to Complete Search", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -40,7 +36,21 @@ public class SearchFile {
                 System.out.println(key+" > "+map.get(key));
             }
         }
+        return map;
     }
+
+    /**
+     * Functino that retrieves search results in an Array List of Records
+     * @param paramToSearch
+     * @return
+     */
+    public ArrayList<Record> getSearchResultList(String paramToSearch){
+        /* Array List */
+        ArrayList<Record> resultsList = Regex_Utility.getArrayListResultsIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), paramToSearch);
+        System.out.println("List Result Size: "+resultsList.size());
+        return resultsList;
+    }
+
 
     public void copyFileToDestination(String idP, int idR) {
         try {
