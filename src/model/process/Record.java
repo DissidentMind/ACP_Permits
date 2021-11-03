@@ -28,4 +28,11 @@ public class Record {
         this.filePath = filePath;
     }
 
+    public Record(int index, String fileName, String filePath,boolean flagSelected){
+        this.indexId =index;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.selectedId = flagSelected;
+    }
+
 }

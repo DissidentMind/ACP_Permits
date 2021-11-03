@@ -1,7 +1,5 @@
 package gui.controller.init;
 
-import vault.VaultValuesLoader;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;

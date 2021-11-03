@@ -3,28 +3,23 @@ package gui.desing.test;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
-import gui.render.ProgressRenderer;
-import model.app.Download;
 import model.process.Record;
 import model.process.SearchRecords_Model;
 import utils.choosers.FileChooser_Utility;
 import utils.choosers.RunFileChooser;
-import model.process.SearchFile;
 import utils.files.FileSystem_Utility;
 import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Random;
 
 public class MainAppLauncher extends JFrame {
     ImgsLoader imgsLoader;
@@ -67,6 +62,7 @@ public class MainAppLauncher extends JFrame {
     private ImageIcon srcImg;
     private JDialog jDial;
     public JTable srchResult_JTable;
+    private JLabel infoSearch_Txt;
     private FileChooser_Utility chooserFile;
 
     private Record selectedDownload;
@@ -93,6 +89,7 @@ public class MainAppLauncher extends JFrame {
 
                 actionAdd();
 
+                //actionAddRecord();
             }
         });
 
@@ -126,7 +123,7 @@ public class MainAppLauncher extends JFrame {
                    Notifación de Error
                  */
 
-                if(!FileSystem_Utility.folderExistInPath(currentDestFolderPath_Txt.getText())){
+                if (!FileSystem_Utility.folderExistInPath(currentDestFolderPath_Txt.getText())) {
                     JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Destination Folder doesn´t exist", "File System Error", JOptionPane.ERROR_MESSAGE);
                 }
 
@@ -137,7 +134,11 @@ public class MainAppLauncher extends JFrame {
         clearSelectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                //TODO Remove from list previous selected items
+                System.out.println("Clear Selection");
 
+                srchResult_JTable.removeAll();
+                infoSearch_Txt.setText("");
             }
         });
 
@@ -175,15 +176,14 @@ public class MainAppLauncher extends JFrame {
                 Si esta en true carga por default la ubicación por default en la configuración.
                  */
 
-                if(useDefaultLocationCheckBox.getModel().isSelected())
-                {
+                if (useDefaultLocationCheckBox.getModel().isSelected()) {
                     String currentDefaultPath = VaultValuesLoader.getDefaultDowPathFol();
                     currentDestFolderPath_Txt.setEditable(false);
                     currentDestFolderPath_Txt.setText(currentDefaultPath);
                     SettingsStat.setCurrentPathFolderDest(currentDefaultPath);
                     //currentDestFolderPath_Txt.enable(false);
 
-                }else{
+                } else {
                     currentDestFolderPath_Txt.setEditable(true);
                     currentDestFolderPath_Txt.setText("");
                     SettingsStat.setCurrentPathFolderDest(currentDestFolderPath_Txt.getText());
@@ -191,8 +191,8 @@ public class MainAppLauncher extends JFrame {
                 }
 
                 //SettingsStat.setUseAsDefaultDestLocation(useDefaultLocationCheckBox.getModel().isSelected());
-                System.out.println("Check:"+useDefaultLocationCheckBox.getModel().isSelected());
-                System.out.println("Path: "+SettingsStat.getCurrentPathFolderDest());
+                System.out.println("Check:" + useDefaultLocationCheckBox.getModel().isSelected());
+                System.out.println("Path: " + SettingsStat.getCurrentPathFolderDest());
             }
         });
         btnSelectBulkCsv.addActionListener(new ActionListener() {
@@ -245,13 +245,12 @@ public class MainAppLauncher extends JFrame {
         defaultDest_CheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(defaultDest_CheckBox.getModel().isSelected())
-                {
+                if (defaultDest_CheckBox.getModel().isSelected()) {
                     String currentLogPath = VaultValuesLoader.getDefaultLogsPath();
                     logsFolderPath_Txt.setEditable(false);
                     logsFolderPath_Txt.setText(currentLogPath);
                     SettingsStat.setCurrentLogsDest(currentLogPath);
-                }else{
+                } else {
                     logsFolderPath_Txt.setEditable(true);
                     logsFolderPath_Txt.setText("");
                     SettingsStat.setCurrentLogsDest(logsFolderPath_Txt.getText());
@@ -262,14 +261,14 @@ public class MainAppLauncher extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            SplashLoaderLauncher dialog = new SplashLoaderLauncher();
-            dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
-            dialog.setTitle("Loading... ");
-            dialog.setSize(560, 280);
-            dialog.setLocationRelativeTo(null);
-            dialog.updateProgressBar();
-            }
+                    SplashLoaderLauncher dialog = new SplashLoaderLauncher();
+                    dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
+                    dialog.setVisible(true);
+                    dialog.setTitle("Loading... ");
+                    dialog.setSize(560, 280);
+                    dialog.setLocationRelativeTo(null);
+                    dialog.updateProgressBar();
+                }
         );
 
         JFrame j = new JFrame("MainAppLauncher");
@@ -335,53 +334,139 @@ public class MainAppLauncher extends JFrame {
 
         btnStoreProcedure.setIcon(imgsLoader.getExecIcon());
         addNewProcedureButton.setIcon(imgsLoader.getAddIcon());
-
     }
 
-     public void actionAdd(){
+    public void actionAdd() {
         System.out.println("Action Run");
         if (!itemSearch_Txt.getText().equals("")) {
 
             srchResult_JTable.removeAll();
 
             rModel = new SearchRecords_Model();
+            //rModel.setColumnIdentifiers(header);
 
-            resultQuery = getArrayListResultsIfCoincidenceFound((List) SettingsStat.getItemsInCsvFile(),itemSearch_Txt.getText());
-            System.out.println("Query Size: "+resultQuery.size());
+            resultQuery = getArrayListResultsIfCoincidenceFound((ArrayList<String>) SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
+            System.out.println("Query Size: " + resultQuery.size());
 
-            for (int i = 0; i < resultQuery.size(); i++) {
-                System.out.println("Id: "+resultQuery.get(i).indexId);
-                System.out.println("File: "+resultQuery.get(i).fileName);
-                System.out.println("Path: "+resultQuery.get(i).filePath);
-                rModel.addNewMatchResult(new Record(resultQuery.get(i).indexId, resultQuery.get(i).fileName,resultQuery.get(i).filePath));
+            if (resultQuery.size() != 0) {
+                for (int i = 0; i < resultQuery.size(); i++) {
+                    System.out.println("Id: " + resultQuery.get(i).indexId);
+                    System.out.println("File: " + resultQuery.get(i).fileName);
+                    System.out.println("Path: " + resultQuery.get(i).filePath);
+                    System.out.println("Flag: " + resultQuery.get(i).selectedId);
+                    rModel.addNewMatchResult(new Record(resultQuery.get(i).indexId, resultQuery.get(i).fileName, resultQuery.get(i).filePath,resultQuery.get(i).selectedId));
+                }
+
+                srchResult_JTable.setModel(rModel);
+
+                srchResult_JTable.setFillsViewportHeight(true);
+                //JScrollPane pane = new JScrollPane(srchResult_JTable);
+
+                srchResult_JTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+                srchResult_JTable.getColumnModel().getColumn(1).setPreferredWidth(160);
+                srchResult_JTable.getColumnModel().getColumn(2).setPreferredWidth(720);
+                srchResult_JTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+                //itemSearch_Txt.setText("");
+            } else {
+                JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
+                        "Non Records Found", "Error - No Results",
+                        JOptionPane.ERROR_MESSAGE);
+                infoSearch_Txt.setText("Non records found");
+                //infoSearch_Txt.setForeground(ColorsLoader.TC_GREEN.getCode());
             }
-
-            srchResult_JTable.setModel(rModel);
-
-            srchResult_JTable.getColumnModel().getColumn(0).setPreferredWidth(30);
-            srchResult_JTable.getColumnModel().getColumn(1).setPreferredWidth(120);
-            srchResult_JTable.getColumnModel().getColumn(2).setPreferredWidth(650);
-
-            //table = new JTable(rModel);
-            itemSearch_Txt.setText("");
-            //table.setModel(rModel);
-        }else{
-            JOptionPane.showMessageDialog(null,
+        } else {
+            JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
                     "Empty Input Field", "Error",
                     JOptionPane.ERROR_MESSAGE);
+            infoSearch_Txt.setText("Empty search field");
         }
     }
-
-    public static ArrayList<Record> getArrayListResultsIfCoincidenceFound(List inputList, String inputSearchParam){
+    /**
+     * Function that returns a Array List of Records that contains index, filename, path of the inputList that contains
+     * the parameter searched.
+     *
+     * @param inputList
+     * @param inputSearchParam
+     * @return
+     */
+    public static ArrayList<Record> getArrayListResultsIfCoincidenceFound(ArrayList<String> inputList, String inputSearchParam) {
         ArrayList<Record> rcdS = new ArrayList<Record>();
         Regex_Utility frU = new Regex_Utility();
-        for (int i = 0; i < inputList.getItemCount(); i++) {
-            if(frU.findCurrentIncidenteInString(inputList.getItem(i), inputSearchParam)!=null){
-                File tmp = new File(inputList.getItem(i));
-                Record rd = new Record(i,tmp.getName(),tmp.getAbsolutePath());
+        for (int i = 0; i < inputList.size(); i++) {
+            if (frU.findCurrentIncidenteInString(inputList.get(i), inputSearchParam) != null) {
+                File tmp = new File(inputList.get(i));
+                Record rd = new Record(i, tmp.getName(), tmp.getAbsolutePath(),false);
                 rcdS.add(rd);
             }
         }
         return rcdS;
     }
+
+    public void actionAddRecord() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+
+                }
+
+                if (!itemSearch_Txt.getText().equals("")) {
+                    srchResult_JTable.removeAll();
+                    rModel = new SearchRecords_Model();
+
+                    /*DefaultTableModel model = new DefaultTableModel(new Object[]{"Index", "File Name", "File Path", "Selector"},0) {
+                        @Override
+                        public Class<?> getColumnClass(int columnIndex) {
+                          System.out.println("GetValue: "+getValueAt(0, columnIndex).getClass());
+                            return getValueAt(0, columnIndex).getClass();
+                        }
+                    };*/
+
+                    DefaultTableModel model = new DefaultTableModel();;
+
+                    resultQuery = getArrayListResultsIfCoincidenceFound((ArrayList<String>) SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
+                    System.out.println("Query Size: " + resultQuery.size());
+
+                    if (resultQuery.size() != 0) {
+                        for (int i = 0; i < resultQuery.size(); i++) {
+                            System.out.println("Id: " + resultQuery.get(i).indexId);
+                            System.out.println("File: " + resultQuery.get(i).fileName);
+                            System.out.println("Path: " + resultQuery.get(i).filePath);
+                            System.out.println("Flag: " + resultQuery.get(i).selectedId);
+
+                            //rModel.addNewMatchResult(new Record(resultQuery.get(i).indexId, resultQuery.get(i).fileName, resultQuery.get(i).filePath));
+                            model.addRow(new Object[]{resultQuery.get(i).indexId, resultQuery.get(i).fileName, resultQuery.get(i).filePath});
+                            //Record(resultQuery.get(i).indexId, resultQuery.get(i).fileName, resultQuery.get(i).filePath)
+                        }
+
+                        System.out.println("Total Rows in Model: " + model.getRowCount());
+
+
+                        //srchResult_JTable.setModel(rModel);
+                        srchResult_JTable.setModel(model);
+                        //srchResult_JTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+                        //srchResult_JTable.getColumnModel().getColumn(1).setPreferredWidth(160);
+                        //srchResult_JTable.getColumnModel().getColumn(2).setPreferredWidth(720);
+                        //srchResult_JTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+
+                    } else {
+                        JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
+                                "Non Records Found", "Error - No Results",
+                                JOptionPane.ERROR_MESSAGE);
+                        infoSearch_Txt.setText("Non records found");
+                        //infoSearch_Txt.setForeground(ColorsLoader.TC_GREEN.getCode());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
+                            "Empty Input Field", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    infoSearch_Txt.setText("Empty search field");
+                }
+
+            }
+        });
+    }
 }
+

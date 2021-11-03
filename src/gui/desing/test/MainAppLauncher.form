@@ -5,7 +5,7 @@
       <xy x="20" y="20" width="1060" height="555"/>
     </constraints>
     <properties>
-      <minimumSize width="780" height="413"/>
+      <minimumSize width="980" height="413"/>
       <preferredSize width="1060" height="560"/>
     </properties>
     <border type="none"/>
@@ -74,7 +74,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="8bd1c" class="javax.swing.JLabel">
+                          <component id="8bd1c" class="javax.swing.JLabel" binding="infoSearch_Txt">
                             <constraints border-constraint="West"/>
                             <properties>
                               <text value="   Total Coincidences Found:    "/>

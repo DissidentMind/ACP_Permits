@@ -1,7 +1,7 @@
 package model.process;
-import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 
 public class SearchRecords_Model extends AbstractTableModel{
 
@@ -11,7 +11,7 @@ public class SearchRecords_Model extends AbstractTableModel{
             Integer.class, String.class,
             String.class, Boolean.class};
 
-    private ArrayList<Record> downloadList = new ArrayList<Record>();
+    private final ArrayList<Record> downloadList = new ArrayList<Record>();
 
 
     public void addNewMatchResult(Record rec){

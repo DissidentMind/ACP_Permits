@@ -219,23 +219,21 @@ public class Regex_Utility {
      * Function that returns a Array List of Records that contains index, filename, path of the inputList that contains
      * the parameter searched.
      *
-     * @param inputList
-     * @param inputSearchParam
      * @return
      */
-    public static ArrayList<Record> getArrayListResultsIfCoincidenceFound(List<String> inputList,String inputSearchParam){
+  /*  public static ArrayList<Record> getArrayListResultsIfCoincidenceFound(List<String> inputList,String inputSearchParam){
         ArrayList<Record> rcdS = new ArrayList<Record>();
         Regex_Utility frU = new Regex_Utility();
 
         for (int i = 0; i < inputList.size(); i++) {
             if (frU.findCurrentIncidenteInString(inputList.get(i), inputSearchParam) != null) {
                 File tmp = new File(inputList.get(i));
-                Record rd = new Record(i,tmp.getName(),tmp.getAbsolutePath());
+                Record rd = new Record(i,tmp.getName(),tmp.getAbsolutePath(),false);
                 rcdS.add(rd);
             }
         }
         return rcdS;
-    }
+    }*/
 
     //------------ Working and Tested ----------------------------
     public String findCurrentIncidenteInString(String textToReview, String regexCondition) {
@@ -297,7 +295,6 @@ public class Regex_Utility {
         final Matcher matcherDMMMMY = patternddmmmmyy.matcher(textToReview);
 
         //System.out.println("Date: "+textToReview);
-
         if(matcher.find()){
             //System.out.println("Group 2: "+matcher.group(2));
             //System.out.println("Group 3: "+matcher.group(3));

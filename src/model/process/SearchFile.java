@@ -41,16 +41,15 @@ public class SearchFile {
 
     /**
      * Functino that retrieves search results in an Array List of Records
-     * @param paramToSearch
+     * @param
      * @return
      */
-    public ArrayList<Record> getSearchResultList(String paramToSearch){
-        /* Array List */
+    /*public ArrayList<Record> getSearchResultList(String paramToSearch){
+        *//* Array List *//*
         ArrayList<Record> resultsList = Regex_Utility.getArrayListResultsIfCoincidenceFound(SettingsStat.getItemsInCsvFile(), paramToSearch);
         System.out.println("List Result Size: "+resultsList.size());
         return resultsList;
-    }
-
+    }*/
 
     public void copyFileToDestination(String idP, int idR) {
         try {

@@ -1,7 +1,5 @@
 package gui.utils;
 
-import utils.choosers.RunFileChooser;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
