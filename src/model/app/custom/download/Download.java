@@ -1,4 +1,4 @@
-package model.app;
+package model.app.custom.download;
 
 import javax.swing.*;
 import java.io.InputStream;

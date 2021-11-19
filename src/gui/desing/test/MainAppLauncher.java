@@ -424,7 +424,7 @@ public class MainAppLauncher extends JFrame {
                         }
                     };*/
 
-                    DefaultTableModel model = new DefaultTableModel();;
+                    DefaultTableModel model = new DefaultTableModel();
 
                     resultQuery = getArrayListResultsIfCoincidenceFound((ArrayList<String>) SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
                     System.out.println("Query Size: " + resultQuery.size());

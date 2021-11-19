@@ -1,6 +1,6 @@
 package model.app.custom;
 
-import model.app.Download;
+import model.app.custom.download.Download;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;

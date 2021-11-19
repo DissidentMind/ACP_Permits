@@ -1,7 +1,5 @@
 package model.app.custom.download;
 
-import model.app.Download;
-
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Map;
