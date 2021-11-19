@@ -3,6 +3,7 @@ package gui.desing.test;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
+import model.component.table.JTableModelDesign;
 import model.process.Record;
 import model.process.SearchRecords_Model;
 import utils.choosers.FileChooser_Utility;
@@ -424,7 +425,11 @@ public class MainAppLauncher extends JFrame {
                         }
                     };*/
 
+
+
                     DefaultTableModel model = new DefaultTableModel();
+                    //JTableModelDesign model = new JTableModelDesign();
+
 
                     resultQuery = getArrayListResultsIfCoincidenceFound((ArrayList<String>) SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
                     System.out.println("Query Size: " + resultQuery.size());
