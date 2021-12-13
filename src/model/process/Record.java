@@ -1,6 +1,6 @@
 package model.process;
-public class Record {
 
+public class Record {
     public int indexId;
     public String fileName;
     public String filePath;
@@ -18,7 +18,7 @@ public class Record {
         return filePath;
     }
 
-    public boolean getStatSelection(){
+    public boolean isSelectedId() {
         return selectedId;
     }
 

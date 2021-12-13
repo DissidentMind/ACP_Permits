@@ -1,11 +1,10 @@
 package gui.desing.test;
 
+import gui.components.JTableTemplate_Search;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
-import model.component.table.JTableModelDesign;
 import model.process.Record;
-import model.process.SearchRecords_Model;
 import utils.choosers.FileChooser_Utility;
 import utils.choosers.RunFileChooser;
 import utils.files.FileSystem_Utility;
@@ -13,14 +12,13 @@ import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainAppLauncher extends JFrame {
     ImgsLoader imgsLoader;
@@ -68,7 +66,8 @@ public class MainAppLauncher extends JFrame {
 
     private Record selectedDownload;
     private ArrayList<Record> resultQuery;
-    private SearchRecords_Model rModel;
+    private JTableTemplate_Search tableModel;
+    private TableColumnModel columnModel;
 
     public MainAppLauncher() {
         super("Permits Documents Downloader Manager - Ver. 1.0.0.2021");
@@ -340,41 +339,14 @@ public class MainAppLauncher extends JFrame {
     public void actionAdd() {
         System.out.println("Action Run");
         if (!itemSearch_Txt.getText().equals("")) {
+            tableModel = new JTableTemplate_Search();
+            srchResult_JTable = new JTable(tableModel);
+            columnModel = srchResult_JTable.getColumnModel();
+            columnModel.getColumn(0).setPreferredWidth(8);
+            columnModel.getColumn(1).setPreferredWidth(260);
+            columnModel.getColumn(2).setPreferredWidth(780);
+            columnModel.getColumn(3).setPreferredWidth(15);
 
-            srchResult_JTable.removeAll();
-
-            rModel = new SearchRecords_Model();
-            //rModel.setColumnIdentifiers(header);
-
-            resultQuery = getArrayListResultsIfCoincidenceFound((ArrayList<String>) SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
-            System.out.println("Query Size: " + resultQuery.size());
-
-            if (resultQuery.size() != 0) {
-                for (int i = 0; i < resultQuery.size(); i++) {
-                    System.out.println("Id: " + resultQuery.get(i).indexId);
-                    System.out.println("File: " + resultQuery.get(i).fileName);
-                    System.out.println("Path: " + resultQuery.get(i).filePath);
-                    System.out.println("Flag: " + resultQuery.get(i).selectedId);
-                    rModel.addNewMatchResult(new Record(resultQuery.get(i).indexId, resultQuery.get(i).fileName, resultQuery.get(i).filePath,resultQuery.get(i).selectedId));
-                }
-
-                srchResult_JTable.setModel(rModel);
-
-                srchResult_JTable.setFillsViewportHeight(true);
-                //JScrollPane pane = new JScrollPane(srchResult_JTable);
-
-                srchResult_JTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-                srchResult_JTable.getColumnModel().getColumn(1).setPreferredWidth(160);
-                srchResult_JTable.getColumnModel().getColumn(2).setPreferredWidth(720);
-                srchResult_JTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-                //itemSearch_Txt.setText("");
-            } else {
-                JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
-                        "Non Records Found", "Error - No Results",
-                        JOptionPane.ERROR_MESSAGE);
-                infoSearch_Txt.setText("Non records found");
-                //infoSearch_Txt.setForeground(ColorsLoader.TC_GREEN.getCode());
-            }
         } else {
             JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
                     "Empty Input Field", "Error",
@@ -401,77 +373,6 @@ public class MainAppLauncher extends JFrame {
             }
         }
         return rcdS;
-    }
-
-    public void actionAddRecord() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-
-                }
-
-                if (!itemSearch_Txt.getText().equals("")) {
-                    srchResult_JTable.removeAll();
-                    rModel = new SearchRecords_Model();
-
-                    /*DefaultTableModel model = new DefaultTableModel(new Object[]{"Index", "File Name", "File Path", "Selector"},0) {
-                        @Override
-                        public Class<?> getColumnClass(int columnIndex) {
-                          System.out.println("GetValue: "+getValueAt(0, columnIndex).getClass());
-                            return getValueAt(0, columnIndex).getClass();
-                        }
-                    };*/
-
-
-
-                    DefaultTableModel model = new DefaultTableModel();
-                    //JTableModelDesign model = new JTableModelDesign();
-
-
-                    resultQuery = getArrayListResultsIfCoincidenceFound((ArrayList<String>) SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
-                    System.out.println("Query Size: " + resultQuery.size());
-
-                    if (resultQuery.size() != 0) {
-                        for (int i = 0; i < resultQuery.size(); i++) {
-                            System.out.println("Id: " + resultQuery.get(i).indexId);
-                            System.out.println("File: " + resultQuery.get(i).fileName);
-                            System.out.println("Path: " + resultQuery.get(i).filePath);
-                            System.out.println("Flag: " + resultQuery.get(i).selectedId);
-
-                            //rModel.addNewMatchResult(new Record(resultQuery.get(i).indexId, resultQuery.get(i).fileName, resultQuery.get(i).filePath));
-                            model.addRow(new Object[]{resultQuery.get(i).indexId, resultQuery.get(i).fileName, resultQuery.get(i).filePath});
-                            //Record(resultQuery.get(i).indexId, resultQuery.get(i).fileName, resultQuery.get(i).filePath)
-                        }
-
-                        System.out.println("Total Rows in Model: " + model.getRowCount());
-
-
-                        //srchResult_JTable.setModel(rModel);
-                        srchResult_JTable.setModel(model);
-                        //srchResult_JTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-                        //srchResult_JTable.getColumnModel().getColumn(1).setPreferredWidth(160);
-                        //srchResult_JTable.getColumnModel().getColumn(2).setPreferredWidth(720);
-                        //srchResult_JTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-
-                    } else {
-                        JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
-                                "Non Records Found", "Error - No Results",
-                                JOptionPane.ERROR_MESSAGE);
-                        infoSearch_Txt.setText("Non records found");
-                        //infoSearch_Txt.setForeground(ColorsLoader.TC_GREEN.getCode());
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
-                            "Empty Input Field", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    infoSearch_Txt.setText("Empty search field");
-                }
-
-            }
-        });
     }
 }
 
