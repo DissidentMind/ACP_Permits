@@ -339,13 +339,30 @@ public class MainAppLauncher extends JFrame {
     public void actionAdd() {
         System.out.println("Action Run");
         if (!itemSearch_Txt.getText().equals("")) {
-            tableModel = new JTableTemplate_Search();
-            srchResult_JTable = new JTable(tableModel);
-            columnModel = srchResult_JTable.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(8);
-            columnModel.getColumn(1).setPreferredWidth(260);
-            columnModel.getColumn(2).setPreferredWidth(780);
-            columnModel.getColumn(3).setPreferredWidth(15);
+
+            resultQuery = getArrayListResultsIfCoincidenceFound((ArrayList<String>) SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
+            System.out.println("Query Size: " + resultQuery.size());
+
+            if(resultQuery.size()>0){
+
+                tableModel = new JTableTemplate_Search();
+                tableModel.setListItemsFound(resultQuery);
+
+                for (Record record : resultQuery) {
+                    System.out.println("Id: " + record.indexId);
+                    System.out.println("File: " + record.fileName);
+                    System.out.println("Path: " + record.filePath);
+                    System.out.println("Flag: " + record.selectedId);
+                    //tableModel.addNewMatchResult(new Record(record.indexId, record.fileName, record.filePath, record.selectedId));
+                }
+
+                srchResult_JTable = new JTable(tableModel);
+                columnModel = srchResult_JTable.getColumnModel();
+                columnModel.getColumn(0).setPreferredWidth(8);
+                columnModel.getColumn(1).setPreferredWidth(260);
+                columnModel.getColumn(2).setPreferredWidth(780);
+                columnModel.getColumn(3).setPreferredWidth(15);
+            }
 
         } else {
             JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
