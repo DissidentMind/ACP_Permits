@@ -60,10 +60,48 @@ public class MainAppLauncher extends JFrame {
     private JTextField selectedCSVFile_Txt;
     private ImageIcon srcImg;
     private JDialog jDial;
-    public JTable srchResult_JTable;
     private JLabel infoSearch_Txt;
-    private FileChooser_Utility chooserFile;
 
+    public void setInfoSearch_Txt(String infoSearch_Txt) {
+        this.infoSearch_Txt.setText(infoSearch_Txt);
+    }
+
+    public void updateAddButton(boolean flag)
+    {
+        if(flag){
+            addButton.setBorderPainted(true);
+            addButton.setEnabled(true);
+        }else{
+            addButton.setBorderPainted(false);
+            addButton.setEnabled(false);
+        }
+    }
+
+    public void updateClearButton(boolean flag)
+    {
+        if(flag){
+            clearSelectButton.setBorderPainted(true);
+            clearSelectButton.setEnabled(true);
+        }else{
+            clearSelectButton.setBorderPainted(false);
+            clearSelectButton.setEnabled(false);
+        }
+    }
+
+    public void updateProccessButton(boolean flag){
+        if(flag){
+            processDownloadsButton.setBorderPainted(true);
+            processDownloadsButton.setEnabled(true);
+        }else{
+            processDownloadsButton.setBorderPainted(false);
+            processDownloadsButton.setEnabled(false);
+        }
+    }
+
+
+    private FileChooser_Utility chooserFile;
+    private JTable srchResult_JTable;
+    private JScrollPane srchScrollContainer;
     private Record selectedDownload;
     private ArrayList<Record> resultQuery;
     private JTableTemplate_Search tableModel;
@@ -80,16 +118,18 @@ public class MainAppLauncher extends JFrame {
 
         //Set Default JPanel Parent to set at middle the messages
         SettingsStat.setCurrentPanel(frameJPanelParent);
+
+        updateAddButton(false);
+        updateClearButton(false);
+        updateProccessButton(false);
+
         /*
         Endig Init Validations
          */
         runSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 actionAdd();
-
-                //actionAddRecord();
             }
         });
 
@@ -108,6 +148,15 @@ public class MainAppLauncher extends JFrame {
                 SettingsStat.setCsvSearchActive(btnCSVSearch.getModel().isSelected());
             }
         });
+
+        processDownloadsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+
+
+                }
+            });
 
         btnStartDownload.addActionListener(new ActionListener() {
             @Override
@@ -134,11 +183,12 @@ public class MainAppLauncher extends JFrame {
         clearSelectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                //TODO Remove from list previous selected items
                 System.out.println("Clear Selection");
-
-                srchResult_JTable.removeAll();
-                infoSearch_Txt.setText("");
+                if(tableModel.getRowCount()!=0){
+                    tableModel.removeAllRows();
+                    itemSearch_Txt.setText("");
+                }
+                setInfoSearch_Txt("");
             }
         });
 
@@ -170,12 +220,10 @@ public class MainAppLauncher extends JFrame {
         useDefaultLocationCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
                 /*
                 Si está en false (default) se puede editar cualquier dirección
                 Si esta en true carga por default la ubicación por default en la configuración.
                  */
-
                 if (useDefaultLocationCheckBox.getModel().isSelected()) {
                     String currentDefaultPath = VaultValuesLoader.getDefaultDowPathFol();
                     currentDestFolderPath_Txt.setEditable(false);
@@ -227,7 +275,6 @@ public class MainAppLauncher extends JFrame {
                 System.out.println("CSV Explorer Select");
 
                 SwingUtilities.invokeLater(() -> {
-
                     String newPathCsvFile = RunFileChooser.createAndShowGUI(0);
                     UIManager.put("swing.boldMetal", Boolean.FALSE);
                     //Parameter as 2: Folder Chooser
@@ -237,8 +284,6 @@ public class MainAppLauncher extends JFrame {
                     //System.out.println("Path Explorer CSV: "+RunFileChooser.createAndShowGUI(0));
 
                     selectedCSVFile_Txt.setText(newPathCsvFile);
-
-                    //selectedCSVFile_Txt.setText(RunFileChooser.createAndShowGUI(0));
                 });
             }
         });
@@ -339,36 +384,52 @@ public class MainAppLauncher extends JFrame {
     public void actionAdd() {
         System.out.println("Action Run");
         if (!itemSearch_Txt.getText().equals("")) {
-
             resultQuery = getArrayListResultsIfCoincidenceFound((ArrayList<String>) SettingsStat.getItemsInCsvFile(), itemSearch_Txt.getText());
             System.out.println("Query Size: " + resultQuery.size());
+            setInfoSearch_Txt("Query Result Size: "+resultQuery.size());
 
             if(resultQuery.size()>0){
+
+                updateAddButton(true);
+                updateClearButton(true);
+                updateProccessButton(true);
 
                 tableModel = new JTableTemplate_Search();
                 tableModel.setListItemsFound(resultQuery);
 
-                for (Record record : resultQuery) {
+                for(Record record: tableModel.getListItemsFound()){
                     System.out.println("Id: " + record.indexId);
                     System.out.println("File: " + record.fileName);
                     System.out.println("Path: " + record.filePath);
                     System.out.println("Flag: " + record.selectedId);
-                    //tableModel.addNewMatchResult(new Record(record.indexId, record.fileName, record.filePath, record.selectedId));
                 }
-
-                srchResult_JTable = new JTable(tableModel);
+                srchResult_JTable.setModel(tableModel);
                 columnModel = srchResult_JTable.getColumnModel();
                 columnModel.getColumn(0).setPreferredWidth(8);
-                columnModel.getColumn(1).setPreferredWidth(260);
-                columnModel.getColumn(2).setPreferredWidth(780);
-                columnModel.getColumn(3).setPreferredWidth(15);
-            }
+                columnModel.getColumn(1).setPreferredWidth(165);
+                columnModel.getColumn(2).setPreferredWidth(1200);
+                columnModel.getColumn(3).setPreferredWidth(12);
+            }else {
+                tableModel.removeAllRows();
 
+                updateAddButton(false);
+                updateClearButton(false);
+                updateProccessButton(false);
+
+                JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
+                        "Non Items Found", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                setInfoSearch_Txt("Non matches were found");
+            }
         } else {
+            updateAddButton(false);
+            updateClearButton(false);
+            updateProccessButton(false);
+
             JOptionPane.showMessageDialog(SettingsStat.getCurrentParentPanel(),
                     "Empty Input Field", "Error",
                     JOptionPane.ERROR_MESSAGE);
-            infoSearch_Txt.setText("Empty search field");
+            setInfoSearch_Txt("Empty search field");
         }
     }
     /**
@@ -391,5 +452,6 @@ public class MainAppLauncher extends JFrame {
         }
         return rcdS;
     }
+
 }
 

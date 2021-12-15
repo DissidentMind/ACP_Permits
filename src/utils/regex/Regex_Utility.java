@@ -1,7 +1,6 @@
 package utils.regex;
 
 import gui.controller.init.DefaultsLoader;
-import model.process.Record;
 import utils.files.FilesCopier_Utility;
 
 import java.io.File;

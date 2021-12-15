@@ -1,12 +1,9 @@
 package gui.custom;
-import java.awt.Component;
-import java.awt.Cursor;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 public class ExButtonRenderer extends JButton implements TableCellRenderer {

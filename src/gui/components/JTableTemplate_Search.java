@@ -25,11 +25,24 @@ public class JTableTemplate_Search extends AbstractTableModel implements Observe
             Boolean.class
     };
 
-    public void addDownload(Record download) {
+    public void addRow(Record download) {
         //download.addObserver(this);
         downloadList.add(download);
         // Fire table row insertion notification to table.
         fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
+    }
+
+    public void removeRow(int i){
+        downloadList.remove(i);
+    }
+
+    public void removeAllRows(){
+        if(this.getRowCount()!=0){
+            for (int i = this.getRowCount() - 1; i >= 0; i--) {
+                downloadList.remove(i);
+            }
+            fireTableRowsDeleted(getRowCount() - 1, getRowCount() - 1);
+        }
     }
 
     @Override
@@ -100,4 +113,12 @@ public class JTableTemplate_Search extends AbstractTableModel implements Observe
     public void setListItemsFound(List<Record> listItemsFound) {
         this.downloadList = (ArrayList<Record>) listItemsFound;
     }
+
+    public List<Record>  getListItemsFound(){
+        return this.downloadList;
+    }
+
+    /*public Object[] getListItemsFound(){
+        return downloadList.toArray();
+    }*/
 }

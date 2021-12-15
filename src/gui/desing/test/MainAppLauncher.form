@@ -2,11 +2,11 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.desing.test.MainAppLauncher">
   <grid id="27dc6" binding="frameJPanelParent" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="1060" height="555"/>
+      <xy x="20" y="20" width="1480" height="580"/>
     </constraints>
     <properties>
-      <minimumSize width="980" height="413"/>
-      <preferredSize width="1060" height="560"/>
+      <minimumSize width="1480" height="580"/>
+      <preferredSize width="1660" height="660"/>
     </properties>
     <border type="none"/>
     <children>
@@ -81,7 +81,7 @@
                             </properties>
                           </component>
                           <component id="66e9c" class="javax.swing.JProgressBar" binding="progressBar3" default-binding="true">
-                            <constraints border-constraint="Center"/>
+                            <constraints border-constraint="East"/>
                             <properties/>
                           </component>
                         </children>
@@ -155,14 +155,19 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="5ac0c" class="javax.swing.JTable" binding="srchResult_JTable">
+                  <scrollpane id="f01a0" binding="srchScrollContainer">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="50"/>
-                      </grid>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
-                  </component>
+                    <border type="none"/>
+                    <children>
+                      <component id="5ac0c" class="javax.swing.JTable" binding="srchResult_JTable">
+                        <constraints/>
+                        <properties/>
+                      </component>
+                    </children>
+                  </scrollpane>
                 </children>
               </grid>
             </children>

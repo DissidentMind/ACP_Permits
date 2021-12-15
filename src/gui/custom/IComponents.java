@@ -1,6 +1,6 @@
 package gui.custom;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 public interface IComponents {
 
