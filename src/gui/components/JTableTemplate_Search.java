@@ -10,6 +10,8 @@ import java.util.Observer;
 @SuppressWarnings("serial")
 public class JTableTemplate_Search extends AbstractTableModel implements Observer{
     private ArrayList<Record> downloadList = new ArrayList<Record>();
+    private ArrayList<String> toDownloadList = new ArrayList<String>();
+
     private static final int COLUMN_CHECK_BOX = 3;
 
     private static final String[] columnNames = {
@@ -34,15 +36,6 @@ public class JTableTemplate_Search extends AbstractTableModel implements Observe
 
     public void removeRow(int i){
         downloadList.remove(i);
-    }
-
-    public void removeAllRows(){
-        if(this.getRowCount()!=0){
-            for (int i = this.getRowCount() - 1; i >= 0; i--) {
-                downloadList.remove(i);
-            }
-            fireTableRowsDeleted(getRowCount() - 1, getRowCount() - 1);
-        }
     }
 
     @Override
@@ -118,7 +111,53 @@ public class JTableTemplate_Search extends AbstractTableModel implements Observe
         return this.downloadList;
     }
 
-    /*public Object[] getListItemsFound(){
-        return downloadList.toArray();
-    }*/
+    /*
+    Function that get list of selected items in list
+     */
+    public ArrayList<String> getListSelectedItemsFound(){
+        return this.toDownloadList;
+    }
+
+    /*
+    Function that set the list of selected items in list
+     */
+    public void setListSelectedItemsFound(String item){
+        toDownloadList.add(item);
+    }
+
+    /*
+    Function that clean list
+     */
+    public void removeAllSelectedItemsFound(){
+        if(this.getRowCount()!=0){
+            for (int i = this.getRowCount() - 1; i >= 0; i--) {
+                downloadList.remove(i);
+            }
+        }
+    }
+
+    public void removeAllRows(){
+        if(this.getRowCount()!=0){
+            for (int i = this.getRowCount() - 1; i >= 0; i--) {
+                downloadList.remove(i);
+            }
+            fireTableRowsDeleted(getRowCount() - 1, getRowCount() - 1);
+        }
+    }
+
+    /**
+     * Function that retrieve all selected paths to be processed in downloader tab
+     */
+    public void processSelectedItems(){
+        if(this.getRowCount()!=0){
+            for (int i = this.getRowCount() - 1; i >= 0; i--) {
+                //if(this.getValueAt(i,3).getClass() == Boolean.class ){
+                    if((Boolean)this.getValueAt(i,3) == true){
+                        System.out.println(i+" Selected: "+downloadList.get(i).filePath);
+                        setListSelectedItemsFound(downloadList.get(i).filePath);
+                    }
+                //}
+            }
+        }
+    }
 }

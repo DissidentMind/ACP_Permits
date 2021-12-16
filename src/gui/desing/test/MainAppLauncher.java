@@ -98,7 +98,6 @@ public class MainAppLauncher extends JFrame {
         }
     }
 
-
     private FileChooser_Utility chooserFile;
     private JTable srchResult_JTable;
     private JScrollPane srchScrollContainer;
@@ -106,6 +105,7 @@ public class MainAppLauncher extends JFrame {
     private ArrayList<Record> resultQuery;
     private JTableTemplate_Search tableModel;
     private TableColumnModel columnModel;
+    private ArrayList<String> downloadList;
 
     public MainAppLauncher() {
         super("Permits Documents Downloader Manager - Ver. 1.0.0.2021");
@@ -152,9 +152,11 @@ public class MainAppLauncher extends JFrame {
         processDownloadsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
-
-
+                System.out.println("Display Selected Items");
+                //Processing List to Download
+                tableModel.processSelectedItems();
+                downloadList = tableModel.getListSelectedItemsFound();
+                tableModel.removeAllSelectedItemsFound();
                 }
             });
 
@@ -186,6 +188,7 @@ public class MainAppLauncher extends JFrame {
                 System.out.println("Clear Selection");
                 if(tableModel.getRowCount()!=0){
                     tableModel.removeAllRows();
+                    tableModel.removeAllSelectedItemsFound();
                     itemSearch_Txt.setText("");
                 }
                 setInfoSearch_Txt("");
@@ -237,7 +240,6 @@ public class MainAppLauncher extends JFrame {
                     SettingsStat.setCurrentPathFolderDest(currentDestFolderPath_Txt.getText());
                     //currentDestFolderPath_Txt.enable(true);
                 }
-
                 //SettingsStat.setUseAsDefaultDestLocation(useDefaultLocationCheckBox.getModel().isSelected());
                 System.out.println("Check:" + useDefaultLocationCheckBox.getModel().isSelected());
                 System.out.println("Path: " + SettingsStat.getCurrentPathFolderDest());
