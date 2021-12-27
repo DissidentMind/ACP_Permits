@@ -1,12 +1,15 @@
 package gui.desing.test;
 
+import gui.components.JTableTemplate_Download;
 import gui.components.JTableTemplate_Search;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
+import model.process.Download;
 import model.process.Record;
 import utils.choosers.FileChooser_Utility;
 import utils.choosers.RunFileChooser;
+import utils.custom.Verifier_Utility;
 import utils.files.FileSystem_Utility;
 import utils.regex.Regex_Utility;
 import vault.VaultValuesLoader;
@@ -18,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainAppLauncher extends JFrame {
@@ -101,11 +105,16 @@ public class MainAppLauncher extends JFrame {
     private FileChooser_Utility chooserFile;
     private JTable srchResult_JTable;
     private JScrollPane srchScrollContainer;
+    private JTable downloadTb_JTable;
     private Record selectedDownload;
+    private Download itemToDownload;
     private ArrayList<Record> resultQuery;
     private JTableTemplate_Search tableModel;
     private TableColumnModel columnModel;
     private ArrayList<String> downloadList;
+
+    private JTableTemplate_Download tableDownloadModel;
+    private Verifier_Utility vUtils;
 
     public MainAppLauncher() {
         super("Permits Documents Downloader Manager - Ver. 1.0.0.2021");
@@ -304,6 +313,30 @@ public class MainAppLauncher extends JFrame {
                 }
             }
         });
+        /*
+        Action Button - Add New Record to Download List
+         */
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(tableModel.getRowCount()>0){
+                    for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
+                        if((Boolean)tableModel.getValueAt(i,3) == true){
+
+                            //addDownloadTabs(tableModel.getValueAt(i,1).toString());
+                            //itemToDownload = ;
+                            System.out.println("Vale: "+tableModel.getValueAt(i,2));
+
+                            tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2)));
+
+                            tableModel.removeRow(i);
+                        }
+                    }
+                }
+                System.out.println("Total: "+tableDownloadModel.getRowCount());
+                downloadTb_JTable.setModel(tableDownloadModel);
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -396,7 +429,16 @@ public class MainAppLauncher extends JFrame {
                 updateClearButton(true);
                 updateProccessButton(true);
 
+                /*New table model for display result data set*/
+                /*------------------------------------------------*/
                 tableModel = new JTableTemplate_Search();
+                /*------------------------------------------------*/
+
+                /*New table model Created when exist a result in current execution*/
+                /*------------------------------------------------*/
+                tableDownloadModel = new JTableTemplate_Download();
+                /*------------------------------------------------*/
+
                 tableModel.setListItemsFound(resultQuery);
 
                 for(Record record: tableModel.getListItemsFound()){
@@ -412,7 +454,7 @@ public class MainAppLauncher extends JFrame {
                 columnModel.getColumn(2).setPreferredWidth(1200);
                 columnModel.getColumn(3).setPreferredWidth(12);
             }else {
-                tableModel.removeAllRows();
+                //tableModel.removeAllRows();
 
                 updateAddButton(false);
                 updateClearButton(false);
@@ -453,6 +495,20 @@ public class MainAppLauncher extends JFrame {
             }
         }
         return rcdS;
+    }
+
+    /**
+     * Function that add new download item for the download tab
+     */
+    private void addDownloadTabs(String path) {
+        if (Verifier_Utility.intranetVerifyUrl(path)) {
+            tableDownloadModel.addDownload(new Download(path));
+            setInfoSearch_Txt("Processing: "+path); // reset add text field
+        } else {
+            JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(),
+                    "Invalid Download URL", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

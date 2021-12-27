@@ -36,6 +36,8 @@ public class JTableTemplate_Search extends AbstractTableModel implements Observe
 
     public void removeRow(int i){
         downloadList.remove(i);
+        //Update
+        fireTableRowsDeleted(getRowCount() - 1, getRowCount() - 1);
     }
 
     @Override

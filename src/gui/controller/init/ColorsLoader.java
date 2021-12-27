@@ -1,5 +1,4 @@
 package gui.controller.init;
-
 import java.awt.*;
 
 public enum ColorsLoader {
@@ -12,17 +11,8 @@ public enum ColorsLoader {
     BLUE_TEMPER(new Color(4, 116, 149)),
     GRAY_LIGHT(new Color(163, 175, 177)),
     ORANGE_SHOCK(new Color(255, 96, 0));
-
     private final Color code;
     ColorsLoader(Color code) {
         this.code = code;
     }
-    public Color getCode() {
-        return this.code;
-    }
-
-    /*public static void main(String[] args) {
-        ColorsLoader cD = ColorsLoader.BLUE_TEMPER;
-        System.out.println(cD.getCode());
-    }*/
 }
