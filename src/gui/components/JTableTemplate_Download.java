@@ -1,10 +1,12 @@
 package gui.components;
+
+import model.process.Download;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import model.process.Download;
 
 public class JTableTemplate_Download extends AbstractTableModel implements Observer {
     private final ArrayList<Download> downloadList = new ArrayList<Download>();

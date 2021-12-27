@@ -21,7 +21,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class MainAppLauncher extends JFrame {
@@ -121,6 +120,7 @@ public class MainAppLauncher extends JFrame {
         /*
         Starting App
          */
+
         setContentPane(frameJPanelParent);
         createUIComponents();
         InitialStratupGui.loadingDBApp();
@@ -321,7 +321,7 @@ public class MainAppLauncher extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 if(tableModel.getRowCount()>0){
                     for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
-                        if((Boolean)tableModel.getValueAt(i,3) == true){
+                        if((Boolean) tableModel.getValueAt(i, 3)){
 
                             //addDownloadTabs(tableModel.getValueAt(i,1).toString());
                             //itemToDownload = ;
@@ -345,7 +345,14 @@ public class MainAppLauncher extends JFrame {
                     dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
                     dialog.setVisible(true);
                     dialog.setTitle("Loading... ");
-                    dialog.setSize(560, 280);
+
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int screenHeight = screenSize.height;
+            int screenWidth = screenSize.width;
+
+            dialog.setSize(new Dimension((int)Math.round(screenWidth*.41),(int)Math.round(screenHeight*.36)));
+
+                    //dialog.setSize(560, 280);
                     dialog.setLocationRelativeTo(null);
                     dialog.updateProgressBar();
                 }
@@ -447,12 +454,20 @@ public class MainAppLauncher extends JFrame {
                     System.out.println("Path: " + record.filePath);
                     System.out.println("Flag: " + record.selectedId);
                 }
+
                 srchResult_JTable.setModel(tableModel);
                 columnModel = srchResult_JTable.getColumnModel();
-                columnModel.getColumn(0).setPreferredWidth(8);
+                /*columnModel.getColumn(0).setPreferredWidth(8);
                 columnModel.getColumn(1).setPreferredWidth(165);
                 columnModel.getColumn(2).setPreferredWidth(1200);
-                columnModel.getColumn(3).setPreferredWidth(12);
+                columnModel.getColumn(3).setPreferredWidth(12);*/
+
+                columnModel.getColumn(0).setPreferredWidth((int)Math.round(srchResult_JTable.getWidth()*.05));
+                columnModel.getColumn(1).setPreferredWidth((int)Math.round(srchResult_JTable.getWidth()*.15));
+                columnModel.getColumn(2).setPreferredWidth((int)Math.round(srchResult_JTable.getWidth()*.75));
+                columnModel.getColumn(3).setPreferredWidth((int)Math.round(srchResult_JTable.getWidth()*.05));
+
+
             }else {
                 //tableModel.removeAllRows();
 

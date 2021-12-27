@@ -36,6 +36,8 @@ public class InitialStratupGui {
         /*
         Load Default Dataset in CSV File - (TVDR)
          */
+        System.out.println("Path: "+VaultValuesLoader.getDefaultLogCSVFilePath());
+
         if(FileSystem_Utility.fileExistInPath(VaultValuesLoader.getDefaultLogCSVFilePath())){
             try {
                 System.out.println("Loading Items from CSV...");

@@ -1,6 +1,7 @@
 package utils.custom;
+
 import java.io.File;
-import java.net.*;
+import java.net.URL;
 
 public class Verifier_Utility {
     public static URL verifyUrl(String url) {
