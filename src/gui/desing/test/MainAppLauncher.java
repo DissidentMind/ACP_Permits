@@ -114,6 +114,7 @@ public class MainAppLauncher extends JFrame {
 
     private JTableTemplate_Download tableDownloadModel;
     private Verifier_Utility vUtils;
+    //private InitialStratupGui initialStartup;
 
     public MainAppLauncher() {
         super("Permits Documents Downloader Manager - Ver. 1.0.0.2021");
@@ -322,13 +323,9 @@ public class MainAppLauncher extends JFrame {
                 if(tableModel.getRowCount()>0){
                     for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
                         if((Boolean) tableModel.getValueAt(i, 3)){
-
                             //addDownloadTabs(tableModel.getValueAt(i,1).toString());
-                            //itemToDownload = ;
                             System.out.println("Vale: "+tableModel.getValueAt(i,2));
-
                             tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2)));
-
                             tableModel.removeRow(i);
                         }
                     }
@@ -341,20 +338,13 @@ public class MainAppLauncher extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-                    SplashLoaderLauncher dialog = new SplashLoaderLauncher();
-                    dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
-                    dialog.setVisible(true);
-                    dialog.setTitle("Loading... ");
-
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            int screenHeight = screenSize.height;
-            int screenWidth = screenSize.width;
-
-            dialog.setSize(new Dimension((int)Math.round(screenWidth*.41),(int)Math.round(screenHeight*.36)));
-
-                    //dialog.setSize(560, 280);
-                    dialog.setLocationRelativeTo(null);
-                    dialog.updateProgressBar();
+            SplashLoaderLauncher dialog = new SplashLoaderLauncher();
+            dialog.setDefaultCloseOperation(dialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
+            dialog.setTitle("Loading... ");
+            dialog.setSize(new Dimension((int)Math.round(InitialStratupGui.getScreenWidth()*.41),(int)Math.round(InitialStratupGui.getScreenHeight()*.36)));
+            dialog.setLocationRelativeTo(null);
+            dialog.updateProgressBar();
                 }
         );
 
@@ -470,7 +460,6 @@ public class MainAppLauncher extends JFrame {
 
             }else {
                 //tableModel.removeAllRows();
-
                 updateAddButton(false);
                 updateClearButton(false);
                 updateProccessButton(false);

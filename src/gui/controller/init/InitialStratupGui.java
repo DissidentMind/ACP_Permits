@@ -6,6 +6,7 @@ import utils.files.FileSystem_Utility;
 import vault.VaultValuesLoader;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Class that generate first load for apps
@@ -14,6 +15,28 @@ public class InitialStratupGui {
     InitialStratupGui() {
         System.out.println("Loading App...");
     }
+
+    private int screenHeight;
+    private int screenWidth;
+
+    public static int getScreenHeight() {
+        Dimension currentScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return (int) currentScreenSize.getHeight();
+    }
+
+    public void setScreenHeight(int screenHeight) {
+        this.screenHeight = screenHeight;
+    }
+
+    public static int getScreenWidth() {
+        Dimension currentScreenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        return (int) currentScreenSize.getWidth();
+    }
+
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
     public static void loadingDBApp() {
         /*
         Validate connection if exist
@@ -60,6 +83,4 @@ public class InitialStratupGui {
         Load Default Tables id Database - TVDR
          */
     }
-
-
 }
