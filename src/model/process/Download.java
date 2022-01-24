@@ -1,14 +1,7 @@
 package model.process;
 
-import gui.controller.init.SettingsStat;
-import utils.files.FilesCopier_Utility;
-import vault.VaultValuesLoader;
-
 import javax.swing.*;
-import java.io.File;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.net.URL;
+import java.io.*;
 import java.util.Observable;
 
 public class Download extends Observable implements Runnable {
@@ -33,8 +26,8 @@ public class Download extends Observable implements Runnable {
     private long readSinceStart; // number of bytes downloaded since startTime
     private long elapsedTime = 0; // elapsed time till now
     private long prevElapsedTime = 0; // time elapsed before resuming download
-    private long remainingTime = -1; //time remaining to finish download
-    private float avgSpeed = 0; //average download speed in KB/s
+    //private long remainingTime = -1; //time remaining to finish download
+    //private float avgSpeed = 0; //average download speed in KB/s
     private float speed = 0; //download speed in KB/s
 
     // Constructor for Download.
@@ -49,7 +42,7 @@ public class Download extends Observable implements Runnable {
 
     // Get this download's URL.
     public String getUrl() {
-        return url.toString();
+        return url;
     }
 
     // Get this download's size.
@@ -62,20 +55,9 @@ public class Download extends Observable implements Runnable {
         return speed;
     }
 
-    // Get average speed
-    public float getAvgSpeed() {
-        return avgSpeed;
-    }
-
     // Get elapsed time
     public String getElapsedTime() {
         return formatTime(elapsedTime / 1000000000);
-    }
-
-    // Get remaining time
-    public String getRemainingTime() {
-        if (remainingTime < 0) return "Unknown";
-        else return formatTime(remainingTime);
     }
 
     // Format time
@@ -100,18 +82,11 @@ public class Download extends Observable implements Runnable {
     }
 
     // Pause this download.
-    public void pause() {
+    /*public void pause() {
         prevElapsedTime = elapsedTime;
         status = PAUSED;
         stateChanged();
-    }
-
-    // Resume this download.
-    public void resume() {
-        status = DOWNLOADING;
-        stateChanged();
-        download();
-    }
+    }*/
 
     // Cancel this download.
     public void cancel() {
@@ -134,54 +109,69 @@ public class Download extends Observable implements Runnable {
     }
 
     // Get file name portion of URL.
-    private String getFileName(URL url) {
-        String fileName = url.getFile();
-        return fileName.substring(fileName.lastIndexOf('/') + 1);
+//    private String getFileName(URL url) {
+//        String fileName = url.getFile();
+//        return fileName.substring(fileName.lastIndexOf('/') + 1);
+//    }
+
+    private String getFileName(String url) {
+        //return fileName.substring(fileName.lastIndexOf('/') + 1);
+        return new File(url).getName();
     }
+
 
     // Download file.
     public void run() {
         RandomAccessFile file = null;
         InputStream stream = null;
+        OutputStream os = null;
+
+        int i = 0;
+        long initTime = System.nanoTime();
 
         try {
-
-            FilesCopier_Utility.fileCopier(new File(url), new File(VaultValuesLoader.getDefaultDowPathFol()));
-            /*// Open connection to URL.
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            // Specify what portion of file to download.
-            connection.setRequestProperty("Range","bytes=" + downloaded + "-");
-            // Connect to server.
-            connection.connect();
-            // Make sure response code is in the 200 range.
-            if (connection.getResponseCode() / 100 != 2) {
-                error();
-            }
-            // Check for valid content length.
-            int contentLength = connection.getContentLength();
-            if (contentLength < 1) {
-                error();
-            }
-            *//* Set the size for this download if it hasn't been already set. *//*
-            if (size == -1) {
-                size = contentLength;
-                stateChanged();
+            /*if(new File(url).exists() && new File(url).canWrite()){
+                System.out.println("File exists and it is read only, making it writable");
+                //url.setWritable(true);
             }*/
-            // used to update speed at regular intervals
-            int i = 0;
-            // Open file and seek to the end of it.
-            //file = new RandomAccessFile(getFileName(url), "rw");
-           // file.seek(downloaded);
+
+            file = new RandomAccessFile(getFileName(url), "rw");
+            file.seek(downloaded);
+
             //stream = connection.getInputStream();
             //inital time when download started or resumed
-            long initTime = System.nanoTime();
+
+            stream = new FileInputStream(url);
+            os = new FileOutputStream("C:\\Users\\evanf\\Downloads");
+
+            /*
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
+        }
+             */
+
+            /*FilesCopier_Utility.fileCopier(
+            		new File(url),
+            		new File("D:\\Src\\"));*/
+
             while (status == DOWNLOADING) {
-				/* Size buffer according to how much of the
-           file is left to download. */
+
                 if (i == 0) {
                     startTime = System.nanoTime();
                     readSinceStart = 0;
                 }
+
                 byte[] buffer;
                 if (size - downloaded > MAX_BUFFER_SIZE) {
                     buffer = new byte[MAX_BUFFER_SIZE];
@@ -193,17 +183,22 @@ public class Download extends Observable implements Runnable {
                 if (read == -1)
                     break;
                 // Write buffer to file.
-                file.write(buffer, 0, read);
+                //file.write(buffer, 0, read);
+
+                os.write(buffer, 0, read);
+
                 downloaded += read;
                 readSinceStart += read;
                 //update speed
                 i++;
                 if (i >= 50) {
                     speed = (readSinceStart * 976562.5f) / (System.nanoTime() - startTime);
+                    /*
                     if (speed > 0) remainingTime = (long) ((size - downloaded) / (speed * 1024));
                     else remainingTime = -1;
+                    */
                     elapsedTime = prevElapsedTime + (System.nanoTime() - initTime);
-                    avgSpeed = (downloaded * 976562.5f) / elapsedTime;
+                    //avgSpeed = (downloaded * 976562.5f) / elapsedTime;
                     i = 0;
                 }
                 stateChanged();
@@ -218,11 +213,13 @@ public class Download extends Observable implements Runnable {
             error();
         } finally {
             // Close file.
-            if (file != null) {
+            //if (file != null) {
+                if (os != null) {
                 try {
+                    os.close();
                     file.close();
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Error to Close File", "File Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to Close File", "File Error", JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace();
                 }
             }
@@ -231,7 +228,7 @@ public class Download extends Observable implements Runnable {
                 try {
                     stream.close();
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Error to Close Connection", "Connection Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error to Close Connection", "Connection Error", JOptionPane.ERROR_MESSAGE);
                     System.out.println("Error to Close Connection: "+e);
                 }
             }

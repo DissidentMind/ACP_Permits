@@ -14,35 +14,28 @@ public class SettingsStat {
     private static String currentTableDBDest = "";
     private static String currentLogsDest = "";
     private static String currentStoreProcedure = "";
+    private static String currentSelectedCSV = "";
 
     private static JPanel currentParentPanel = null;
     private static JTable searchResultTable = null;
-
     private static boolean datasetResultNotNull = false;
-    private static String currentSelectedCSV = "";
 
     private static List<String> itemsInCsvFile = new ArrayList<String>();
-
     public static List<String> getItemsInCsvFile() {
         return itemsInCsvFile;
     }
-
     public static String getItemsInCsvFileByIndexId(int index) {
         return itemsInCsvFile.get(index);
     }
-
     public static void setItemsInCsvFile(List<String> itemsInCsvFile) {
         SettingsStat.itemsInCsvFile = itemsInCsvFile;
     }
-
     public static int getTotalLogsInCSVFile(){
         return SettingsStat.itemsInCsvFile.size();
     }
-
     public static JPanel getCurrentParentPanel() {
         return currentParentPanel;
     }
-
     public static JTable getSearchResultTable() {
         return searchResultTable;
     }
@@ -69,6 +62,7 @@ public class SettingsStat {
     public static void setDatasetResultNotNull(boolean datasetResultNotNull) {
         SettingsStat.datasetResultNotNull = datasetResultNotNull;
     }
+
     public static JPanel getCurrentPanel() {
         return currentParentPanel;
     }
@@ -93,18 +87,21 @@ public class SettingsStat {
     public static void setCurrentPathFolderDest(String currentPathFolderDest) {
         SettingsStat.currentPathFolderDest = currentPathFolderDest;
     }
+
     public static boolean isUseAsDefaultDestLocation() {
         return useAsDefaultDestLocation;
     }
     public static void setUseAsDefaultDestLocation(boolean useAsDefaultDestLocation) {
         SettingsStat.useAsDefaultDestLocation = useAsDefaultDestLocation;
     }
+
     public static String getCurrentPathCSVFile() {
         return currentPathCSVFile;
     }
     public static void setCurrentPathCSVFile(String currentPathCSVFile) {
         SettingsStat.currentPathCSVFile = currentPathCSVFile;
     }
+
     public static String getCurrentDBDest() {
         return currentDBDest;
     }
@@ -117,6 +114,7 @@ public class SettingsStat {
     public static void setCurrentTableDBDest(String currentTableDBDest) {
         SettingsStat.currentTableDBDest = currentTableDBDest;
     }
+
     public static String getCurrentLogsDest() {
         return currentLogsDest;
     }

@@ -64,6 +64,9 @@ public class InitialStratupGui {
         if(FileSystem_Utility.fileExistInPath(VaultValuesLoader.getDefaultLogCSVFilePath())){
             try {
                 System.out.println("Loading Items from CSV...");
+
+                System.out.println("Path: "+VaultValuesLoader.getDefaultLogCSVFilePath());
+
                 SettingsStat.setItemsInCsvFile(FileCSV_Utility.getRowStringFromCSVtoList(VaultValuesLoader.getDefaultLogCSVFilePath(), 0));
                 System.out.println("Total Items in List: "+SettingsStat.getTotalLogsInCSVFile());
             } catch (Exception e) {

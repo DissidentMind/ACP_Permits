@@ -187,7 +187,6 @@ public class MainAppLauncher extends JFrame {
                 if (!FileSystem_Utility.folderExistInPath(currentDestFolderPath_Txt.getText())) {
                     JOptionPane.showMessageDialog(SettingsStat.getCurrentPanel(), "Destination Folder doesn´t exist", "File System Error", JOptionPane.ERROR_MESSAGE);
                 }
-
                 System.out.println("Start Download...");
             }
         });
@@ -421,16 +420,13 @@ public class MainAppLauncher extends JFrame {
             setInfoSearch_Txt("Query Result Size: "+resultQuery.size());
 
             if(resultQuery.size()>0){
-
                 updateAddButton(true);
                 updateClearButton(true);
                 updateProccessButton(true);
-
                 /*New table model for display result data set*/
                 /*------------------------------------------------*/
                 tableModel = new JTableTemplate_Search();
                 /*------------------------------------------------*/
-
                 /*New table model Created when exist a result in current execution*/
                 /*------------------------------------------------*/
                 tableDownloadModel = new JTableTemplate_Download();
@@ -514,6 +510,4 @@ public class MainAppLauncher extends JFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
 }
-
