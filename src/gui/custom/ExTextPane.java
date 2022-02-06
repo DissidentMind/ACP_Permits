@@ -12,13 +12,13 @@ public class ExTextPane extends BasicTextPaneUI implements IComponents {
     private Font fuente;
     
     public ExTextPane(ColorUI colorUI) {
-        this.colorUI = colorUI;
-        border = BorderFactory.createLineBorder(this.colorUI.getColorBorde());
+        ExTextPane.colorUI = colorUI;
+        border = BorderFactory.createLineBorder(ExTextPane.colorUI.getColorBorde());
         fuente = new Font("Segoe UI", Font.BOLD,14);
     }
 
     public ExTextPane(ColorUI colorUI, Border border, Font fuente) {
-        this.colorUI = colorUI;
+        ExTextPane.colorUI = colorUI;
         this.border = border;
         this.fuente = fuente;
     }
@@ -30,8 +30,8 @@ public class ExTextPane extends BasicTextPaneUI implements IComponents {
     @Override
     public void crearDisenio(){
         UIManager.put("TextPane.border", border);
-        UIManager.put("TextPane.background", this.colorUI.getColorFondo());
-        UIManager.put("TextPane.foreground", this.colorUI.getColorForeground());
+        UIManager.put("TextPane.background", colorUI.getColorFondo());
+        UIManager.put("TextPane.foreground", colorUI.getColorForeground());
         UIManager.put("TextPane.font", fuente);
     }
     

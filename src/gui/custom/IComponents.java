@@ -8,10 +8,10 @@ public interface IComponents {
      *
      * @param c
      */
-    public abstract void modificarUI(JComponent c);
+    void modificarUI(JComponent c);
 
     /**
      *
      */
-    public abstract void crearDisenio();
+    void crearDisenio();
 }

@@ -10,11 +10,11 @@ public class ExUtilities {
         
     protected static void addFocusOnSelectedComponent(JComponent componente, Color newColor) {
         if (componente instanceof JTextField) {
-            ((JTextField) componente).setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, newColor));
+            componente.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, newColor));
         } else if (componente instanceof JPasswordField) {
-            ((JPasswordField) componente).setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, newColor));
+            componente.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, newColor));
         } else if (componente instanceof JComboBox) {
-            ((JComboBox) componente).setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, newColor));
+            componente.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, newColor));
         }
     }
     

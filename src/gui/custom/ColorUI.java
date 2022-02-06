@@ -127,10 +127,7 @@ public class ColorUI {
         if (!Objects.equals(this.colorForeground, other.colorForeground)) {
             return false;
         }
-        if (!Objects.equals(this.colorBordeSecundario, other.colorBordeSecundario)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.colorBordeSecundario, other.colorBordeSecundario);
     }
 
     @Override

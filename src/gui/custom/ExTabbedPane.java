@@ -14,7 +14,7 @@ public class ExTabbedPane extends BasicTabbedPaneUI implements IComponents {
     }
     
     public ExTabbedPane(ColorUI colorUI){
-        this.colorUI = colorUI;
+        ExTabbedPane.colorUI = colorUI;
     }
     
     public static ColorUI getColorUI() {
@@ -32,24 +32,24 @@ public class ExTabbedPane extends BasicTabbedPaneUI implements IComponents {
     
     @Override
     public void crearDisenio(){
-        UIManager.put("TabbedPane.focus", this.colorUI.getColorTerciario());
-        UIManager.put("TabbedPane.selected", this.colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.focus", colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.selected", colorUI.getColorTerciario());
         UIManager.put("TabbedPane.contentBorderInsets", new Insets(0,0,0,0));
-        UIManager.put("TabbedPane.contentAreaColor", this.colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.contentAreaColor", colorUI.getColorTerciario());
         UIManager.put("TabbedPane.tabsOverlapBorder", false);
         UIManager.put("TabbedPane.tabAreaInsets", new Insets(0,0,0,0));
-        UIManager.put("TabbedPane.highlight", this.colorUI.getColorTerciario());
-        UIManager.put("TabbedPane.light", this.colorUI.getColorTerciario());
-        UIManager.put("TabbedPane.tabAreaBackground", this.colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.highlight", colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.light", colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.tabAreaBackground", colorUI.getColorTerciario());
         UIManager.put("TabbedPane.tabsOverlapBorder", false);
-        UIManager.put("TabbedPane.darkShadow", this.colorUI.getColorTerciario());    
-        UIManager.put("TabbedPane.selectHighlight", this.colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.darkShadow", colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.selectHighlight", colorUI.getColorTerciario());
         UIManager.put("TabbedPane.selectionFollowsFocus", false);
         UIManager.put("TabbedPane.selectedTabPadInsets", new Insets(0,0,0,0));
-        UIManager.put("TabbedPane.shadow", this.colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.shadow", colorUI.getColorTerciario());
         UIManager.put("TabbedPane.font", this.fuente);
-        UIManager.put("TabbedPane.background", this.colorUI.getColorTerciario());
-        UIManager.put("TabbedPane.foreground", this.colorUI.getColorForeground());
+        UIManager.put("TabbedPane.background", colorUI.getColorTerciario());
+        UIManager.put("TabbedPane.foreground", colorUI.getColorForeground());
         //UIManager.put("TabbedPane.tabsOverlapBorder", false);
         //UIManager.put("TabbedPane.tabsOpaque", true);
     }

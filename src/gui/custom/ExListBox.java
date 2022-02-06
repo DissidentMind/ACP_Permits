@@ -8,7 +8,7 @@ public class ExListBox extends BasicListUI implements IComponents {
     private static ColorUI colorUI;
 
     public ExListBox(ColorUI colorUI) {
-        this.colorUI = colorUI;
+        ExListBox.colorUI = colorUI;
     }
     
     
@@ -18,10 +18,10 @@ public class ExListBox extends BasicListUI implements IComponents {
     
     @Override
     public void crearDisenio(){
-        UIManager.put("List.selectionForeground", this.colorUI.getColorFondo());
-        UIManager.put("List.selectionBackground", this.colorUI.getColorTerciario());
+        UIManager.put("List.selectionForeground", colorUI.getColorFondo());
+        UIManager.put("List.selectionBackground", colorUI.getColorTerciario());
         UIManager.put("List.focusCellHighlightBorder", BorderFactory.createEmptyBorder());
-        UIManager.put("List.border", BorderFactory.createLineBorder(this.colorUI.getColorBordeSecundario()));
+        UIManager.put("List.border", BorderFactory.createLineBorder(colorUI.getColorBordeSecundario()));
     }
 
     @Override

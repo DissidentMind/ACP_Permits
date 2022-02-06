@@ -7,8 +7,8 @@ import java.awt.*;
 
 @SuppressWarnings("serial")
 public class ExButtonRenderer extends JButton implements TableCellRenderer {
-    private ColorUI colorUI;
-    private Border borde;
+    private final ColorUI colorUI;
+    private final Border borde;
     
     public ExButtonRenderer(ColorUI colorUI) {
         setOpaque(true);

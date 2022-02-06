@@ -18,7 +18,7 @@ public class ExComboBox extends BasicComboBoxUI implements IComponents {
     private Color selectionForeground;
     private Color selectionBackground;
     private Color control;
-    private Font fuente;
+    private final Font fuente;
     
     public ExComboBox(ColorUI colorUI){
         ExComboBox.colorUI = colorUI;
@@ -41,7 +41,7 @@ public class ExComboBox extends BasicComboBoxUI implements IComponents {
     }
 
     public ExComboBox(ColorUI colorUI, Color buttonBackground, Color buttonhighlight, Color buttonShadow, Color selectionForeground, Color selectionBackground, Color control) {
-        this.colorUI = colorUI;
+        ExComboBox.colorUI = colorUI;
         this.buttonBackground = buttonBackground;
         this.buttonhighlight = buttonhighlight;
         this.buttonShadow = buttonShadow;
@@ -156,14 +156,14 @@ public class ExComboBox extends BasicComboBoxUI implements IComponents {
         UIManager.put("Combobox.rendererUseListColors", true);
         UIManager.put("ComboBox.background", colorUI.getColorFondo());
         UIManager.put("ComboBox.border", this.borderButton);
-        UIManager.put("ComboBox.foreground", this.colorUI.getColorForeground());
+        UIManager.put("ComboBox.foreground", colorUI.getColorForeground());
         UIManager.put("ComboBox.buttonBackground", buttonBackground);
         //UIManager.put("ComboBox.buttonDarkShadow", new Color(255,255,255));
         UIManager.put("ComboBox.buttonHighlight", buttonhighlight);
         UIManager.put("ComboBox.buttonShadow", buttonShadow);
         UIManager.put("ComboBox.font", fuente);
         UIManager.put("ComboBox.control", control);
-        UIManager.put("ComboBox.selectionBackground", this.colorUI.getColorPrincipal());
+        UIManager.put("ComboBox.selectionBackground", colorUI.getColorPrincipal());
         UIManager.put("ComboBox.selectionForeground", selectionForeground);
         //UIManager.put("Focus.color", new Color(255,255,255));
         //UIManager.put("Button.border", BorderFactory.createLineBorder(Color.WHITE));

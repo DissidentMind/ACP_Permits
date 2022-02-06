@@ -10,7 +10,7 @@ import java.util.Observer;
 @SuppressWarnings("serial")
 public class JTableTemplate_Search extends AbstractTableModel implements Observer{
     private ArrayList<Record> downloadList = new ArrayList<Record>();
-    private ArrayList<String> toDownloadList = new ArrayList<String>();
+    private final ArrayList<String> toDownloadList = new ArrayList<String>();
 
     private static final int COLUMN_CHECK_BOX = 3;
 
@@ -71,11 +71,7 @@ public class JTableTemplate_Search extends AbstractTableModel implements Observe
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         System.out.println("Vals: "+aValue+"Row: "+rowIndex+" Col: "+columnIndex);
         Record download = downloadList.get(rowIndex);
-        if(!download.selectedId) {
-            download.selectedId = true;
-        }else {
-            download.selectedId = false;
-        }
+        download.selectedId = !download.selectedId;
     }
 
     @Override

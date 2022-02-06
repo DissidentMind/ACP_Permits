@@ -1,6 +1,7 @@
 package gui.components;
 
 import model.process.Download;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -42,16 +43,16 @@ import java.util.Observer;
             Download download = downloadList.get(row);
             switch (col) {
                 case 0:
-                    return download.getUrl();
+                    return download.getFileOrigin();
                 case 1:
                     return download.getSize();
                 case 2:
                     return download.getProgress();
+                //case 3:
+                //   return download.getSpeed();
                 case 3:
-                    return download.getSpeed();
-                case 4:
                     return download.getElapsedTime();
-                case 5:
+                case 4:
                     return download.getStatus();
             }
             return "";

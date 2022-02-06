@@ -27,8 +27,6 @@ public class Verifier_Utility {
         System.out.println("UrlDOne: "+url.toLowerCase().startsWith("\\"));
         if (!url.toLowerCase().startsWith("\\"))
             return false;
-        if (new File(url).length() < 2)
-            return false;
-        return true;
+        return new File(url).length() >= 2;
     }
 }

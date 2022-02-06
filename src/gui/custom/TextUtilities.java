@@ -14,7 +14,7 @@ public class TextUtilities extends BasicTextFieldUI{
     }
 
     public TextUtilities(ColorUI colorUI) {
-        this.colorUI = colorUI;
+        TextUtilities.colorUI = colorUI;
     }
     
     
@@ -51,6 +51,6 @@ public class TextUtilities extends BasicTextFieldUI{
     }
 
     public void setColorUI(ColorUI colorUI) {
-        this.colorUI = colorUI;
+        TextUtilities.colorUI = colorUI;
     }
 }

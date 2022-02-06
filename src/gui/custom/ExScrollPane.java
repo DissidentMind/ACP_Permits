@@ -9,7 +9,7 @@ public class ExScrollPane extends BasicScrollPaneUI implements IComponents {
     private static ColorUI colorUI;
 
     public ExScrollPane(ColorUI colorUI){
-        this.colorUI = colorUI;
+        ExScrollPane.colorUI = colorUI;
     }
 
     public static ColorUI getColorUI() {

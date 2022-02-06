@@ -5,7 +5,10 @@ import gui.components.JTableTemplate_Search;
 import gui.controller.init.InitialStratupGui;
 import gui.controller.init.SettingsStat;
 import gui.desing.imgs.ImgsLoader;
+
 import model.process.Download;
+//import model.app.custom.download.Download;
+
 import model.process.Record;
 import utils.choosers.FileChooser_Utility;
 import utils.choosers.RunFileChooser;
@@ -324,7 +327,10 @@ public class MainAppLauncher extends JFrame {
                         if((Boolean) tableModel.getValueAt(i, 3)){
                             //addDownloadTabs(tableModel.getValueAt(i,1).toString());
                             System.out.println("Vale: "+tableModel.getValueAt(i,2));
-                            tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2)));
+                            //tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2)));
+
+
+
                             tableModel.removeRow(i);
                         }
                     }
@@ -500,7 +506,7 @@ public class MainAppLauncher extends JFrame {
     /**
      * Function that add new download item for the download tab
      */
-    private void addDownloadTabs(String path) {
+    /*private void addDownloadTabs(String path) {
         if (Verifier_Utility.intranetVerifyUrl(path)) {
             tableDownloadModel.addDownload(new Download(path));
             setInfoSearch_Txt("Processing: "+path); // reset add text field
@@ -509,5 +515,5 @@ public class MainAppLauncher extends JFrame {
                     "Invalid Download URL", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-    }
+    }*/
 }
