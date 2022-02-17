@@ -8,25 +8,22 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-    @SuppressWarnings("serial")
     public class JTableTemplate_Download extends AbstractTableModel implements Observer {
-
         private final ArrayList<Download> downloadList = new ArrayList<Download>();
-
         private static final String[] columnNames = {
-                "File Name", "Size in MB", "Progress", "Speed in KB/s",
-                "Elapsed Time", "Status"};
-
+                "File Name", "Size in MB", "Progress",
+                "Speed in KB/s","Elapsed Time", "Status"
+        };
         private static final Class[] columnClasses = {
                 String.class, String.class, JProgressBar.class,
-                String.class, String.class, String.class};
+                String.class, String.class, String.class
+        };
 
         public void addDownload(Download download) {
             download.addObserver(this);
             downloadList.add(download);
             fireTableRowsInserted(getRowCount() - 1, getRowCount() - 1);
         }
-
 
         @Override
         public int getColumnCount() {

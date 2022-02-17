@@ -1,9 +1,6 @@
 package model.process;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Observable;
 
 public class Download extends Observable implements  Runnable{
@@ -25,7 +22,6 @@ public class Download extends Observable implements  Runnable{
     private long readSinceStart;
     private float avgSpeed=0; //average download speed in KB/s
     private long remainingTime=-1; //time remaining to finish download
-
     private final long prevElapsedTime=0; // time elapsed before resuming download
     private float speed=0; //download speed in KB/s
 
@@ -108,16 +104,18 @@ public class Download extends Observable implements  Runnable{
 
     @Override
     public void run() {
-
         long initTime = System.nanoTime();
 
-        InputStream is = null;
-        OutputStream os = null;
+        FileInputStream is = null;
+        FileOutputStream os = null;
 
         File urlFilePath;
         File urlDestFilePath;
 
-        if (getFileOrigin().exists() && getFileDestination().exists()) {
+        System.out.println(getFileOrigin().getAbsolutePath()+"Path Exist: "+getFileOrigin().exists());
+        System.out.println(getFileDestination().getAbsolutePath()+"Destination Exist: "+getFileDestination().exists());
+
+        if (getFileOrigin().exists()) {
             urlFilePath = getFileOrigin();
             urlDestFilePath = getFileDestination();
 
@@ -125,6 +123,9 @@ public class Download extends Observable implements  Runnable{
             System.out.println("File Path: " + urlFilePath.getAbsolutePath());
             System.out.println("File Size:" + urlFilePath.length());
             System.out.println("Destination: " + urlDestFilePath);
+
+           // is = connection.getInputStream();
+
 
             if (size == -1) {
                 size = urlFilePath.length();
@@ -138,26 +139,35 @@ public class Download extends Observable implements  Runnable{
                     readSinceStart = 0;
                 }
 
-                byte[] buffer;
+                //byte[] buffer;
                 //byte[] buffer = new byte[1024];
-
-                if (size - downloaded > MAX_BUFFER_SIZE) {
-                    buffer = new byte[MAX_BUFFER_SIZE];
-                } else {
-                    buffer = new byte[(int) (size - downloaded)];
-                }
 
                 int read = 0;
                 try {
+                    is = new FileInputStream(urlFilePath.getAbsolutePath());
+                    os = new FileOutputStream(urlDestFilePath);
                     assert false;
-                    read = is.read(buffer);
+                    //read = is.read(buffer);
+
+                    byte[] buffer = new byte[1024];
+                    int length;
+
+                    if (size - downloaded > MAX_BUFFER_SIZE) {
+                        buffer = new byte[MAX_BUFFER_SIZE];
+                    } else {
+                        buffer = new byte[(int) (size - downloaded)];
+                    }
+
+                    while ((length = is.read(buffer)) > 0) {
+                        os.write(buffer, 0, length);
+                        downloaded += read;
+                        readSinceStart += read;
+                    }
+
                     if (read == -1)
                         break;
 
-                    os.write(buffer, 0, read);
-                    downloaded += read;
-                    readSinceStart += read;
-
+                    //os.write(buffer, 0, read);
                     if (i >= 50) {
                         speed = (readSinceStart * 976562.5f) / (System.nanoTime() - startTime);
                         if (speed > 0) remainingTime = (long) ((size - downloaded) / (speed * 1024));

@@ -328,8 +328,9 @@ public class MainAppLauncher extends JFrame {
                             //addDownloadTabs(tableModel.getValueAt(i,1).toString());
                             System.out.println("Vale: "+tableModel.getValueAt(i,2));
                             //tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2)));
+                            //tableDownloadModel.addDownload((Download) tableModel.getValueAt(i,2));
 
-
+                            tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2),"D:\\Src\\output\\test.jpg"));
 
                             tableModel.removeRow(i);
                         }
