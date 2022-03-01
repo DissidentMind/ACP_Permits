@@ -1,5 +1,6 @@
 package model.process;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Observable;
 
@@ -65,12 +66,12 @@ public class Download extends Observable implements  Runnable{
     }
 
     public Download(String urlPath, String destPath){
-            this.urlFilePath = new File(urlPath);
-            this.urlDestFilePath = new File(destPath);
-            this.size = -1;
-            this.downloaded = 0;
-            this.status = DOWNLOADING;
-            createNewDownload();
+        this.urlFilePath = new File(urlPath);
+        this.urlDestFilePath = new File(destPath);
+        this.size = -1;
+        this.downloaded = 0;
+        this.status = DOWNLOADING;
+        createNewDownload();
     }
 
     private void createNewDownload(){
@@ -124,9 +125,6 @@ public class Download extends Observable implements  Runnable{
             System.out.println("File Size:" + urlFilePath.length());
             System.out.println("Destination: " + urlDestFilePath);
 
-           // is = connection.getInputStream();
-
-
             if (size == -1) {
                 size = urlFilePath.length();
                 stateChanged();
@@ -138,9 +136,6 @@ public class Download extends Observable implements  Runnable{
                     startTime = System.nanoTime();
                     readSinceStart = 0;
                 }
-
-                //byte[] buffer;
-                //byte[] buffer = new byte[1024];
 
                 int read = 0;
                 try {
@@ -187,6 +182,7 @@ public class Download extends Observable implements  Runnable{
                 } catch (IOException e) {
                     //e.printStackTrace();
                     System.out.println(e);
+                    JOptionPane.showMessageDialog(null, "Error to Close File", "File Error", JOptionPane.ERROR_MESSAGE);
                     error();
                 }
 
@@ -194,25 +190,11 @@ public class Download extends Observable implements  Runnable{
                     is.close();
                     os.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error to Close Connection", "Connection Error", JOptionPane.ERROR_MESSAGE);
+                    System.out.println("Error to Close Connection: "+e);
                 }
 
-            /*try {
-                is = new FileInputStream(urlFilePath);
-                os = new FileOutputStream(urlDestFilePath);
-                byte[] buffer = new byte[1024];
-                int length;
-
-                while ((length = is.read(buffer)) > 0) {
-                    os.write(buffer, 0, length);
-                }
-
-                is.close();
-                os.close();
-
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }*/
             }
             //System.out.println("Total Time: "+System.nanoTime()-initTime);
         }

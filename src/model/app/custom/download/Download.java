@@ -170,6 +170,7 @@ public class Download extends Observable implements Runnable {
             stream = connection.getInputStream();
             //inital time when download started or resumed
             long initTime = System.nanoTime();
+
             while (status == DOWNLOADING) {
 				/* Size buffer according to how much of the
            file is left to download. */

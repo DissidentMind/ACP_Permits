@@ -27,8 +27,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MainAppLauncher extends JFrame {
-    ImgsLoader imgsLoader;
     private JPanel frameJPanelParent;
+    ImgsLoader imgsLoader;
     private JTabbedPane tabbedPTabs;
     private JToggleButton btnDBSearch;
     private JToggleButton btnCSVSearch;
@@ -240,10 +240,9 @@ public class MainAppLauncher extends JFrame {
                 Si esta en true carga por default la ubicación por default en la configuración.
                  */
                 if (useDefaultLocationCheckBox.getModel().isSelected()) {
-                    String currentDefaultPath = VaultValuesLoader.getDefaultDowPathFol();
                     currentDestFolderPath_Txt.setEditable(false);
-                    currentDestFolderPath_Txt.setText(currentDefaultPath);
-                    SettingsStat.setCurrentPathFolderDest(currentDefaultPath);
+                    currentDestFolderPath_Txt.setText(VaultValuesLoader.getDefaultDowPathFol());
+                    SettingsStat.setCurrentPathFolderDest(VaultValuesLoader.getDefaultDowPathFol());
                     //currentDestFolderPath_Txt.enable(false);
 
                 } else {
@@ -316,6 +315,7 @@ public class MainAppLauncher extends JFrame {
                 }
             }
         });
+
         /*
         Action Button - Add New Record to Download List
          */
@@ -325,13 +325,8 @@ public class MainAppLauncher extends JFrame {
                 if(tableModel.getRowCount()>0){
                     for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
                         if((Boolean) tableModel.getValueAt(i, 3)){
-                            //addDownloadTabs(tableModel.getValueAt(i,1).toString());
-                            System.out.println("Vale: "+tableModel.getValueAt(i,2));
-                            //tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2)));
-                            //tableDownloadModel.addDownload((Download) tableModel.getValueAt(i,2));
-
-                            tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2),"D:\\Src\\output\\test.jpg"));
-
+                            File temp = new File((String) tableModel.getValueAt(i,2));
+                            tableDownloadModel.addDownload(new Download((String) tableModel.getValueAt(i,2),VaultValuesLoader.getDefaultDowPathFol().concat("/").concat(temp.getName())));
                             tableModel.removeRow(i);
                         }
                     }
