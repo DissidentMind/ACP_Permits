@@ -237,7 +237,7 @@ public class Regex_Utility {
     //------------ Working and Tested ----------------------------
     public String findCurrentIncidenteInString(String textToReview, String regexCondition) {
         String rtnStr = null;
-        Pattern pattern = Pattern.compile(regexCondition); //,Pattern.CASE_INSENSITIVE
+        Pattern pattern = Pattern.compile(regexCondition,Pattern.CASE_INSENSITIVE); //,Pattern.CASE_INSENSITIVE
         Matcher matcher = pattern.matcher(textToReview);
         if (matcher.find()) {
             rtnStr = matcher.group(0);

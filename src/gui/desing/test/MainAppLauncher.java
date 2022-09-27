@@ -256,6 +256,7 @@ public class MainAppLauncher extends JFrame {
                 System.out.println("Path: " + SettingsStat.getCurrentPathFolderDest());
             }
         });
+
         btnSelectBulkCsv.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
