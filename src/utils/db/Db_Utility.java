@@ -120,6 +120,7 @@ public class Db_Utility {
             Class.forName(VaultValuesLoader.sqlSerClass);
                 System.out.println("Driver Loaded...");
             String jdbcUrl = "jdbc:sqlserver://" + server +":" + port + ";databaseName=" + db + ";integratedSecurity=true";
+            System.out.println("String Connection: "+jdbcUrl);
             Connection con = DriverManager.getConnection(jdbcUrl);
                 System.out.println("# - Connection Obtanied...");
             connectStatus.setValidateExistConnection(true);
